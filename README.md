@@ -1,9 +1,9 @@
-Description
----
+## Description
+
 Building a `personal` AI travel assistant. The aim of this AI assistant is to have friendly conversations with people while helping them build and manage their travel plans. Pricing Model: TBD
 
-Functions
----
+## Functions
+
 The following are some of the functions of this AI model:
 
 - Recommend hotels based on the user's budget with links for booking etc
@@ -11,13 +11,13 @@ The following are some of the functions of this AI model:
 - Tell the user about the weather and the best period to visit these locations
 - Recommend flights based on the user's budget with links for booking etc
 - Recommend restuarants and help plan dates with relevant links for booking etc
-- Recommend places to go shopping with discounts if available 
+- Recommend places to go shopping with discounts if available
 - Inform the user about natural disasters and extreme weather conditions in places they visit
 - Plan itenaries andn input them in calendars
 - Handle payments with user confirmation i.e Human in the Loop (LATER)
 
-Frontend Requirements
----
+## Frontend Requirements
+
 The following are some of the requirements of the frontend app:
 
 - Server rendered JS app, nothing complicated. So we use Remitly
@@ -26,9 +26,10 @@ The following are some of the requirements of the frontend app:
 - Interface should be mega simple
 - Use user & agent name when constructing chat interface
 - Buttons for having conversations on whatsapp, telegram (LATER)
+- Add support for multiple languages
 
-Backend Requirements
----
+## Backend Requirements
+
 The following are some of the requirements of the backend app:
 
 - Should be super fast so we will be writting this in golang
@@ -38,8 +39,8 @@ The following are some of the requirements of the backend app:
 - Invite others into the chat (LATER)
 - Voice call (LATER)
 
-AI
----
+## AI
+
 The following are some of the requirements of the AI:
 
 - This AI needs a persona so we will build one
