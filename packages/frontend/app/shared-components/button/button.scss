@@ -1,0 +1,64 @@
+@tailwind components;
+
+@layer components {
+  .button {
+    @apply inline-flex items-center;
+
+    &.button-contained {
+      @apply justify-center items-center;
+
+      &.button-primary {
+        @apply bg-white text-primary;
+
+        &:hover,
+        &:active,
+        &:focus {
+          @apply bg-white text-primaryDark outline-none;
+        }
+      }
+
+      &.button-large {
+        @apply rounded-md px-5 text-lg h-11;
+      }
+
+      &.button-medium {
+        @apply rounded-md px-4 text-[15px] h-9;
+      }
+
+      &.button-small {
+        @apply rounded-md px-3 text-[13px] h-7;
+      }
+
+      &.button-fullWidth {
+        @apply w-full;
+      }
+
+      &.button-disabled {
+        @apply bg-primary opacity-5;
+      }
+    }
+
+    &.button-text {
+      @apply block outline-none text-gray-900 font-light;
+
+      &a:hover,
+      &a:active,
+      &a:focus-visible,
+      &a:focus {
+        @apply outline-none text-blue-600;
+      }
+
+      &.button-large {
+        @apply py-2 px-3;
+      }
+
+      &.button-medium {
+        @apply text-[15px] py-1 px-2;
+      }
+
+      &.button-small {
+        @apply text-[13px] py-1 px-2;
+      }
+    }
+  }
+}
