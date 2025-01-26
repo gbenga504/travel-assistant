@@ -109,23 +109,34 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
   };
 
   const renderLink = (props: LinkProps) => {
+    const { className, children, ...rest } = props;
+
     return (
-      <NavLink {...props} className={buttonClassName}>
+      <NavLink
+        {...rest}
+        className={(p) => {
+          if (typeof className === "string") {
+            return classNames(buttonClassName, className);
+          }
+
+          return classNames(buttonClassName, className?.(p));
+        }}
+      >
         {(p) => {
-          if (typeof props.children === "function") {
+          if (typeof children === "function") {
             return (
-              <>
+              <div className="inline-flex items-center">
                 {renderIcon()}
-                {props.children(p)}
-              </>
+                {children(p)}
+              </div>
             );
           }
 
           return (
-            <>
+            <div className="inline-flex items-center">
               {renderIcon()}
-              {props.children}
-            </>
+              {children}
+            </div>
           );
         }}
       </NavLink>
