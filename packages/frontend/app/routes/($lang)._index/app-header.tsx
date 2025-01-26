@@ -1,7 +1,7 @@
 import { NavLink } from "@remix-run/react";
 import { Globe } from "react-bootstrap-icons";
 
-import { MaxWidthContainer } from "../../shared-components/max-width-container";
+import { MaxWidthContainer } from "~/shared-components/max-width-container";
 
 export const AppHeader = () => {
   const getNavLinkClassNames = ({ isActive }: { isActive: boolean }) => {

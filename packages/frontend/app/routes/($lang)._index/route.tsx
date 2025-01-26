@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 
 import { AppHeader } from "./app-header";
-import { MaxWidthContainer } from "../../shared-components/max-width-container";
+import { MaxWidthContainer } from "~/shared-components/max-width-container";
 
 export const meta: MetaFunction = () => {
   return [

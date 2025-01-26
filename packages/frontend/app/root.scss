@@ -1,9 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html,
 body {
   @apply bg-white text-gray-900 text-base;
+
   /*******
   For Dark mode, you can enable this and expand this for all elements
   dark:bg-gray-950;
@@ -12,5 +14,3 @@ body {
   } 
   ********/
 }
-
-/*# sourceMappingURL=root.css.map */

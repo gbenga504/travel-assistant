@@ -23,6 +23,11 @@ module.exports = {
 
   // Base config
   extends: ["eslint:recommended"],
+  settings: {
+    "import/resolver": {
+      typescript: {},
+    },
+  },
 
   overrides: [
     // React
