@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function Index() {
+export default function Route() {
   const renderBody = () => {
     return (
       <main className="bg-blue-300 lg:mt-20 lg:max-h-[600px] lg:min-h-[600px]">
@@ -24,7 +24,7 @@ export default function Index() {
               Unlock the world with intelligent travel insights. Your personal
               AI navigator for seamless adventures.
             </p>
-            <Button type="button" size="large" className="mt-5">
+            <Button type="link" to="/chat" size="large" className="mt-5">
               Try Now
             </Button>
           </section>

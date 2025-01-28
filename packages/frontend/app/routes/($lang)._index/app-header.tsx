@@ -17,7 +17,7 @@ export const AppHeader = () => {
             to="/lang"
             variant="text"
             size="large"
-            icon={<Globe className="mr-1" />}
+            icon={<Globe />}
           >
             English
           </Button>

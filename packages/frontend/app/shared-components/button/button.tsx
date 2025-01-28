@@ -6,42 +6,37 @@ import "./button.css";
 
 import type { ReactElement } from "react";
 import { Spinner } from "../spinner";
+import { omit } from "~/utils/functional";
 
 type variant = "contained" | "text";
 type size = "small" | "medium" | "large";
 type color = "primary";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  type: "button";
-
+interface CommonProps {
   variant?: variant;
   size?: size;
-  color?: color;
+  colorTheme?: color;
   fullWidth?: boolean;
   icon?: ReactElement;
+  rounded?: boolean;
+}
 
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    CommonProps {
+  type: "button";
   loading?: boolean;
   loadingText?: string;
 }
 
-interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+interface AnchorProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    CommonProps {
   type: "anchor";
-
-  variant?: variant;
-  size?: size;
-  color?: color;
-  fullWidth?: boolean;
-  icon?: ReactElement;
 }
 
-interface LinkProps extends NavLinkProps {
+interface LinkProps extends NavLinkProps, CommonProps {
   type: "link";
-
-  variant?: variant;
-  size?: size;
-  color?: color;
-  fullWidth?: boolean;
-  icon?: ReactElement;
 }
 
 export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
@@ -52,9 +47,10 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
     type,
     variant = "contained",
     size = "medium",
-    color = "primary",
+    colorTheme = "primary",
     fullWidth,
     icon,
+    rounded,
   } = props;
 
   const buttonClassName = classNames(className, "button", {
@@ -63,9 +59,19 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
     "button-large": size === "large",
     "button-medium": size === "medium",
     "button-small": size === "small",
-    "button-primary": color === "primary",
-    "button-fullWidth": fullWidth === true,
+    "button-primary": colorTheme === "primary",
+    "button-rounded": rounded,
+    "button-fullWidth": fullWidth,
   });
+
+  const commonKeys: (keyof CommonProps)[] = [
+    "variant",
+    "size",
+    "colorTheme",
+    "fullWidth",
+    "icon",
+    "rounded",
+  ];
 
   const renderIcon = () => {
     if (icon) {
@@ -76,11 +82,11 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
   };
 
   const renderButton = (props: ButtonProps) => {
-    const { loading, disabled, loadingText, children, ...rest } = props;
+    const { loading, disabled, loadingText, children } = props;
 
     return (
       <button
-        {...rest}
+        {...omit(props, [...commonKeys, "type", "loading", "loadingText"])}
         className={buttonClassName}
         disabled={loading || disabled}
       >
@@ -101,7 +107,7 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
 
   const renderAnchor = (props: AnchorProps) => {
     return (
-      <a {...props} className={buttonClassName}>
+      <a {...omit(props, commonKeys)} className={buttonClassName}>
         {renderIcon()}
         <span>{props.children}</span>
       </a>
@@ -109,11 +115,11 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
   };
 
   const renderLink = (props: LinkProps) => {
-    const { className, children, ...rest } = props;
+    const { className, children } = props;
 
     return (
       <NavLink
-        {...rest}
+        {...omit(props, commonKeys)}
         className={(p) => {
           if (typeof className === "string") {
             return classNames(buttonClassName, className);
