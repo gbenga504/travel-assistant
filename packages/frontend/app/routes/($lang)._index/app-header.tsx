@@ -9,7 +9,13 @@ export const AppHeader = () => {
       <MaxWidthContainer className="lg:min-h-20 p-4 flex justify-between items-center">
         <div />
         <div className="flex">
-          <Button type="link" to="/pricing" variant="text" size="large">
+          <Button
+            type="link"
+            to="/pricing"
+            variant="text"
+            size="large"
+            colorTheme="white"
+          >
             Pricing
           </Button>
           <Button
@@ -17,6 +23,7 @@ export const AppHeader = () => {
             to="/lang"
             variant="text"
             size="large"
+            colorTheme="white"
             icon={<Globe />}
           >
             English

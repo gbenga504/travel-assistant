@@ -24,7 +24,13 @@ export default function Route() {
               Unlock the world with intelligent travel insights. Your personal
               AI navigator for seamless adventures.
             </p>
-            <Button type="link" to="/chat" size="large" className="mt-5">
+            <Button
+              type="link"
+              to="/chat"
+              size="large"
+              className="mt-5"
+              colorTheme="white"
+            >
               Try Now
             </Button>
           </section>

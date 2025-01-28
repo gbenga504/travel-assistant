@@ -17,7 +17,7 @@ export const Messagebox = () => {
   const renderActionToolbar = () => {
     return (
       <>
-        <div>
+        <div className="self-center">
           <Button
             type="button"
             size="small"
@@ -29,7 +29,7 @@ export const Messagebox = () => {
           </Button>
         </div>
         <div className="col-start-3 col-end-4 self-center justify-self-end">
-          <Button type="button" size="large" variant="text">
+          <Button type="button" size="medium" variant="contained">
             <ArrowRight />
           </Button>
         </div>

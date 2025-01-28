@@ -8,12 +8,22 @@
       @apply justify-center items-center;
 
       &.button-primary {
+        @apply bg-primary text-white;
+
+        &:hover,
+        &:active,
+        &:focus {
+          @apply bg-primaryDark outline-none;
+        }
+      }
+
+      &.button-white {
         @apply bg-white text-primary;
 
         &:hover,
         &:active,
         &:focus {
-          @apply bg-white text-primaryDark outline-none;
+          @apply text-primaryDark outline-none;
         }
       }
 
@@ -43,13 +53,26 @@
     }
 
     &.button-text {
-      @apply outline-none text-gray-900 font-light hover:bg-gray-100 transition-all;
+      @apply outline-none font-light transition-all;
 
-      &a:hover,
-      &a:active,
-      &a:focus-visible,
-      &a:focus {
-        @apply outline-none text-blue-600;
+      &.button-primary {
+        @apply text-primary;
+
+        &:hover,
+        &:active,
+        &:focus {
+          @apply bg-primaryLight;
+        }
+      }
+
+      &.button-white {
+        @apply text-gray-900;
+
+        &:hover,
+        &:active,
+        &:focus {
+          @apply bg-gray-100;
+        }
       }
 
       &.button-large {

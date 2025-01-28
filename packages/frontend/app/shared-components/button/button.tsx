@@ -8,14 +8,10 @@ import type { ReactElement } from "react";
 import { Spinner } from "../spinner";
 import { omit } from "~/utils/functional";
 
-type variant = "contained" | "text";
-type size = "small" | "medium" | "large";
-type color = "primary";
-
 interface CommonProps {
-  variant?: variant;
-  size?: size;
-  colorTheme?: color;
+  variant?: "contained" | "text";
+  size?: "small" | "medium" | "large";
+  colorTheme?: "primary" | "white";
   fullWidth?: boolean;
   icon?: ReactElement;
   rounded?: boolean;
@@ -60,6 +56,7 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
     "button-medium": size === "medium",
     "button-small": size === "small",
     "button-primary": colorTheme === "primary",
+    "button-white": colorTheme === "white",
     "button-rounded": rounded,
     "button-fullWidth": fullWidth,
   });

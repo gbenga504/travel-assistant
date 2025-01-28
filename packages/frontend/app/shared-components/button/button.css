@@ -7,10 +7,16 @@
     @apply justify-center items-center;
   }
   .button.button-contained.button-primary {
-    @apply bg-white text-primary;
+    @apply bg-primary text-white;
   }
   .button.button-contained.button-primary:hover, .button.button-contained.button-primary:active, .button.button-contained.button-primary:focus {
-    @apply bg-white text-primaryDark outline-none;
+    @apply bg-primaryDark outline-none;
+  }
+  .button.button-contained.button-white {
+    @apply bg-white text-primary;
+  }
+  .button.button-contained.button-white:hover, .button.button-contained.button-white:active, .button.button-contained.button-white:focus {
+    @apply text-primaryDark outline-none;
   }
   .button.button-contained.button-large {
     @apply rounded-md px-5 text-lg h-11;
@@ -31,10 +37,19 @@
     @apply rounded-full;
   }
   .button.button-text {
-    @apply outline-none text-gray-900 font-light hover:bg-gray-100 transition-all;
+    @apply outline-none font-light transition-all;
   }
-  .button.button-texta:hover, .button.button-texta:active, .button.button-texta:focus-visible, .button.button-texta:focus {
-    @apply outline-none text-blue-600;
+  .button.button-text.button-primary {
+    @apply text-primary;
+  }
+  .button.button-text.button-primary:hover, .button.button-text.button-primary:active, .button.button-text.button-primary:focus {
+    @apply bg-primaryLight;
+  }
+  .button.button-text.button-white {
+    @apply text-gray-900;
+  }
+  .button.button-text.button-white:hover, .button.button-text.button-white:active, .button.button-text.button-white:focus {
+    @apply bg-gray-100;
   }
   .button.button-text.button-large {
     @apply rounded-md py-2 px-3;

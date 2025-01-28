@@ -20,6 +20,7 @@ export default {
       colors: {
         primary: "#2C6BED",
         primaryDark: "#1851B4",
+        primaryLight: "rgba(44, 107, 237, 0.1)",
       },
     },
   },
