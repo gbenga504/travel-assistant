@@ -1,4 +1,4 @@
-import { PlusCircle } from "react-bootstrap-icons";
+import { ArrowRight, PlusCircle } from "react-bootstrap-icons";
 
 import { Button } from "../button/button";
 
@@ -26,6 +26,11 @@ export const Messagebox = () => {
             icon={<PlusCircle />}
           >
             Attach
+          </Button>
+        </div>
+        <div className="col-start-3 col-end-4 self-center justify-self-end">
+          <Button type="button" size="large" variant="text">
+            <ArrowRight />
           </Button>
         </div>
       </>
