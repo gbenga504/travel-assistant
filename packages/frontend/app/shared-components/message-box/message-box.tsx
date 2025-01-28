@@ -22,15 +22,20 @@ export const Messagebox = () => {
             type="button"
             size="small"
             variant="text"
-            rounded
+            shape="rounded"
             icon={<PlusCircle />}
           >
             Attach
           </Button>
         </div>
         <div className="col-start-3 col-end-4 self-center justify-self-end">
-          <Button type="button" size="medium" variant="contained">
-            <ArrowRight />
+          <Button
+            type="button"
+            size="medium"
+            variant="contained"
+            shape="circle"
+          >
+            <ArrowRight size={20} />
           </Button>
         </div>
       </>

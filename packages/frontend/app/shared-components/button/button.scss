@@ -2,18 +2,16 @@
 
 @layer components {
   .button {
-    @apply inline-flex items-center;
+    @apply inline-flex items-center justify-center transition-all outline-none;
 
     &.button-contained {
-      @apply justify-center items-center;
-
       &.button-primary {
         @apply bg-primary text-white;
 
         &:hover,
         &:active,
         &:focus {
-          @apply bg-primaryDark outline-none;
+          @apply bg-primaryDark;
         }
       }
 
@@ -23,37 +21,13 @@
         &:hover,
         &:active,
         &:focus {
-          @apply text-primaryDark outline-none;
+          @apply text-primaryDark;
         }
-      }
-
-      &.button-large {
-        @apply rounded-md px-5 text-lg h-11;
-      }
-
-      &.button-medium {
-        @apply rounded-md px-4 text-[15px] h-9;
-      }
-
-      &.button-small {
-        @apply rounded-md px-3 text-[13px] h-7;
-      }
-
-      &.button-fullWidth {
-        @apply w-full;
-      }
-
-      &.button-disabled {
-        @apply bg-primary opacity-5;
-      }
-
-      &.button-rounded {
-        @apply rounded-full;
       }
     }
 
     &.button-text {
-      @apply outline-none font-light transition-all;
+      @apply font-light;
 
       &.button-primary {
         @apply text-primary;
@@ -74,22 +48,38 @@
           @apply bg-gray-100;
         }
       }
+    }
 
-      &.button-large {
-        @apply rounded-md py-2 px-3;
-      }
+    &.button-large {
+      @apply rounded-md px-5 text-lg h-11;
 
-      &.button-medium {
-        @apply rounded-md text-[15px] py-1 px-2;
+      &.button-circle {
+        @apply h-11 w-11 p-0 rounded-3xl;
       }
+    }
 
-      &.button-small {
-        @apply rounded-md text-sm py-1 px-2;
-      }
+    &.button-medium {
+      @apply rounded-md px-4 text-base h-9;
 
-      &.button-rounded {
-        @apply rounded-full;
+      &.button-circle {
+        @apply h-9 w-9 p-0 rounded-3xl;
       }
+    }
+
+    &.button-small {
+      @apply rounded-md px-3 text-sm h-7;
+
+      &.button-circle {
+        @apply h-7 w-7 p-0 rounded-3xl;
+      }
+    }
+
+    &.button-fullWidth {
+      @apply w-full;
+    }
+
+    &.button-rounded {
+      @apply rounded-full;
     }
   }
 }

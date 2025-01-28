@@ -1,43 +1,22 @@
 @tailwind components;
 @layer components {
   .button {
-    @apply inline-flex items-center;
-  }
-  .button.button-contained {
-    @apply justify-center items-center;
+    @apply inline-flex items-center justify-center transition-all outline-none;
   }
   .button.button-contained.button-primary {
     @apply bg-primary text-white;
   }
   .button.button-contained.button-primary:hover, .button.button-contained.button-primary:active, .button.button-contained.button-primary:focus {
-    @apply bg-primaryDark outline-none;
+    @apply bg-primaryDark;
   }
   .button.button-contained.button-white {
     @apply bg-white text-primary;
   }
   .button.button-contained.button-white:hover, .button.button-contained.button-white:active, .button.button-contained.button-white:focus {
-    @apply text-primaryDark outline-none;
-  }
-  .button.button-contained.button-large {
-    @apply rounded-md px-5 text-lg h-11;
-  }
-  .button.button-contained.button-medium {
-    @apply rounded-md px-4 text-[15px] h-9;
-  }
-  .button.button-contained.button-small {
-    @apply rounded-md px-3 text-[13px] h-7;
-  }
-  .button.button-contained.button-fullWidth {
-    @apply w-full;
-  }
-  .button.button-contained.button-disabled {
-    @apply bg-primary opacity-5;
-  }
-  .button.button-contained.button-rounded {
-    @apply rounded-full;
+    @apply text-primaryDark;
   }
   .button.button-text {
-    @apply outline-none font-light transition-all;
+    @apply font-light;
   }
   .button.button-text.button-primary {
     @apply text-primary;
@@ -51,16 +30,28 @@
   .button.button-text.button-white:hover, .button.button-text.button-white:active, .button.button-text.button-white:focus {
     @apply bg-gray-100;
   }
-  .button.button-text.button-large {
-    @apply rounded-md py-2 px-3;
+  .button.button-large {
+    @apply rounded-md px-5 text-lg h-11;
   }
-  .button.button-text.button-medium {
-    @apply rounded-md text-[15px] py-1 px-2;
+  .button.button-large.button-circle {
+    @apply h-11 w-11 p-0 rounded-3xl;
   }
-  .button.button-text.button-small {
-    @apply rounded-md text-sm py-1 px-2;
+  .button.button-medium {
+    @apply rounded-md px-4 text-base h-9;
   }
-  .button.button-text.button-rounded {
+  .button.button-medium.button-circle {
+    @apply h-9 w-9 p-0 rounded-3xl;
+  }
+  .button.button-small {
+    @apply rounded-md px-3 text-sm h-7;
+  }
+  .button.button-small.button-circle {
+    @apply h-7 w-7 p-0 rounded-3xl;
+  }
+  .button.button-fullWidth {
+    @apply w-full;
+  }
+  .button.button-rounded {
     @apply rounded-full;
   }
 }

@@ -13,7 +13,7 @@ export const AppHeader = () => {
             type="link"
             to="/pricing"
             variant="text"
-            size="large"
+            size="medium"
             colorTheme="white"
           >
             Pricing
@@ -22,7 +22,7 @@ export const AppHeader = () => {
             type="link"
             to="/lang"
             variant="text"
-            size="large"
+            size="medium"
             colorTheme="white"
             icon={<Globe />}
           >

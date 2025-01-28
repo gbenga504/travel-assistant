@@ -14,7 +14,7 @@ interface CommonProps {
   colorTheme?: "primary" | "white";
   fullWidth?: boolean;
   icon?: ReactElement;
-  rounded?: boolean;
+  shape?: "default" | "rounded" | "circle";
 }
 
 interface ButtonProps
@@ -46,7 +46,7 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
     colorTheme = "primary",
     fullWidth,
     icon,
-    rounded,
+    shape,
   } = props;
 
   const buttonClassName = classNames(className, "button", {
@@ -57,7 +57,8 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
     "button-small": size === "small",
     "button-primary": colorTheme === "primary",
     "button-white": colorTheme === "white",
-    "button-rounded": rounded,
+    "button-rounded": shape === "rounded",
+    "button-circle": shape === "circle",
     "button-fullWidth": fullWidth,
   });
 
@@ -67,7 +68,7 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
     "colorTheme",
     "fullWidth",
     "icon",
-    "rounded",
+    "shape",
   ];
 
   const renderIcon = () => {
