@@ -3,6 +3,8 @@ import type { MetaFunction } from "@remix-run/node";
 import { AppHeader } from "./app-header";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Button } from "~/shared-components/button/button";
+import { constructURL, ROUTE_IDS } from "~/utils/route-utils";
+import { useParams } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -12,6 +14,8 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Route() {
+  const { lang } = useParams();
+
   const renderBody = () => {
     return (
       <main className="bg-blue-300 lg:mt-20 lg:max-h-[600px] lg:min-h-[600px]">
@@ -26,7 +30,10 @@ export default function Route() {
             </p>
             <Button
               type="link"
-              to="/chat"
+              to={constructURL({
+                routeId: ROUTE_IDS.chatPage,
+                params: { lang },
+              })}
               size="large"
               className="mt-5"
               colorTheme="white"
