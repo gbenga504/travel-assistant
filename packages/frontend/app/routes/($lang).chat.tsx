@@ -1,7 +1,5 @@
 import { Outlet } from "@remix-run/react";
 
-import { MaxWidthContainer } from "~/shared-components/max-width-container";
-
 export default function Route() {
   const renderSidebar = () => {
     return (
@@ -12,9 +10,7 @@ export default function Route() {
   return (
     <>
       {renderSidebar()}
-      <MaxWidthContainer className="w-4/5 lg:w-[800px]">
-        <Outlet />
-      </MaxWidthContainer>
+      <Outlet />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "@remix-run/react";
 import { Messagebox } from "~/shared-components/message-box/message-box";
 import { encodeChatIdParam } from "~/utils/chat-util";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
+import { MaxWidthContainer } from "~/shared-components/max-width-container";
 
 export const meta: MetaFunction = () => {
   return [
@@ -26,15 +27,17 @@ export default function Route() {
   };
 
   return (
-    <article className="w-full h-screen flex items-center justify-center">
-      <div className="w-full">
-        <h2 className="text-center text-4xl font-light">
-          How can I be of help ?
-        </h2>
-        <section className="mt-8">
-          <Messagebox onSendMessage={handleSendMessage} />
-        </section>
-      </div>
-    </article>
+    <MaxWidthContainer className="w-4/5 lg:w-[640px]">
+      <article className="w-full h-screen flex items-center justify-center">
+        <div className="w-full">
+          <h2 className="text-center text-4xl font-light">
+            How can I be of help ?
+          </h2>
+          <section className="mt-8">
+            <Messagebox onSendMessage={handleSendMessage} />
+          </section>
+        </div>
+      </article>
+    </MaxWidthContainer>
   );
 }

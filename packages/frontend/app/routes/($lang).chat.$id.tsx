@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 
+import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { MiniMessagebox } from "~/shared-components/message-box/mini-message-box";
 
 export const meta: MetaFunction = ({ params }) => {
@@ -11,10 +12,14 @@ export const meta: MetaFunction = ({ params }) => {
 
 export default function Route() {
   return (
-    <article className="w-full h-screen relative flex items-center justify-center">
-      <section className="absolute bottom-4 w-full">
-        <MiniMessagebox />
-      </section>
-    </article>
+    <MaxWidthContainer className="w-4/5 xl:w-[1036px] h-full">
+      <article className="w-full h-full relative grid grid-cols-[2fr_1fr] gap-x-8">
+        <section className="relative w-full">
+          <div className="sticky top-[100vh] pb-5 w-full">
+            <MiniMessagebox />
+          </div>
+        </section>
+      </article>
+    </MaxWidthContainer>
   );
 }
