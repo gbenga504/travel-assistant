@@ -11,14 +11,14 @@ interface IProps {
 export const Messagebox = ({ onSendMessage }: IProps) => {
   const [message, setMessage] = useState("");
 
-  const handleKeyUp = (ev: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (
-      (ev.key === "Enter" || ev.keyCode === 13) &&
-      !ev.shiftKey &&
-      message.length > 0
-    ) {
-      console.log("gad ==> message ", message.replace(/\n/g, ""));
-      onSendMessage(message);
+  const handleKeyDown = (ev: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (ev.key === "Enter" || ev.keyCode === 13) {
+      if (!ev.shiftKey && message.length > 0) {
+        // We don't want the enter key to create a new line
+        ev.preventDefault();
+
+        onSendMessage(message);
+      }
     }
   };
 
@@ -29,7 +29,7 @@ export const Messagebox = ({ onSendMessage }: IProps) => {
           onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => {
             setMessage(ev.target.value.trim());
           }}
-          onKeyUp={handleKeyUp}
+          onKeyDown={handleKeyDown}
         />
       </div>
     );
