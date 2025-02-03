@@ -9,6 +9,9 @@
   .button.button-contained.button-primary:hover, .button.button-contained.button-primary:active, .button.button-contained.button-primary:focus {
     @apply bg-primaryDark;
   }
+  .button.button-contained.button-primary.button-disabled {
+    @apply bg-primaryOpacity5 cursor-not-allowed;
+  }
   .button.button-contained.button-white {
     @apply bg-white text-primary;
   }
@@ -22,7 +25,7 @@
     @apply text-primary;
   }
   .button.button-text.button-primary:hover, .button.button-text.button-primary:active, .button.button-text.button-primary:focus {
-    @apply bg-primaryLight;
+    @apply bg-primaryOpacity1;
   }
   .button.button-text.button-white {
     @apply text-gray-900;

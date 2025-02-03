@@ -15,6 +15,7 @@ interface CommonProps {
   fullWidth?: boolean;
   icon?: ReactElement;
   shape?: "default" | "rounded" | "circle";
+  disabled?: boolean;
 }
 
 interface ButtonProps
@@ -47,6 +48,7 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
     fullWidth,
     icon,
     shape,
+    disabled,
   } = props;
 
   const buttonClassName = classNames(className, "button", {
@@ -60,6 +62,7 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
     "button-rounded": shape === "rounded",
     "button-circle": shape === "circle",
     "button-fullWidth": fullWidth,
+    "button-disabled": disabled,
   });
 
   const commonKeys: (keyof CommonProps)[] = [

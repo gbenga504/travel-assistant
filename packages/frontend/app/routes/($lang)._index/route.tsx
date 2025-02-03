@@ -31,7 +31,7 @@ export default function Route() {
             <Button
               type="link"
               to={constructURL({
-                routeId: ROUTE_IDS.chatPage,
+                routeId: ROUTE_IDS.chatWelcomePage,
                 params: { lang },
               })}
               size="large"

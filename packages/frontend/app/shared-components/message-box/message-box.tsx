@@ -1,13 +1,36 @@
+import { useState } from "react";
 import { ArrowRight, PlusCircle } from "react-bootstrap-icons";
 
 import { Button } from "../button/button";
 import { TextArea } from "../Textarea";
 
-export const Messagebox = () => {
+interface IProps {
+  onSendMessage: (value: string) => void;
+}
+
+export const Messagebox = ({ onSendMessage }: IProps) => {
+  const [message, setMessage] = useState("");
+
+  const handleKeyUp = (ev: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (
+      (ev.key === "Enter" || ev.keyCode === 13) &&
+      !ev.shiftKey &&
+      message.length > 0
+    ) {
+      console.log("gad ==> message ", message.replace(/\n/g, ""));
+      onSendMessage(message);
+    }
+  };
+
   const renderTextarea = () => {
     return (
       <div className="col-start-1 col-end-4">
-        <TextArea />
+        <TextArea
+          onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => {
+            setMessage(ev.target.value.trim());
+          }}
+          onKeyUp={handleKeyUp}
+        />
       </div>
     );
   };
@@ -32,6 +55,8 @@ export const Messagebox = () => {
             size="medium"
             variant="contained"
             shape="circle"
+            disabled={message.length === 0}
+            onClick={() => message.length > 0 && onSendMessage(message)}
           >
             <ArrowRight size={20} />
           </Button>

@@ -12,7 +12,7 @@ export default function Route() {
   return (
     <>
       {renderSidebar()}
-      <MaxWidthContainer className="w-4/5 lg:w-[640px]">
+      <MaxWidthContainer className="w-4/5 lg:w-[800px]">
         <Outlet />
       </MaxWidthContainer>
     </>

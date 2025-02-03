@@ -13,6 +13,10 @@
         &:focus {
           @apply bg-primaryDark;
         }
+
+        &.button-disabled {
+          @apply bg-primaryOpacity5 cursor-not-allowed;
+        }
       }
 
       &.button-white {
@@ -35,7 +39,7 @@
         &:hover,
         &:active,
         &:focus {
-          @apply bg-primaryLight;
+          @apply bg-primaryOpacity1;
         }
       }
 
