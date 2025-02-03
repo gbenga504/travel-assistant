@@ -3,7 +3,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { AppHeader } from "./app-header";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Button } from "~/shared-components/button/button";
-import { constructURL, ROUTE_IDS } from "~/utils/route-utils";
+import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 import { useParams } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {

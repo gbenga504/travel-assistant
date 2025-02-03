@@ -3,7 +3,7 @@ import { Globe } from "react-bootstrap-icons";
 
 import { Button } from "~/shared-components/button/button";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
-import { constructURL, ROUTE_IDS } from "~/utils/route-utils";
+import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 
 export const AppHeader = () => {
   const { lang } = useParams();

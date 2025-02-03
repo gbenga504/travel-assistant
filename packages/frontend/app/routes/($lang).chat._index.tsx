@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "@remix-run/react";
 
 import { Messagebox } from "~/shared-components/message-box/message-box";
 import { encodeChatIdParam } from "~/utils/chat-util";
-import { constructURL, ROUTE_IDS } from "~/utils/route-utils";
+import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 
 export const meta: MetaFunction = () => {
   return [
