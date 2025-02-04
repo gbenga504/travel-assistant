@@ -34,7 +34,7 @@ export default function Route() {
             How can I be of help ?
           </h2>
           <section className="mt-8">
-            <Messagebox onSendMessage={handleSendMessage} />
+            <Messagebox size="large" onSendMessage={handleSendMessage} />
           </section>
         </div>
       </article>

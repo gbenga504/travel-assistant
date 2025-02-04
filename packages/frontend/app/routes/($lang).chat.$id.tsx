@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
-import { MiniMessagebox } from "~/shared-components/message-box/mini-message-box";
+import { Messagebox } from "~/shared-components/message-box/message-box";
 
 export const meta: MetaFunction = ({ params }) => {
   return [
@@ -16,7 +16,7 @@ export default function Route() {
       <article className="w-full h-full relative grid grid-cols-[2fr_1fr] gap-x-8">
         <section className="relative w-full">
           <div className="sticky top-[100vh] pb-5 w-full">
-            <MiniMessagebox />
+            <Messagebox size="small" onSendMessage={() => null} />
           </div>
         </section>
       </article>
