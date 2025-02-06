@@ -1,3 +1,10 @@
+import { nanoid } from "nanoid";
+
 export const encodeChatIdParam = (message: string): string => {
-  return message.toLowerCase().substring(0, 25).replace(/\s/g, "-");
+  const formattedMessage = message
+    .toLowerCase()
+    .substring(0, 25)
+    .replace(/\s/g, "-");
+
+  return `${nanoid()}-${formattedMessage}`;
 };
