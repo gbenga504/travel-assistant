@@ -57,7 +57,7 @@ export const SmallMessagebox = ({
     <div
       className={classNames(
         "w-full relative rounded-full border border-gray-300 shadow-sm p-2 focus-within:ring-1 ring-gray-300",
-        { "rounded-md": shouldGrow }
+        { "rounded-md p-3": shouldGrow }
       )}
     >
       <div
