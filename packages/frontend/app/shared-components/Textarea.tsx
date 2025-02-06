@@ -1,9 +1,11 @@
 import classNames from "classnames";
 import { useEffect, useRef } from "react";
 
-interface IProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+interface IProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  onChangeHeight?: (height: number) => void;
+}
 
-export const TextArea = ({ className, ...rest }: IProps) => {
+export const TextArea = ({ className, onChangeHeight, ...rest }: IProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -26,10 +28,14 @@ export const TextArea = ({ className, ...rest }: IProps) => {
       if (newHeight > 200) {
         textarea.style.height = `200px`;
         textarea.style.overflowY = "scroll";
+
+        onChangeHeight?.(200);
       } else {
         // Otherwise, adjust to fit content and hide scrolling
         textarea.style.height = `${newHeight}px`;
         textarea.style.overflowY = "hidden";
+
+        onChangeHeight?.(newHeight);
       }
     }
 

@@ -1,6 +1,8 @@
 import { ArrowUp, Paperclip } from "react-bootstrap-icons";
 import { Button } from "../button/button";
 import { TextArea } from "../Textarea";
+import { useState } from "react";
+import classNames from "classnames";
 
 interface IProps {
   onSendMessage: (value: string) => void;
@@ -15,9 +17,25 @@ export const SmallMessagebox = ({
   onKeyDown,
   message,
 }: IProps) => {
+  const [shouldGrow, setShouldGrow] = useState(false);
+
+  const handleChangeHeight = (height: number) => {
+    // The minimum height of the textarea is 20px
+    // Hence if the height of the textarea is 20, then shouldGrow = false
+    if (height <= 20) {
+      return setShouldGrow(false);
+    }
+
+    setShouldGrow(true);
+  };
+
   const renderActionToolbar = () => {
     return (
-      <div className="flex">
+      <div
+        className={classNames("flex", {
+          "justify-end w-full": shouldGrow,
+        })}
+      >
         <Button type="button" size="medium" variant="text" shape="circle">
           <Paperclip size={20} className="rotate-45" />
         </Button>
@@ -36,18 +54,32 @@ export const SmallMessagebox = ({
   };
 
   return (
-    <div className="w-full relative rounded-full border border-gray-300 shadow-sm p-2 focus-within:ring-1 ring-gray-300">
-      <div className="flex items-center">
-        <div className="w-full p-2 leading-[normal]">
+    <div
+      className={classNames(
+        "w-full relative rounded-full border border-gray-300 shadow-sm p-2 focus-within:ring-1 ring-gray-300",
+        { "rounded-md": shouldGrow }
+      )}
+    >
+      <div
+        className={classNames("flex items-center", {
+          "flex-col": shouldGrow,
+        })}
+      >
+        <div
+          className={classNames("w-full p-2 leading-[normal]", {
+            "p-0": shouldGrow,
+          })}
+        >
           <TextArea
             placeholder="Ask follow-up"
             onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => {
               onChange(ev.target.value.trim());
             }}
             onKeyDown={onKeyDown}
+            onChangeHeight={handleChangeHeight}
           />
         </div>
-        <div>{renderActionToolbar()}</div>
+        {renderActionToolbar()}
       </div>
     </div>
   );
