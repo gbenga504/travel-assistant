@@ -73,6 +73,10 @@ export const SmallMessagebox = ({
           <TextArea
             placeholder="Ask follow-up"
             onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => {
+              if (ev.target.value.length > 45) {
+                setShouldGrow(true);
+              }
+
               onChange(ev.target.value.trim());
             }}
             onKeyDown={onKeyDown}
