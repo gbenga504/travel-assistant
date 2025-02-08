@@ -19,13 +19,13 @@ export default function Route() {
 
   const renderBody = () => {
     return (
-      <main className="bg-blue-300 lg:mt-20 lg:max-h-[600px] lg:min-h-[600px]">
-        <MaxWidthContainer className="grid grid-cols-2 gap-y-11 pt-12">
-          <section>
-            <h1 className="font-bold text-6xl text-gray-800 mt-28 mb-6 leading-10">
+      <main className="bg-blue-300 mt-20 lg:h-[600px] xl:h-[700px]">
+        <MaxWidthContainer className="grid grid-rows-[1fr_auto] py-9 lg:grid-rows-1 lg:grid-cols-2 lg:gap-y-8 lg:pt-12 xl:gap-y-11">
+          <section className="flex flex-col items-center lg:items-start">
+            <h1 className="font-bold text-gray-800 leading-10 text-4xl mt-9 mb-4 md:mt-14 lg:text-6xl lg:mt-28 lg:mb-6">
               Wander Smart
             </h1>
-            <p className="text-xl font-light">
+            <p className="font-light text-center lg:text-left lg:text-xl">
               Unlock the world with intelligent travel insights. Your personal
               AI navigator for seamless adventures.
             </p>

@@ -2,7 +2,7 @@
 
 @layer components {
   .button {
-    @apply inline-flex items-center justify-center transition-all outline-none;
+    @apply inline-flex items-center justify-center transition-all outline-none w-fit;
 
     &.button-contained {
       &.button-primary {
