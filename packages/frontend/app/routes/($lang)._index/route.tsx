@@ -5,6 +5,7 @@ import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Button } from "~/shared-components/button/button";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 import { useParams } from "@remix-run/react";
+import { Footer } from "./footer";
 
 export const meta: MetaFunction = () => {
   return [
@@ -47,9 +48,10 @@ export default function Route() {
   };
 
   return (
-    <div>
+    <div className="relative h-full">
       <AppHeader />
       {renderBody()}
+      <Footer />
     </div>
   );
 }
