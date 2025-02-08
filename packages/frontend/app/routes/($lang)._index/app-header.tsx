@@ -2,6 +2,7 @@ import { useParams } from "@remix-run/react";
 import { Globe } from "react-bootstrap-icons";
 
 import { Button } from "~/shared-components/button/button";
+import { Dropdown } from "~/shared-components/dropdown";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 
@@ -25,16 +26,24 @@ export const AppHeader = () => {
           >
             Pricing
           </Button>
-          <Button
-            type="link"
-            to={constructURL({ routeId: ROUTE_IDS.homePage, params: { lang } })}
-            variant="text"
-            size="medium"
-            colorTheme="white"
-            icon={<Globe />}
-          >
-            English
-          </Button>
+          <Dropdown
+            trigger={
+              <Button
+                type="button"
+                variant="text"
+                size="medium"
+                colorTheme="white"
+                icon={<Globe />}
+              >
+                English
+              </Button>
+            }
+            options={[
+              { label: "English", value: "en" },
+              { label: "German", value: "de" },
+            ]}
+            onSelect={(opt) => console.log(opt)}
+          />
         </div>
       </MaxWidthContainer>
     </nav>

@@ -51,19 +51,23 @@ export const Button: React.FC<ButtonProps | AnchorProps | LinkProps> = (
     disabled,
   } = props;
 
-  const buttonClassName = classNames(className, "button", {
-    "button-contained": variant === "contained",
-    "button-text": variant === "text",
-    "button-large": size === "large",
-    "button-medium": size === "medium",
-    "button-small": size === "small",
-    "button-primary": colorTheme === "primary",
-    "button-white": colorTheme === "white",
-    "button-rounded": shape === "rounded",
-    "button-circle": shape === "circle",
-    "button-fullWidth": fullWidth,
-    "button-disabled": disabled,
-  });
+  const buttonClassName = classNames(
+    "button",
+    {
+      "button-contained": variant === "contained",
+      "button-text": variant === "text",
+      "button-large": size === "large",
+      "button-medium": size === "medium",
+      "button-small": size === "small",
+      "button-primary": colorTheme === "primary",
+      "button-white": colorTheme === "white",
+      "button-rounded": shape === "rounded",
+      "button-circle": shape === "circle",
+      "button-fullWidth": fullWidth,
+      "button-disabled": disabled,
+    },
+    className
+  );
 
   const commonKeys: (keyof CommonProps)[] = [
     "variant",
