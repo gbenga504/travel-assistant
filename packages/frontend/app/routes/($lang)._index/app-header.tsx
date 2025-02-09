@@ -4,6 +4,7 @@ import { Globe } from "react-bootstrap-icons";
 import { Button } from "~/shared-components/button/button";
 import { Dropdown } from "~/shared-components/dropdown";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
+import { SUPPORTED_LANGUAGES } from "~/utils/language-util";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 
 export const AppHeader = () => {
@@ -39,8 +40,8 @@ export const AppHeader = () => {
               </Button>
             }
             options={[
-              { label: "English", value: "en" },
-              { label: "German", value: "de" },
+              { label: "English", value: SUPPORTED_LANGUAGES.en },
+              { label: "German", value: SUPPORTED_LANGUAGES.de },
             ]}
             onSelect={(opt) => console.log(opt)}
           />
