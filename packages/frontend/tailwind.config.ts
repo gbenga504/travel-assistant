@@ -18,10 +18,9 @@ export default {
       },
 
       colors: {
-        primary: "#2C6BED",
-        primaryDark: "#1851B4",
-        primaryOpacity1: "rgba(44, 107, 237, 0.1)",
-        primaryOpacity5: "rgba(44, 107, 237, 0.5)",
+        // Light mode
+        primary: "#1C6DF4",
+        primaryDark: "#1458E1",
       },
     },
   },

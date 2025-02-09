@@ -53,7 +53,7 @@ export const Dropdown = ({ trigger, options, onSelect }: IProps) => {
       {cloneElement(trigger, { onClick: handleToggleDropdown })}
 
       {isOpen && (
-        <ul className="absolute top-full left-0 z-50 min-w-40 list-none bg-white rounded-md shadow-md my-1">
+        <ul className="absolute top-full left-0 z-50 min-w-40 list-none rounded-md shadow-md my-1 border bg-white border-gray-200 dark:bg-gray-950 dark:border-white/10">
           {options.map((option) => (
             <li key={option.value} className="rounded-md">
               <Button

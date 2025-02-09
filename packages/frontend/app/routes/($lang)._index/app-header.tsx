@@ -10,7 +10,7 @@ export const AppHeader = () => {
   const { lang } = useParams();
 
   return (
-    <nav className="border-b border-b-gray-200 bg-white fixed left-0 top-0 z-30 w-full">
+    <nav className="border-b border-gray-200 bg-white fixed left-0 top-0 z-30 w-full dark:bg-gray-950 dark:border-white/10">
       <MaxWidthContainer className="h-20 p-4 flex justify-between items-center">
         <div />
         <div className="flex">

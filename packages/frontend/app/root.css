@@ -3,7 +3,7 @@
 @tailwind utilities;
 html,
 body {
-  @apply bg-white text-gray-900 h-full text-base;
+  @apply bg-white text-gray-900 h-full text-base dark:bg-gray-950 dark:text-white;
   /*******
   For Dark mode, you can enable this and expand this for all elements
   dark:bg-gray-950;

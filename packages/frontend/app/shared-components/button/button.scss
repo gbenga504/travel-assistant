@@ -15,7 +15,7 @@
         }
 
         &.button-disabled {
-          @apply bg-primaryOpacity5 cursor-not-allowed;
+          @apply bg-primary/50 cursor-not-allowed;
         }
       }
 
@@ -39,17 +39,17 @@
         &:hover,
         &:active,
         &:focus {
-          @apply bg-primaryOpacity1;
+          @apply bg-primary/10;
         }
       }
 
       &.button-white {
-        @apply text-gray-900;
+        @apply text-gray-900 dark:text-white;
 
         &:hover,
         &:active,
         &:focus {
-          @apply bg-gray-100;
+          @apply bg-gray-100 dark:bg-gray-700;
         }
       }
     }
