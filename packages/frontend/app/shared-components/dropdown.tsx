@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, cloneElement, ReactElement } from "react";
 import { Button } from "./button/button";
 
-interface IOption {
+export interface IOption {
   value: string;
   label: string;
 }

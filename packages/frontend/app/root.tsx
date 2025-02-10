@@ -10,6 +10,7 @@ import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 
 import "./root.css";
 import {
+  getLanguagePath,
   getUserLanguage,
   isSupportedLanguageInPath,
 } from "./utils/language-util";
@@ -34,28 +35,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!isSupportedLanguageInPath(url.pathname)) {
     const userLanguage = getUserLanguage(request);
 
-    // We get the language which is usually the first pathname. Then we use a heuristic
-    // to determine if we should replace this or we just prepend the userLanguage with the fullpath
-    // Basically, if the pathname.length == 2, then we replace else we prepend the userLanguage with the fullPath
-    const pathname = url.pathname;
-
-    if (pathname === "/") {
-      return redirect(`/${userLanguage}`);
-    }
-
-    const suppliedLanguage = pathname.split("/")[1];
-
-    // Then the user entered a language but we don't reconginize it
-    // we redirect the user to the same page but replace the supplied language with out preferred language
-    if (suppliedLanguage.length === 2) {
-      return redirect(
-        `/${userLanguage}/${pathname.split("/").splice(2).join("/")}`
-      );
-    }
-
-    // The user did not enter a language.
-    // We redirect the user to the same page but add out preferred language to the path
-    return redirect(`/${userLanguage}${pathname}`);
+    return redirect(getLanguagePath(url.pathname, userLanguage));
   }
 
   return null;
