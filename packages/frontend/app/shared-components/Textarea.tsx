@@ -49,7 +49,7 @@ export const TextArea = ({ className, onChangeHeight, ...rest }: IProps) => {
   return (
     <textarea
       className={classNames(
-        "resize-none outline-none w-full font-light placeholder:text-gray-400 overflow-y-hidden",
+        "resize-none outline-none w-full font-light overflow-y-hidden bg-white placeholder:text-gray-400 dark:bg-gray-950",
         className
       )}
       placeholder="Tell me about your trip..."

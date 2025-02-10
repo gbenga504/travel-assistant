@@ -60,7 +60,7 @@ export const LargeMessagebox = ({
   };
 
   return (
-    <div className="w-full relative rounded-md border border-gray-300 shadow-sm p-4 pb-2 focus-within:ring-1 ring-gray-300">
+    <div className="w-full relative rounded-md border shadow-sm p-4 pb-2 focus-within:ring-1 border-gray-300 ring-gray-300 dark:border-white/15 dark:ring-white/15">
       <div className="grid grid-rows-[1fr_auto] grid-cols-3">
         {renderTextarea()}
         {renderActionToolbar()}
