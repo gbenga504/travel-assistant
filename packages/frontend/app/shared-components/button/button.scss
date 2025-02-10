@@ -44,7 +44,7 @@
       }
 
       &.button-white {
-        @apply text-gray-900 dark:text-white;
+        @apply text-gray-900 dark:text-gray-300;
 
         &:hover,
         &:active,

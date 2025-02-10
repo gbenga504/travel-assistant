@@ -28,7 +28,7 @@
     @apply bg-primary/10;
   }
   .button.button-text.button-white {
-    @apply text-gray-900 dark:text-white;
+    @apply text-gray-900 dark:text-gray-300;
   }
   .button.button-text.button-white:hover, .button.button-text.button-white:active, .button.button-text.button-white:focus {
     @apply bg-gray-100 dark:bg-gray-700;
