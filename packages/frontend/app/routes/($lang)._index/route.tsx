@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 
-import { AppHeader } from "./app-header";
+import { AppHeader } from "~/shared-components/app-header";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Button } from "~/shared-components/button/button";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";

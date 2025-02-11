@@ -5,6 +5,7 @@ import { Messagebox } from "~/shared-components/message-box/message-box";
 import { encodeChatIdParam } from "~/utils/chat-util";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
+import { AppHeader } from "~/shared-components/app-header";
 
 export const meta: MetaFunction = () => {
   return [
@@ -28,12 +29,16 @@ export default function Route() {
 
   return (
     <MaxWidthContainer className="w-full xl:w-[640px]">
+      <div className="w-full block lg:hidden">
+        <AppHeader />
+      </div>
+
       <article className="w-full h-screen flex items-center justify-center">
         <div className="w-full">
           <h2 className="text-center text-3xl font-light lg:text-4xl">
             How can I be of help ?
           </h2>
-          <section className="mt-8">
+          <section className="mt-4 lg:mt-8">
             <Messagebox size="large" onSendMessage={handleSendMessage} />
           </section>
         </div>
