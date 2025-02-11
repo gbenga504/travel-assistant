@@ -37,6 +37,7 @@ export const LargeMessagebox = ({
             type="button"
             size="small"
             variant="text"
+            colorTheme="white"
             shape="rounded"
             icon={<PlusCircle />}
           >

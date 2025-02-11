@@ -27,10 +27,10 @@ export default function Route() {
   };
 
   return (
-    <MaxWidthContainer className="w-4/5 lg:w-[640px]">
+    <MaxWidthContainer className="w-full xl:w-[640px]">
       <article className="w-full h-screen flex items-center justify-center">
         <div className="w-full">
-          <h2 className="text-center text-4xl font-light">
+          <h2 className="text-center text-3xl font-light lg:text-4xl">
             How can I be of help ?
           </h2>
           <section className="mt-8">

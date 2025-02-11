@@ -33,7 +33,7 @@ export default function Route() {
 
   const renderSidebar = () => {
     return (
-      <div className="fixed flex flex-col border-r h-screen top-0 left-0 pt-4 px-1 md:w-60 bg-white border-gray-200 dark:bg-gray-900 dark:border-white/10">
+      <div className="fixed hidden flex-col border-r h-screen top-0 left-0 pt-4 px-1 w-60 bg-white border-gray-200 dark:bg-gray-900 dark:border-white/10 lg:flex">
         <div className="mb-4 w-full" />
         <div className="pt-4 w-full overflow-x-hidden">
           <SidebarItem
@@ -59,7 +59,9 @@ export default function Route() {
   return (
     <>
       {renderSidebar()}
-      <Outlet />
+      <div className="ml-0 w-full lg:ml-60 lg:w-[calc(100%-240px)]">
+        <Outlet />
+      </div>
     </>
   );
 }
