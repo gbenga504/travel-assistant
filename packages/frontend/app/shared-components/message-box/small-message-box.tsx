@@ -7,6 +7,7 @@ import classNames from "classnames";
 interface IProps {
   onSendMessage: (value: string) => void;
   onChange: (value: string) => void;
+  onGrow?: (growing: boolean) => void;
   onKeyDown: (ev: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   message: string;
 }
@@ -16,17 +17,13 @@ export const SmallMessagebox = ({
   onChange,
   onKeyDown,
   message,
+  onGrow,
 }: IProps) => {
   const [shouldGrow, setShouldGrow] = useState(false);
 
-  const handleChangeHeight = (height: number) => {
-    // The minimum height of the textarea is 20px
-    // Hence if the height of the textarea is 20, then shouldGrow = false
-    if (height <= 20) {
-      return setShouldGrow(false);
-    }
-
-    setShouldGrow(true);
+  const handleTextareaGrowth = (growing: boolean) => {
+    onGrow?.(growing);
+    setShouldGrow(growing);
   };
 
   const renderActionToolbar = () => {
@@ -36,7 +33,13 @@ export const SmallMessagebox = ({
           "justify-end w-full": shouldGrow,
         })}
       >
-        <Button type="button" size="medium" variant="text" shape="circle">
+        <Button
+          type="button"
+          size="medium"
+          variant="text"
+          shape="circle"
+          colorTheme="white"
+        >
           <Paperclip size={20} className="rotate-45" />
         </Button>
         <Button
@@ -56,7 +59,7 @@ export const SmallMessagebox = ({
   return (
     <div
       className={classNames(
-        "w-full relative rounded-full border border-gray-300 shadow-sm p-2 focus-within:ring-1 ring-gray-300",
+        "w-full relative rounded-full border shadow-sm p-2 focus-within:ring-1 border-gray-300 ring-gray-300 dark:border-white/15 dark:ring-white/15",
         { "rounded-md p-3": shouldGrow }
       )}
     >
@@ -80,7 +83,7 @@ export const SmallMessagebox = ({
               onChange(ev.target.value.trim());
             }}
             onKeyDown={onKeyDown}
-            onChangeHeight={handleChangeHeight}
+            onGrow={handleTextareaGrowth}
           />
         </div>
         {renderActionToolbar()}

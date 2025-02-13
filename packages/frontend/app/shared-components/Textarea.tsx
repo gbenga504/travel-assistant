@@ -2,10 +2,10 @@ import classNames from "classnames";
 import { useEffect, useRef } from "react";
 
 interface IProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  onChangeHeight?: (height: number) => void;
+  onGrow?: (growing: boolean) => void;
 }
 
-export const TextArea = ({ className, onChangeHeight, ...rest }: IProps) => {
+export const TextArea = ({ className, onGrow, ...rest }: IProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -28,15 +28,13 @@ export const TextArea = ({ className, onChangeHeight, ...rest }: IProps) => {
       if (newHeight > 200) {
         textarea.style.height = `200px`;
         textarea.style.overflowY = "scroll";
-
-        onChangeHeight?.(200);
       } else {
         // Otherwise, adjust to fit content and hide scrolling
         textarea.style.height = `${newHeight}px`;
         textarea.style.overflowY = "hidden";
-
-        onChangeHeight?.(newHeight);
       }
+
+      onGrow?.(newHeight > 20 ? true : false);
     }
 
     textarea.addEventListener("input", handleInput);
@@ -49,7 +47,7 @@ export const TextArea = ({ className, onChangeHeight, ...rest }: IProps) => {
   return (
     <textarea
       className={classNames(
-        "resize-none outline-none w-full font-light overflow-y-hidden bg-white placeholder:text-gray-400 dark:bg-gray-950",
+        "resize-none outline-none w-full font-light overflow-y-hidden bg-inherit placeholder:text-gray-400",
         className
       )}
       placeholder="Tell me about your trip..."

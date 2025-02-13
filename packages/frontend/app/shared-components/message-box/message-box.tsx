@@ -5,10 +5,11 @@ import { SmallMessagebox } from "./small-message-box";
 
 interface IProps {
   size: "small" | "large";
+  onGrow?: (growing: boolean) => void;
   onSendMessage: (value: string) => void;
 }
 
-export const Messagebox = ({ size, onSendMessage }: IProps) => {
+export const Messagebox = ({ size, onSendMessage, onGrow }: IProps) => {
   const [message, setMessage] = useState("");
 
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -43,6 +44,7 @@ export const Messagebox = ({ size, onSendMessage }: IProps) => {
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       message={message}
+      onGrow={onGrow}
     />
   );
 };

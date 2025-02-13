@@ -10,7 +10,7 @@ export const Answer = () => {
           get a typesecript error
         </h1>
         <div className="flex items-center">
-          <Box color="black" size={20} />
+          <Box className="text-gray-900 dark:text-white" size={20} />
           <span className="text-lg ml-3">Answer</span>
         </div>
         <div
@@ -24,7 +24,7 @@ export const Answer = () => {
   };
 
   return (
-    <div className="w-full relative grid grid-cols-[2fr_1fr] gap-x-8">
+    <div className="w-full relative gap-x-8 grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
       {renderMainView()}
     </div>
   );

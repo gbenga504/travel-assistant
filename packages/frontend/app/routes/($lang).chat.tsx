@@ -59,7 +59,7 @@ export default function Route() {
   return (
     <>
       {renderSidebar()}
-      <div className="ml-0 w-full lg:ml-60 lg:w-[calc(100%-240px)]">
+      <div className="ml-0 w-full h-full lg:ml-60 lg:w-[calc(100%-240px)]">
         <Outlet />
       </div>
     </>
