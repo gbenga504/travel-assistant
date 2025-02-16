@@ -52,6 +52,11 @@ export default function Route() {
             Pricing
           </SidebarItem>
         </div>
+        <div className="absolute bottom-0 full px-5 pb-5">
+          <span className="font-light text-xs mb-3">
+            &copy; WakaTravel {new Date().getFullYear()}
+          </span>
+        </div>
       </div>
     );
   };

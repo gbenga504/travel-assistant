@@ -6,5 +6,5 @@ export const encodeChatIdParam = (message: string): string => {
     .substring(0, 25)
     .replace(/\s/g, "-");
 
-  return `${nanoid()}-${formattedMessage}`;
+  return `${formattedMessage}-${nanoid()}`;
 };
