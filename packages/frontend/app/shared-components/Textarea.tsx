@@ -42,7 +42,7 @@ export const TextArea = ({ className, onGrow, ...rest }: IProps) => {
     return () => {
       textarea.removeEventListener("input", handleInput);
     };
-  }, []);
+  }, [onGrow]);
 
   return (
     <textarea
