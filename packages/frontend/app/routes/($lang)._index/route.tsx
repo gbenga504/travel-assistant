@@ -1,11 +1,13 @@
-import type { MetaFunction } from "@remix-run/node";
+import { useParams } from "@remix-run/react";
 
 import { AppHeader } from "~/shared-components/app-header";
-import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Button } from "~/shared-components/button/button";
+import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
-import { useParams } from "@remix-run/react";
+
 import { Footer } from "./footer";
+
+import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [

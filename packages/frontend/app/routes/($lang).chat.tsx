@@ -1,9 +1,10 @@
 import { Outlet, useParams } from "@remix-run/react";
-import { ReactElement, ReactNode } from "react";
 import { Backpack, Wallet2 } from "react-bootstrap-icons";
 
 import { Button } from "~/shared-components/button/button";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
+
+import type { ReactElement, ReactNode } from "react";
 
 interface ISidebarItem {
   icon: ReactElement;

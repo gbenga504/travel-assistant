@@ -1,5 +1,8 @@
-import { useState, useRef, useEffect, cloneElement, ReactElement } from "react";
+import { useState, useRef, useEffect, cloneElement } from "react";
+
 import { Button } from "./button/button";
+
+import type { ReactElement } from "react";
 
 export interface IOption {
   value: string;

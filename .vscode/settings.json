@@ -3,5 +3,6 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "prettier.configPath": "packages/frontend/.prettierrc.cjs"
 }

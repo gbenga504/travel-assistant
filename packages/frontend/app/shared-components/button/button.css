@@ -6,7 +6,9 @@
   .button.button-contained.button-primary {
     @apply bg-primary text-white;
   }
-  .button.button-contained.button-primary:hover, .button.button-contained.button-primary:active, .button.button-contained.button-primary:focus {
+  .button.button-contained.button-primary:hover,
+  .button.button-contained.button-primary:active,
+  .button.button-contained.button-primary:focus {
     @apply bg-primaryDark;
   }
   .button.button-contained.button-primary.button-disabled {
@@ -15,7 +17,9 @@
   .button.button-contained.button-white {
     @apply bg-white text-primary;
   }
-  .button.button-contained.button-white:hover, .button.button-contained.button-white:active, .button.button-contained.button-white:focus {
+  .button.button-contained.button-white:hover,
+  .button.button-contained.button-white:active,
+  .button.button-contained.button-white:focus {
     @apply text-primaryDark;
   }
   .button.button-text {
@@ -24,13 +28,17 @@
   .button.button-text.button-primary {
     @apply text-primary;
   }
-  .button.button-text.button-primary:hover, .button.button-text.button-primary:active, .button.button-text.button-primary:focus {
+  .button.button-text.button-primary:hover,
+  .button.button-text.button-primary:active,
+  .button.button-text.button-primary:focus {
     @apply bg-primary/10;
   }
   .button.button-text.button-white {
     @apply text-gray-900 dark:text-gray-300;
   }
-  .button.button-text.button-white:hover, .button.button-text.button-white:active, .button.button-text.button-white:focus {
+  .button.button-text.button-white:hover,
+  .button.button-text.button-white:active,
+  .button.button-text.button-white:focus {
     @apply bg-gray-100 dark:bg-gray-700;
   }
   .button.button-large {

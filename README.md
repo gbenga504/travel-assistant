@@ -20,8 +20,8 @@ The following are some of the functions of this AI model:
 
 The following are some of the requirements of the frontend app:
 
-- Server rendered JS app, nothing complicated. So we use Remitly
-- App should be a PWA app so users can esily install it
+- Server rendered JS app, nothing complicated. So we use Remix
+- App should be a PWA app so users can easily install it
 - App should be fast. AI is naturally slow so we have to make up for this
 - Interface should be mega simple
 - Use user & agent name when constructing chat interface

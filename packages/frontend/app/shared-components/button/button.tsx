@@ -1,12 +1,15 @@
+import { NavLink } from "@remix-run/react";
 import classNames from "classnames";
-import React from "react";
-import { NavLink, NavLinkProps } from "@remix-run/react";
+
+import { omit } from "~/utils/functional";
+
+import { Spinner } from "../spinner";
+
+import type { NavLinkProps } from "@remix-run/react";
+import type React from "react";
+import type { ReactElement } from "react";
 
 import "./button.css";
-
-import type { ReactElement } from "react";
-import { Spinner } from "../spinner";
-import { omit } from "~/utils/functional";
 
 interface CommonProps {
   variant?: "contained" | "text";

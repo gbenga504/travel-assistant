@@ -1,11 +1,12 @@
-import type { MetaFunction } from "@remix-run/node";
 import { useNavigate, useParams } from "@remix-run/react";
 
+import { AppHeader } from "~/shared-components/app-header";
+import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Messagebox } from "~/shared-components/message-box/message-box";
 import { encodeChatIdParam } from "~/utils/chat-util";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
-import { MaxWidthContainer } from "~/shared-components/max-width-container";
-import { AppHeader } from "~/shared-components/app-header";
+
+import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [

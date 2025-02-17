@@ -1,3 +1,4 @@
+import { redirect } from "@remix-run/node";
 import {
   Links,
   Meta,
@@ -5,15 +6,16 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { redirect } from "@remix-run/node";
-import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 
-import "./root.css";
 import {
   getLanguagePath,
   getUserLanguage,
   isSupportedLanguageInPath,
 } from "./utils/language-util";
+
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+
+import "./root.css";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

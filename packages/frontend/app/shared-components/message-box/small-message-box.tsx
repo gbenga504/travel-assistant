@@ -1,8 +1,9 @@
+import classNames from "classnames";
+import { useState } from "react";
 import { ArrowUp, Paperclip } from "react-bootstrap-icons";
+
 import { Button } from "../button/button";
 import { TextArea } from "../Textarea";
-import { useState } from "react";
-import classNames from "classnames";
 
 interface IProps {
   onSendMessage: (value: string) => void;

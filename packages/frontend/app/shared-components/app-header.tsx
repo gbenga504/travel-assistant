@@ -2,14 +2,13 @@ import { useParams, useNavigate, useLocation } from "@remix-run/react";
 import { Globe } from "react-bootstrap-icons";
 
 import { Button } from "~/shared-components/button/button";
-import { Dropdown, IOption } from "~/shared-components/dropdown";
+import { Dropdown } from "~/shared-components/dropdown";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
-import {
-  getLanguagePath,
-  ISupportedLanguages,
-  SUPPORTED_LANGUAGES,
-} from "~/utils/language-util";
+import { getLanguagePath, SUPPORTED_LANGUAGES } from "~/utils/language-util";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
+
+import type { IOption } from "~/shared-components/dropdown";
+import type { ISupportedLanguages } from "~/utils/language-util";
 
 const LANGUAGE_MAP: { [key in ISupportedLanguages]: string } = {
   en: "English",
