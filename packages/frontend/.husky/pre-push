@@ -1,0 +1,2 @@
+cd packages/frontend
+npm run lint
