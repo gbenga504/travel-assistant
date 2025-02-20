@@ -4,5 +4,10 @@
       "mode": "auto"
     }
   ],
-  "prettier.configPath": "packages/frontend/.prettierrc.cjs"
+  "prettier.configPath": "packages/frontend/.prettierrc.cjs",
+  "[go]": {
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go"
+  }
 }
