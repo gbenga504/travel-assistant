@@ -1,15 +1,14 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
+	"log/slog"
+
+	"github.com/gbenga504/travel-assistant/lib"
+	"github.com/gbenga504/travel-assistant/utils/logger"
 )
 
 func main() {
-	err := godotenv.Load()
+	slog.SetDefault(logger.NewLogger())
 
-	if err != nil {
-		panic("Cannot load .env files")
-	}
-
-	// TODO: Setup HTTP server
+	lib.RunApp()
 }
