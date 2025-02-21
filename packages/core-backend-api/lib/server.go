@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gbenga504/travel-assistant/lib/routes"
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -19,14 +20,12 @@ func loadEnv() {
 }
 
 func startServer() {
-	httpHandler := gin.Default()
-	routes(httpHandler)
+	httpHandler := gin.New()
+	routes.Routes(httpHandler)
 
 	PORT := fmt.Sprintf(":%s", os.Getenv("PORT"))
 
-	logger.Info(logger.LoggerParams{
-		Msg: fmt.Sprintf("Listening on Port %s", PORT),
-	})
+	logger.Info(fmt.Sprintf("Listening on Port %s", PORT))
 
 	panic(http.ListenAndServe(PORT, httpHandler))
 }
