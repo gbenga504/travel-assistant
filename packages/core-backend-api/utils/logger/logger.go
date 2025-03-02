@@ -6,8 +6,8 @@ import (
 )
 
 type ErrorOpt struct {
-	name    string
-	message string
+	Name    string
+	Message string
 }
 
 func NewLogger() *slog.Logger {
@@ -40,7 +40,7 @@ func Error(msg string, err ErrorOpt, opts ...Option) {
 
 	logger.Warn(msg,
 		slog.Group("labels", slog.String("application", "api"), slog.String("category", options.Category)),
-		slog.Group("error", slog.String("name", err.name), slog.String("message", err.message)),
+		slog.Group("error", slog.String("name", err.Name), slog.String("message", err.Message)),
 		slog.Group("context", slogAttrSliceToAnySlice(contextToSlogAttrSlice(options.Context))...),
 		slog.Group("payload", slogAttrSliceToAnySlice(mapToSlogAttrSlice(options.Payload))...))
 }
