@@ -28,8 +28,8 @@ func startServer() {
 
 	if !ok {
 		logger.Error("Failed to load PORT", logger.ErrorOpt{
-			Name:    errors.Name(errors.EnvLoadError),
-			Message: errors.Message(errors.EnvLoadError),
+			Name:    errors.Name(errors.ErrEnvNotLoaded),
+			Message: errors.Message(errors.ErrEnvNotLoaded),
 		})
 	}
 

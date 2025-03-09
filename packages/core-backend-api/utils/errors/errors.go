@@ -3,7 +3,10 @@ package errors
 type CustomError string
 
 const (
-	EnvLoadError CustomError = "EnvLoadError"
+	ErrEnvNotLoaded CustomError = "ErrEnvNotLoaded"
+
+	ErrAIClientNotLoaded CustomError = "ErrAIClientNotLoaded"
+	ErrAIParseIssue      CustomError = "ErrAIParseIssue"
 )
 
 func Name(err CustomError) string {
@@ -12,8 +15,12 @@ func Name(err CustomError) string {
 
 func Message(err CustomError) string {
 	switch err {
-	case EnvLoadError:
+	case ErrEnvNotLoaded:
 		return "Env variable is missing"
+	case ErrAIClientNotLoaded:
+		return "AI client was not loaded"
+	case ErrAIParseIssue:
+		return "Cannot parse AI related data"
 	default:
 		return "Cannot match error"
 	}

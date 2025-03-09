@@ -6,8 +6,9 @@ import (
 )
 
 type ErrorOpt struct {
-	Name    string
-	Message string
+	Name          string
+	Message       string
+	OriginalError string
 }
 
 func NewLogger() *slog.Logger {
@@ -38,9 +39,22 @@ func Error(msg string, err ErrorOpt, opts ...Option) {
 	logger := NewLogger()
 	options := getOptions(opts...)
 
-	logger.Warn(msg,
+	logger.Error(msg,
 		slog.Group("labels", slog.String("application", "api"), slog.String("category", options.Category)),
 		slog.Group("error", slog.String("name", err.Name), slog.String("message", err.Message)),
 		slog.Group("context", slogAttrSliceToAnySlice(contextToSlogAttrSlice(options.Context))...),
 		slog.Group("payload", slogAttrSliceToAnySlice(mapToSlogAttrSlice(options.Payload))...))
+}
+
+func Fatal(msg string, err ErrorOpt, opts ...Option) {
+	logger := NewLogger()
+	options := getOptions(opts...)
+
+	logger.Error(msg,
+		slog.Group("labels", slog.String("application", "api"), slog.String("category", options.Category)),
+		slog.Group("error", slog.String("name", err.Name), slog.String("message", err.Message), slog.String("originalError", err.OriginalError)),
+		slog.Group("context", slogAttrSliceToAnySlice(contextToSlogAttrSlice(options.Context))...),
+		slog.Group("payload", slogAttrSliceToAnySlice(mapToSlogAttrSlice(options.Payload))...))
+
+	os.Exit(1)
 }
