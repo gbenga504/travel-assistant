@@ -20,43 +20,43 @@ export default function Route() {
 
   const renderAnswers = () => {
     return (
-      <section className="relative w-full">
+      <MaxWidthContainer className="w-full overflow-y-scroll xl:w-[1036px] md:px-8">
         <ul className="w-full relative">
           <li className="w-full border-b border-gray-200 dark:border-white/10">
             <Answer />
           </li>
         </ul>
-      </section>
+      </MaxWidthContainer>
     );
   };
 
   const renderMessagebox = () => {
     return (
-      <footer className="w-full sticky bottom-5 gap-x-8 z-50 grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
-        <div
-          className={classNames(
-            "w-full p-2 rounded-full bg-white dark:bg-gray-900",
-            {
-              "rounded-md": isMessageboxGrowing,
-            }
-          )}
-        >
-          <Messagebox
-            size="small"
-            onSendMessage={() => null}
-            onGrow={(growing) => setIsMessageboxGrowing(growing)}
-          />
-        </div>
+      <footer className="w-full absolute bottom-4 flex justify-center">
+        <MaxWidthContainer className="w-full gap-x-8 z-50 grid grid-cols-1 lg:grid-cols-[2fr_1fr] xl:w-[1036px] md:px-8">
+          <div
+            className={classNames(
+              "w-full p-2 rounded-full bg-white dark:bg-gray-900",
+              {
+                "rounded-md": isMessageboxGrowing,
+              }
+            )}
+          >
+            <Messagebox
+              size="small"
+              onSendMessage={() => null}
+              onGrow={(growing) => setIsMessageboxGrowing(growing)}
+            />
+          </div>
+        </MaxWidthContainer>
       </footer>
     );
   };
 
   return (
-    <MaxWidthContainer className="h-full w-full xl:w-[1036px] md:px-8">
-      <article className="w-full h-full relative">
-        {renderAnswers()}
-        {renderMessagebox()}
-      </article>
-    </MaxWidthContainer>
+    <article className="w-full h-full relative overflow-hidden">
+      {renderAnswers()}
+      {renderMessagebox()}
+    </article>
   );
 }

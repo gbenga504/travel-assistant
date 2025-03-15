@@ -64,6 +64,9 @@ func (p Prompt) contextPrompt() string {
 	t := `
     <CONTEXT>
 		Today is %s
+		User Language is English
+		User is currently in Berlin, Germany
+		User's currency is EURO
         %s
     </CONTEXT>
     `

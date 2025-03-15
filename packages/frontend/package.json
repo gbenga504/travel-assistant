@@ -17,9 +17,11 @@
     "prepare": "cd .. && cd .. && husky packages/frontend/.husky"
   },
   "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
     "@remix-run/node": "^2.15.2",
     "@remix-run/react": "^2.15.2",
     "@remix-run/serve": "^2.15.2",
+    "axios": "^1.8.2",
     "classnames": "^2.5.1",
     "isbot": "^4.1.0",
     "nanoid": "^5.0.9",

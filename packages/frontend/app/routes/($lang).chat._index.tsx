@@ -24,7 +24,8 @@ export default function Route() {
       constructURL({
         routeId: ROUTE_IDS.chatPage,
         params: { lang: lang!, id: encodeChatIdParam(message) },
-      })
+      }),
+      { state: { query: message } }
     );
   };
 

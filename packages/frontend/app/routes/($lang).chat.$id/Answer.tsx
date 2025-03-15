@@ -1,5 +1,6 @@
 import { Box } from "react-bootstrap-icons";
-import sanitize from "sanitize-html";
+
+import { LoadingSection } from "~/shared-components/loading-section";
 
 export const Answer = () => {
   const renderMainView = () => {
@@ -10,15 +11,15 @@ export const Answer = () => {
           get a typesecript error
         </h1>
         <div className="flex items-center">
-          <Box className="text-gray-900 dark:text-white" size={20} />
+          <Box
+            className="text-gray-900 animate-bounce  dark:text-white"
+            size={20}
+          />
           <span className="text-lg ml-3">Answer</span>
         </div>
-        <div
-          className="mt-2 mb-24 font-light"
-          dangerouslySetInnerHTML={{
-            __html: sanitize("<span>Something here </span>"),
-          }}
-        />
+        <div className="mt-2 mb-24 font-light">
+          <LoadingSection />
+        </div>
       </div>
     );
   };

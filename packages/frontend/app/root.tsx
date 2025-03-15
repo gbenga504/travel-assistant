@@ -5,8 +5,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 
+import { createApiClient } from "./api/api";
+import { ApiProvider } from "./context/api-context";
+import { configuration } from "./utils/configuration";
 import {
   getLanguagePath,
   getUserLanguage,
@@ -40,10 +44,17 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect(getLanguagePath(url.pathname, userLanguage));
   }
 
-  return null;
+  // We need to return environment variables
+  return Response.json({
+    ENV: {
+      API_URL: configuration.API_URL,
+    },
+  });
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>
@@ -55,6 +66,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <ScrollRestoration />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
+          }}
+        />
         <Scripts />
       </body>
     </html>
@@ -62,5 +78,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <ApiProvider api={createApiClient()}>
+      <Outlet />
+    </ApiProvider>
+  );
 }

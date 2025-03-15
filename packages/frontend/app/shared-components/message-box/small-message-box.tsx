@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowUp, Paperclip } from "react-bootstrap-icons";
 
 import { Button } from "../button/button";
-import { TextArea } from "../Textarea";
+import { TextArea } from "../textarea";
 
 interface IProps {
   onSendMessage: (value: string) => void;
