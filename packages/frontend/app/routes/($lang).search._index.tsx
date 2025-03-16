@@ -3,14 +3,14 @@ import { useNavigate, useParams } from "@remix-run/react";
 import { AppHeader } from "~/shared-components/app-header";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Messagebox } from "~/shared-components/message-box/message-box";
-import { encodeChatIdParam } from "~/utils/chat-util";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
+import { encodeThreadIdParam } from "~/utils/search-util";
 
 import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Waka Travel | Chat" },
+    { title: "Waka Travel | Search" },
     { name: "description", content: "Plan your next trip fast and smart" },
   ];
 };
@@ -22,8 +22,8 @@ export default function Route() {
   const handleSendMessage = (message: string) => {
     navigate(
       constructURL({
-        routeId: ROUTE_IDS.chatPage,
-        params: { lang: lang!, id: encodeChatIdParam(message) },
+        routeId: ROUTE_IDS.searchPage,
+        params: { lang: lang!, id: encodeThreadIdParam(message) },
       }),
       { state: { query: message } }
     );

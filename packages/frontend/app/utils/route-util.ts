@@ -2,8 +2,8 @@ import { generatePath } from "@remix-run/react";
 
 export const ROUTE_IDS = {
   homePage: "homePage",
-  chatWelcomePage: "chatWelcomePage",
-  chatPage: "chatPage",
+  searchWelcomePage: "searchWelcomePage",
+  searchPage: "searchPage",
   pricingPage: "pricingPage",
 } as const;
 
@@ -14,8 +14,8 @@ interface IRoute {
 
 const routes: IRoute[] = [
   { id: ROUTE_IDS.homePage, path: "/:lang" },
-  { id: ROUTE_IDS.chatWelcomePage, path: "/:lang/chat" },
-  { id: ROUTE_IDS.chatPage, path: "/:lang/chat/:id" },
+  { id: ROUTE_IDS.searchWelcomePage, path: "/:lang/search" },
+  { id: ROUTE_IDS.searchPage, path: "/:lang/search/:id" },
   { id: ROUTE_IDS.pricingPage, path: "/:lang/pricing" },
 ];
 
