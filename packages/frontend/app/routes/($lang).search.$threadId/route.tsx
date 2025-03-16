@@ -1,7 +1,8 @@
 import { useLocation } from "@remix-run/react";
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import { useApi } from "~/context/api-context";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Messagebox } from "~/shared-components/message-box/message-box";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
@@ -42,13 +43,38 @@ export default function Route() {
   const [isMessageboxGrowing, setIsMessageboxGrowing] = useState(false);
   const [threadEntries, setThreadEntries] = useState<IThreadEntry[]>([]);
   const { state } = useLocation();
+  const api = useApi();
+  const sent = useRef(false);
 
   useEffect(() => {
     if (!state || !state.query) {
       return;
     }
 
-    setThreadEntries([{ question: state.query, loading: true }]);
+    setThreadEntries([{ question: state.query, status: "PENDING" }]);
+
+    if (!sent.current) {
+      api.ask.send(state.query, function (_err, message) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let status = "IN_PROGRESS" as any;
+
+        if (message.completed) {
+          status = "COMPLETED";
+        }
+
+        setThreadEntries((prevState) => {
+          return [
+            {
+              question: state.query,
+              status,
+              answer: (prevState[0].answer ?? "") + (message.text ?? ""),
+            },
+          ];
+        });
+      });
+
+      sent.current = true;
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);

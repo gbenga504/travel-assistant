@@ -1,12 +1,13 @@
 package lib
 
 import (
+	"context"
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/gbenga504/travel-assistant/lib/routes"
-	"github.com/gbenga504/travel-assistant/utils/errors"
+	util "github.com/gbenga504/travel-assistant/utils"
+	"github.com/gbenga504/travel-assistant/utils/agent/llms/gemini"
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -21,19 +22,14 @@ func loadEnv() {
 }
 
 func startServer() {
+	GEMINI_API_KEY := util.LookupEnv("GEMINI_API_KEY")
+	geminiClient := gemini.NewClient(context.Background(), GEMINI_API_KEY)
+	defer geminiClient.Close()
+
 	httpHandler := gin.New()
-	routes.Routes(httpHandler)
+	routes.Routes(httpHandler, geminiClient)
 
-	PORT, ok := os.LookupEnv("PORT")
-
-	if !ok {
-		logger.Error("Failed to load PORT", logger.ErrorOpt{
-			Name:    errors.Name(errors.ErrEnvNotLoaded),
-			Message: errors.Message(errors.ErrEnvNotLoaded),
-		})
-	}
-
-	PORT = fmt.Sprintf(":%s", PORT)
+	PORT := fmt.Sprintf(":%s", util.LookupEnv("PORT"))
 	logger.Info(fmt.Sprintf("Listening on Port %s", PORT))
 
 	panic(http.ListenAndServe(PORT, httpHandler))
