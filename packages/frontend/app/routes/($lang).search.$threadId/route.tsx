@@ -1,15 +1,14 @@
-import { useLocation } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
-import { useApi } from "~/context/api-context";
+import { useQueryAgent } from "~/hooks/use-query-agent";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Messagebox } from "~/shared-components/message-box/message-box";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 
 import { ThreadEntry } from "./ThreadEntry";
 
-import type { IThreadEntry } from "./ThreadEntry";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = ({ params }) => {
@@ -32,52 +31,17 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   // If the request was initiated by the search welcome page, then we want to skip loading
   // all messages for the search
   if (refererPath == searchWelcomePagePath) {
-    return null;
+    return Response.json([]);
   }
 
   // TODO: Load all messages for the search and return as JSON
-  return null;
+  return Response.json([]);
 };
 
 export default function Route() {
   const [isMessageboxGrowing, setIsMessageboxGrowing] = useState(false);
-  const [threadEntries, setThreadEntries] = useState<IThreadEntry[]>([]);
-  const { state } = useLocation();
-  const api = useApi();
-  const sent = useRef(false);
-
-  useEffect(() => {
-    if (!state || !state.query) {
-      return;
-    }
-
-    setThreadEntries([{ question: state.query, status: "PENDING" }]);
-
-    if (!sent.current) {
-      api.ask.send(state.query, function (_err, message) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let status = "IN_PROGRESS" as any;
-
-        if (message.completed) {
-          status = "COMPLETED";
-        }
-
-        setThreadEntries((prevState) => {
-          return [
-            {
-              question: state.query,
-              status,
-              answer: (prevState[0].answer ?? "") + (message.text ?? ""),
-            },
-          ];
-        });
-      });
-
-      sent.current = true;
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  const data = useLoaderData<typeof loader>();
+  const { threadEntries } = useQueryAgent(data);
 
   const renderThread = () => {
     return (

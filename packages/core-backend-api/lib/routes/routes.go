@@ -6,12 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Routes(httpHandler *gin.Engine, geminiClient *gemini.GeminiClient) {
+func Routes(httpHandler *gin.Engine, gc *gemini.GeminiClient) {
 	// Apply global middlewares
 	httpHandler.Use(middlewares.CORSMiddleware())
 
 	v1 := httpHandler.Group("/api/v1")
 
 	healthRoute(v1)
-	askRoute(v1, geminiClient)
+	askRoute(v1, gc)
 }

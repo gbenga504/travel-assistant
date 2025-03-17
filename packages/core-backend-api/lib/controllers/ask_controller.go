@@ -1,56 +1,50 @@
 package controllers
 
 import (
-	"context"
 	"io"
 	"net/http"
-	"time"
 
+	askservice "github.com/gbenga504/travel-assistant/lib/services/ask_service"
 	"github.com/gbenga504/travel-assistant/utils/agent/llms/gemini"
-	travelagent "github.com/gbenga504/travel-assistant/utils/travel_agent"
+	"github.com/gbenga504/travel-assistant/utils/errors"
 	"github.com/gin-gonic/gin"
 )
 
-func PostAsk(c *gin.Context, geminiClient *gemini.GeminiClient) {
+func PostAsk(c *gin.Context, gc *gemini.GeminiClient) {
 	var reqBody struct {
 		Query string `json:"query" binding:"required"`
 	}
 
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"success": false,
-			"data":    map[string]any{"name": http.StatusText(http.StatusBadRequest), "message": err.Error()},
-		})
+		c.JSON(
+			http.StatusBadRequest,
+			errors.ToErrorResponse(http.StatusText(http.StatusBadRequest), err.Error()),
+		)
 	}
-
-	ticker := time.NewTicker(1 * time.Second)
-	defer ticker.Stop()
 
 	c.Writer.Header().Set("Content-Type", "text/event-stream")
 	c.Writer.Header().Set("Cache-Control", "no-cache")
 	c.Writer.Header().Set("Connection", "keep-alive")
 
-	ta := travelagent.SetupTravelAgent(geminiClient)
-	llmOutput := make(chan string)
-	quit := make(chan bool)
+	output := make(chan string)
+	done := make(chan bool)
 
-	go func() {
-		ta.RunStream(c.Request.Context(), reqBody.Query, func(ctx context.Context, chunks []byte) {
-			llmOutput <- string(chunks)
-		})
-
-		quit <- true
-	}()
+	askservice.RunStream(
+		reqBody.Query,
+		gc,
+		output,
+		done,
+	)
 
 	c.Stream(func(w io.Writer) bool {
 		select {
-		case o := <-llmOutput:
+		case o := <-output:
 			c.SSEvent("message", gin.H{
 				"message": o,
 			})
 			return true
-		case <-quit:
-			c.SSEvent("EndStream", gin.H{})
+		case <-done:
+			c.SSEvent("end_stream", gin.H{})
 			return false
 		case <-c.Writer.CloseNotify():
 			return false

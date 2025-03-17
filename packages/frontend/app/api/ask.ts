@@ -7,17 +7,15 @@ import { FatalError } from "~/errors/fatal-error";
 
 import type { AxiosInstance } from "axios";
 
-interface IMessage {
-  text: string;
-  completed: boolean;
-}
-
 export class Ask {
   constructor(private httpClient: AxiosInstance) {}
 
   async send(
     query: string,
-    callback: (err: Error | null, message: IMessage) => void
+    callback: (
+      err: Error | null,
+      { done, message }: { done: boolean; message: string }
+    ) => void
   ) {
     const ctrl = new AbortController();
 
@@ -46,13 +44,13 @@ export class Ask {
       onmessage(msg) {
         // if the server emits an error message, throw an exception
         // so it gets handled by the onerror callback below:
-        if (msg.event === "FatalError") {
+        if (msg.event === "fatal_error") {
           throw new FatalError();
         }
 
         // When we receive this event, the client needs to end the connection
-        if (msg.event === "EndStream") {
-          callback(null, { text: "", completed: true });
+        if (msg.event === "end_stream") {
+          callback(null, { message: "", done: true });
 
           return ctrl.abort();
         }
@@ -60,7 +58,7 @@ export class Ask {
         // TODO: Properly type data maybe using zod
         const data = JSON.parse(msg.data);
 
-        callback(null, { text: data.message, completed: false });
+        callback(null, { message: data.message, done: false });
       },
 
       onclose() {
@@ -71,9 +69,8 @@ export class Ask {
       },
 
       onerror(err) {
-        callback(err, { text: "", completed: false });
-
         // For now, we don't want to retry any errors so we throw to stop the operation
+        // TODO: Handle error cases properly
         throw err;
       },
     });

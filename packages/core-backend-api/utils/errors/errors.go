@@ -25,3 +25,13 @@ func Message(err CustomError) string {
 		return "Cannot match error"
 	}
 }
+
+func ToErrorResponse(name string, message string) map[string]any {
+	return map[string]any{
+		"success": false,
+		"data": map[string]any{
+			"name":    name,
+			"message": message,
+		},
+	}
+}

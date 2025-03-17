@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func askRoute(httpHandler *gin.RouterGroup, geminiClient *gemini.GeminiClient) {
+func askRoute(httpHandler *gin.RouterGroup, gc *gemini.GeminiClient) {
 	httpHandler.POST("/ask", func(ctx *gin.Context) {
-		controllers.PostAsk(ctx, geminiClient)
+		controllers.PostAsk(ctx, gc)
 	})
 }

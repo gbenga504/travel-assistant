@@ -6,12 +6,10 @@ import { LoadingSection } from "~/shared-components/loading-section";
 export interface IThreadEntry {
   question: string;
   status: "PENDING" | "IN_PROGRESS" | "COMPLETED";
-  answer?: string;
+  answer: string;
 }
 
 export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
-  console.log("gad ansa ==>", answer);
-
   const renderMainView = () => {
     return (
       <div className="w-full">
@@ -28,7 +26,7 @@ export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
         <div className="mt-2 mb-24 font-light">
           {status === "PENDING" && <LoadingSection />}
           {status !== "PENDING" && (
-            <p dangerouslySetInnerHTML={{ __html: answer ?? "" }} />
+            <p dangerouslySetInnerHTML={{ __html: answer }} />
           )}
         </div>
       </div>
