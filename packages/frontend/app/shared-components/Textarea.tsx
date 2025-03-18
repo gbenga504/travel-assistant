@@ -2,10 +2,11 @@ import classNames from "classnames";
 import { useEffect, useRef } from "react";
 
 interface IProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  value: string;
   onGrow?: (growing: boolean) => void;
 }
 
-export const TextArea = ({ className, onGrow, ...rest }: IProps) => {
+export const TextArea = ({ className, onGrow, value, ...rest }: IProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -15,34 +16,22 @@ export const TextArea = ({ className, onGrow, ...rest }: IProps) => {
       return;
     }
 
-    function handleInput() {
-      if (!textarea) return;
+    // Reset height to auto to correctly calculate the scrollHeight
+    textarea.style.height = "0px";
 
-      // Reset height to auto to correctly calculate the scrollHeight
-      textarea.style.height = "auto";
+    // Calculate the new height on the content
+    const newHeight = Math.min(textarea.scrollHeight, 200);
 
-      // Calculate the new height on the content
-      const newHeight = textarea.scrollHeight;
-
-      // If the new height exceeds 300px, set it to 300px and make it scrollable
-      if (newHeight > 200) {
-        textarea.style.height = `200px`;
-        textarea.style.overflowY = "scroll";
-      } else {
-        // Otherwise, adjust to fit content and hide scrolling
-        textarea.style.height = `${newHeight}px`;
-        textarea.style.overflowY = "hidden";
-      }
-
-      onGrow?.(newHeight > 20 ? true : false);
+    if (newHeight >= 200) {
+      textarea.style.overflowY = "scroll";
+    } else {
+      textarea.style.overflowY = "hidden";
     }
 
-    textarea.addEventListener("input", handleInput);
-
-    return () => {
-      textarea.removeEventListener("input", handleInput);
-    };
-  }, [onGrow]);
+    textarea.style.height = `${newHeight}px`;
+    onGrow?.(newHeight > 20 ? true : false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   return (
     <textarea
@@ -52,6 +41,7 @@ export const TextArea = ({ className, onGrow, ...rest }: IProps) => {
       )}
       placeholder="Tell me about your trip..."
       ref={textareaRef}
+      value={value}
       rows={1}
       {...rest}
     />

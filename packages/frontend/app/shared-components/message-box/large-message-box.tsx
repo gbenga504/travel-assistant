@@ -7,23 +7,24 @@ interface IProps {
   onSendMessage: (value: string) => void;
   onChange: (value: string) => void;
   onKeyDown: (ev: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-  message: string;
+  value: string;
 }
 
 export const LargeMessagebox = ({
   onSendMessage,
   onChange,
   onKeyDown,
-  message,
+  value,
 }: IProps) => {
   const renderTextarea = () => {
     return (
       <div className="col-start-1 col-end-4">
         <TextArea
           onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-            onChange(ev.target.value.trim());
+            onChange(ev.target.value);
           }}
           onKeyDown={onKeyDown}
+          value={value}
         />
       </div>
     );
@@ -50,8 +51,8 @@ export const LargeMessagebox = ({
             size="medium"
             variant="contained"
             shape="circle"
-            disabled={message.length === 0}
-            onClick={() => message.length > 0 && onSendMessage(message)}
+            disabled={value.length === 0}
+            onClick={() => value.length > 0 && onSendMessage(value)}
           >
             <ArrowRight size={20} />
           </Button>

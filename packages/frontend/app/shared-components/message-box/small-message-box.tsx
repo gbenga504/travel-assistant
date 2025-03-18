@@ -10,14 +10,14 @@ interface IProps {
   onChange: (value: string) => void;
   onGrow?: (growing: boolean) => void;
   onKeyDown: (ev: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-  message: string;
+  value: string;
 }
 
 export const SmallMessagebox = ({
   onSendMessage,
   onChange,
   onKeyDown,
-  message,
+  value,
   onGrow,
 }: IProps) => {
   const [shouldGrow, setShouldGrow] = useState(false);
@@ -48,8 +48,8 @@ export const SmallMessagebox = ({
           size="medium"
           variant="contained"
           shape="circle"
-          disabled={message.length === 0}
-          onClick={() => message.length > 0 && onSendMessage(message)}
+          disabled={value.length === 0}
+          onClick={() => value.length > 0 && onSendMessage(value)}
         >
           <ArrowUp size={20} />
         </Button>
@@ -81,8 +81,9 @@ export const SmallMessagebox = ({
                 setShouldGrow(true);
               }
 
-              onChange(ev.target.value.trim());
+              onChange(ev.target.value);
             }}
+            value={value}
             onKeyDown={onKeyDown}
             onGrow={handleTextareaGrowth}
           />

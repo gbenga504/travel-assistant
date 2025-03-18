@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "@remix-run/react";
+import { useState } from "react";
 
 import { AppHeader } from "~/shared-components/app-header";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
@@ -18,14 +19,15 @@ export const meta: MetaFunction = () => {
 export default function Route() {
   const navigate = useNavigate();
   const { lang } = useParams();
+  const [message, setMessage] = useState("");
 
-  const handleSendMessage = (message: string) => {
+  const handleSendQuery = (query: string) => {
     navigate(
       constructURL({
         routeId: ROUTE_IDS.searchPage,
-        params: { lang: lang!, id: encodeThreadIdParam(message) },
+        params: { lang: lang!, id: encodeThreadIdParam(query) },
       }),
-      { state: { query: message } }
+      { state: { query } }
     );
   };
 
@@ -41,7 +43,12 @@ export default function Route() {
             How can I be of help ?
           </h2>
           <section className="mt-4 lg:mt-8">
-            <Messagebox size="large" onSendMessage={handleSendMessage} />
+            <Messagebox
+              size="large"
+              onSendMessage={handleSendQuery}
+              value={message}
+              onChange={(m) => setMessage(m)}
+            />
           </section>
         </div>
       </article>

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { LargeMessagebox } from "./large-message-box";
 import { SmallMessagebox } from "./small-message-box";
 
@@ -7,24 +5,33 @@ interface IProps {
   size: "small" | "large";
   onGrow?: (growing: boolean) => void;
   onSendMessage: (value: string) => void;
+  value: string;
+  onChange: (message: string) => void;
 }
 
-export const Messagebox = ({ size, onSendMessage, onGrow }: IProps) => {
-  const [message, setMessage] = useState("");
-
+export const Messagebox = ({
+  size,
+  onSendMessage,
+  onGrow,
+  value,
+  onChange,
+}: IProps) => {
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (ev.key === "Enter" || ev.keyCode === 13) {
-      if (!ev.shiftKey && message.length > 0) {
+      if (!ev.shiftKey && value.length > 0) {
         // We don't want the enter key to create a new line
         ev.preventDefault();
 
-        onSendMessage(message);
+        // If we have a value then it is a controlled component and we use that instead
+        onSendMessage(value);
+      } else if (ev.shiftKey) {
+        onChange(`${value}`);
       }
     }
   };
 
   const handleChange = (value: string) => {
-    setMessage(value);
+    onChange(value);
   };
 
   if (size === "large") {
@@ -33,7 +40,7 @@ export const Messagebox = ({ size, onSendMessage, onGrow }: IProps) => {
         onSendMessage={onSendMessage}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        message={message}
+        value={value}
       />
     );
   }
@@ -43,7 +50,7 @@ export const Messagebox = ({ size, onSendMessage, onGrow }: IProps) => {
       onSendMessage={onSendMessage}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
-      message={message}
+      value={value}
       onGrow={onGrow}
     />
   );

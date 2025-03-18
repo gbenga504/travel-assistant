@@ -41,11 +41,17 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function Route() {
   const [isMessageboxGrowing, setIsMessageboxGrowing] = useState(false);
   const data = useLoaderData<typeof loader>();
-  const { threadEntries } = useQueryAgent(data);
+  const { threadEntries, queryAgent } = useQueryAgent(data);
+  const [message, setMessage] = useState("");
+
+  const handleSendQuery = (query: string) => {
+    queryAgent(query);
+    setMessage("");
+  };
 
   const renderThread = () => {
     return (
-      <MaxWidthContainer className="w-full overflow-y-scroll xl:w-[1036px] md:px-8">
+      <MaxWidthContainer className="w-full xl:w-[1036px] md:px-8">
         <ul className="w-full relative">
           {threadEntries.map((te, index) => (
             <li
@@ -74,8 +80,10 @@ export default function Route() {
           >
             <Messagebox
               size="small"
-              onSendMessage={() => null}
+              onSendMessage={handleSendQuery}
               onGrow={(growing) => setIsMessageboxGrowing(growing)}
+              value={message}
+              onChange={(m) => setMessage(m)}
             />
           </div>
         </MaxWidthContainer>
@@ -84,7 +92,7 @@ export default function Route() {
   };
 
   return (
-    <article className="w-full h-full relative overflow-hidden">
+    <article className="w-full h-full relative overflow-y-scroll">
       {renderThread()}
       {renderMessagebox()}
     </article>
