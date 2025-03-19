@@ -53,3 +53,10 @@ The following are some of the requirements of the AI:
 - Messages should not be too long or overwhelming
 - Support for voice notes for messages which are a bit longer
 - AI should remember user through multiple chat context
+
+## TODO
+
+- Save in the db
+- Formatting the response properly and make the clicks work [maps, look and fee etc]
+- Integrate with actual data
+- Work on pricing and other miscellaneous
