@@ -29,7 +29,7 @@ export const LargeMessagebox = ({
       </div>
     );
   };
-
+  console.log("gad man ", value.trim().length > 0);
   const renderActionToolbar = () => {
     return (
       <>
@@ -51,8 +51,8 @@ export const LargeMessagebox = ({
             size="medium"
             variant="contained"
             shape="circle"
-            disabled={value.length === 0}
-            onClick={() => value.length > 0 && onSendMessage(value)}
+            disabled={value.trim().length === 0}
+            onClick={() => value.trim().length > 0 && onSendMessage(value)}
           >
             <ArrowRight size={20} />
           </Button>

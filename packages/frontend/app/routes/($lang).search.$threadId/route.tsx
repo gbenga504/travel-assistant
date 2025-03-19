@@ -62,6 +62,56 @@ export default function Route() {
             </li>
           ))}
         </ul>
+        <ul className="w-full relative">
+          {threadEntries.map((te, index) => (
+            <li
+              className="w-full border-b border-gray-200 dark:border-white/10"
+              key={index}
+            >
+              <ThreadEntry {...te} />
+            </li>
+          ))}
+        </ul>
+        <ul className="w-full relative">
+          {threadEntries.map((te, index) => (
+            <li
+              className="w-full border-b border-gray-200 dark:border-white/10"
+              key={index}
+            >
+              <ThreadEntry {...te} />
+            </li>
+          ))}
+        </ul>
+        <ul className="w-full relative">
+          {threadEntries.map((te, index) => (
+            <li
+              className="w-full border-b border-gray-200 dark:border-white/10"
+              key={index}
+            >
+              <ThreadEntry {...te} />
+            </li>
+          ))}
+        </ul>
+        <ul className="w-full relative">
+          {threadEntries.map((te, index) => (
+            <li
+              className="w-full border-b border-gray-200 dark:border-white/10"
+              key={index}
+            >
+              <ThreadEntry {...te} />
+            </li>
+          ))}
+        </ul>
+        <ul className="w-full relative">
+          {threadEntries.map((te, index) => (
+            <li
+              className="w-full border-b border-gray-200 dark:border-white/10"
+              key={index}
+            >
+              <ThreadEntry {...te} />
+            </li>
+          ))}
+        </ul>
       </MaxWidthContainer>
     );
   };

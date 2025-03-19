@@ -18,14 +18,14 @@ export const Messagebox = ({
 }: IProps) => {
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (ev.key === "Enter" || ev.keyCode === 13) {
-      if (!ev.shiftKey && value.length > 0) {
+      if (!ev.shiftKey && value.trim().length > 0) {
         // We don't want the enter key to create a new line
         ev.preventDefault();
 
         // If we have a value then it is a controlled component and we use that instead
         onSendMessage(value);
       } else if (ev.shiftKey) {
-        onChange(`${value}`);
+        onChange(value);
       }
     }
   };
