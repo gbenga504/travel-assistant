@@ -51,57 +51,7 @@ export default function Route() {
 
   const renderThread = () => {
     return (
-      <MaxWidthContainer className="w-full xl:w-[1036px] md:px-8">
-        <ul className="w-full relative">
-          {threadEntries.map((te, index) => (
-            <li
-              className="w-full border-b border-gray-200 dark:border-white/10"
-              key={index}
-            >
-              <ThreadEntry {...te} />
-            </li>
-          ))}
-        </ul>
-        <ul className="w-full relative">
-          {threadEntries.map((te, index) => (
-            <li
-              className="w-full border-b border-gray-200 dark:border-white/10"
-              key={index}
-            >
-              <ThreadEntry {...te} />
-            </li>
-          ))}
-        </ul>
-        <ul className="w-full relative">
-          {threadEntries.map((te, index) => (
-            <li
-              className="w-full border-b border-gray-200 dark:border-white/10"
-              key={index}
-            >
-              <ThreadEntry {...te} />
-            </li>
-          ))}
-        </ul>
-        <ul className="w-full relative">
-          {threadEntries.map((te, index) => (
-            <li
-              className="w-full border-b border-gray-200 dark:border-white/10"
-              key={index}
-            >
-              <ThreadEntry {...te} />
-            </li>
-          ))}
-        </ul>
-        <ul className="w-full relative">
-          {threadEntries.map((te, index) => (
-            <li
-              className="w-full border-b border-gray-200 dark:border-white/10"
-              key={index}
-            >
-              <ThreadEntry {...te} />
-            </li>
-          ))}
-        </ul>
+      <MaxWidthContainer className="w-full h-full xl:w-[1036px] md:px-8 overflow-y-scroll">
         <ul className="w-full relative">
           {threadEntries.map((te, index) => (
             <li
@@ -142,7 +92,7 @@ export default function Route() {
   };
 
   return (
-    <article className="w-full h-full relative overflow-y-scroll">
+    <article className="w-full h-full relative overflow-hidden">
       {renderThread()}
       {renderMessagebox()}
     </article>
