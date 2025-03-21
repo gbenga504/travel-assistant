@@ -14,7 +14,7 @@ type MongoDB struct {
 	db     *mongo.Database
 }
 
-func NewMongoDB() *MongoDB {
+func Connect() *MongoDB {
 	uri := util.LookupEnv("MONGODB_URI")
 	client, err := mongo.Connect(options.Client().ApplyURI(uri))
 

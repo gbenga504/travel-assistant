@@ -7,8 +7,18 @@ import (
 	travelagent "github.com/gbenga504/travel-assistant/utils/travel_agent"
 )
 
-func RunStream(query string, gc *gemini.GeminiClient, writer chan<- string, done chan<- bool) {
-	agent := travelagent.SetupTravelAgent(gc)
+type AskService struct {
+	geminiClient *gemini.GeminiClient
+}
+
+func NewAskService(geminiClient *gemini.GeminiClient) *AskService {
+	return &AskService{
+		geminiClient,
+	}
+}
+
+func (s *AskService) RunStream(query string, writer chan<- string, done chan<- bool) {
+	agent := travelagent.SetupTravelAgent(s.geminiClient)
 
 	go func() {
 		agent.RunStream(context.Background(), query, func(ctx context.Context, chunks []byte) {

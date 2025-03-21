@@ -2,14 +2,18 @@ package lib
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	"github.com/gbenga504/travel-assistant/lib/routes"
+	"github.com/gbenga504/travel-assistant/lib/ask"
+	askcontroller "github.com/gbenga504/travel-assistant/lib/ask/controller"
+	askservice "github.com/gbenga504/travel-assistant/lib/ask/service"
+	"github.com/gbenga504/travel-assistant/lib/health"
+	healthcontroller "github.com/gbenga504/travel-assistant/lib/health/controller"
+	"github.com/gbenga504/travel-assistant/lib/middlewares"
 	util "github.com/gbenga504/travel-assistant/utils"
 	"github.com/gbenga504/travel-assistant/utils/agent/llms/gemini"
 	"github.com/gbenga504/travel-assistant/utils/db"
@@ -17,22 +21,59 @@ import (
 	"github.com/gbenga504/travel-assistant/utils/errors"
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
-func loadEnv() {
-	err := godotenv.Load()
+type Server struct {
+	addr         string
+	geminiClient *gemini.GeminiClient
+	db           db.Db
+	httpServer   *http.Server
+}
 
-	if err != nil {
-		logger.Fatal("Cannot load .env files", logger.ErrorOpt{
-			Name:          errors.Name(errors.ErrEnvNotLoaded),
-			Message:       errors.Message(errors.ErrEnvNotLoaded),
-			OriginalError: err.Error(),
-		})
+func NewServer(addr string) *Server {
+	GEMINI_API_KEY := util.LookupEnv("GEMINI_API_KEY")
+	geminiClient := gemini.NewClient(context.Background(), GEMINI_API_KEY)
+
+	httpHandler := gin.New()
+	db := mongodb.Connect()
+
+	// Apply global middlewares
+	httpHandler.Use(middlewares.CORSMiddleware())
+
+	v1 := httpHandler.Group("/api/v1")
+
+	// Ask
+	askService := askservice.NewAskService(geminiClient)
+	askController := askcontroller.NewAskController(askService)
+	ask.ConnectRoutes(v1, askController)
+
+	// Health
+	healthController := healthcontroller.NewHealthController()
+	health.ConnectRoutes(v1, healthController)
+
+	return &Server{
+		addr:         addr,
+		geminiClient: geminiClient,
+		db:           db,
+		httpServer:   &http.Server{Addr: addr, Handler: httpHandler},
 	}
 }
 
-func shutdownSrvGracefully(server *http.Server) {
+func (s *Server) Run() {
+	// We run to run this in goroutine because ListenAndServe blocks and we need to
+	// run some other code e.g taking care of graceful shutdowns
+	go func() {
+		if err := s.httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			logger.Fatal("Error occurred causing server shutdown", logger.ErrorOpt{
+				Name:          errors.Name(errors.ErrServerClosed),
+				Message:       errors.Message(errors.ErrServerClosed),
+				OriginalError: err.Error(),
+			})
+		}
+	}()
+}
+
+func (s *Server) ShutdownGracefully() {
 	// Create a channel to listen for signals
 	quit := make(chan os.Signal, 1)
 
@@ -49,11 +90,13 @@ func shutdownSrvGracefully(server *http.Server) {
 	// the request it is currently handling
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
+	defer s.db.Close()
+	defer s.geminiClient.Close()
 
 	// When shutdown is initiated, our server stops receiving connections,
 	// try to finish up with ongoing connections and we gracefully shutdown the server after the timeout set in ctx
 	// it also blocks until all is done
-	if err := server.Shutdown(ctx); err != nil {
+	if err := s.httpServer.Shutdown(ctx); err != nil {
 		logger.Fatal("Server forced to shutdown", logger.ErrorOpt{
 			Name:          errors.Name(errors.ErrServerClosed),
 			Message:       errors.Message(errors.ErrServerClosed),
@@ -62,49 +105,4 @@ func shutdownSrvGracefully(server *http.Server) {
 	}
 
 	logger.Info("Server exiting")
-}
-
-func createDatabase() db.Db {
-	db := mongodb.NewMongoDB()
-
-	return db
-}
-
-func startServer() {
-	GEMINI_API_KEY := util.LookupEnv("GEMINI_API_KEY")
-	geminiClient := gemini.NewClient(context.Background(), GEMINI_API_KEY)
-	defer geminiClient.Close()
-
-	db := createDatabase()
-	defer db.Close()
-
-	httpHandler := gin.New()
-	routes.Routes(httpHandler, geminiClient)
-
-	PORT := fmt.Sprintf(":%s", util.LookupEnv("PORT"))
-	logger.Info(fmt.Sprintf("Listening on Port %s", PORT))
-
-	server := &http.Server{
-		Addr:    PORT,
-		Handler: httpHandler,
-	}
-
-	// We run to run this in goroutine because ListenAndServe blocks and we need to
-	// run some other code e.g taking care of graceful shutdowns
-	go func() {
-		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			logger.Fatal("Error occurred causing server shutdown", logger.ErrorOpt{
-				Name:          errors.Name(errors.ErrServerClosed),
-				Message:       errors.Message(errors.ErrServerClosed),
-				OriginalError: err.Error(),
-			})
-		}
-	}()
-
-	shutdownSrvGracefully(server)
-}
-
-func RunApp() {
-	loadEnv()
-	startServer()
 }

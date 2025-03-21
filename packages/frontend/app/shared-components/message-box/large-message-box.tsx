@@ -29,7 +29,7 @@ export const LargeMessagebox = ({
       </div>
     );
   };
-  console.log("gad man ", value.trim().length > 0);
+
   const renderActionToolbar = () => {
     return (
       <>
