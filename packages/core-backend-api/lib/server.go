@@ -10,6 +10,7 @@ import (
 
 	"github.com/gbenga504/travel-assistant/lib/ask"
 	askcontroller "github.com/gbenga504/travel-assistant/lib/ask/controller"
+	askrepository "github.com/gbenga504/travel-assistant/lib/ask/repository"
 	askservice "github.com/gbenga504/travel-assistant/lib/ask/service"
 	"github.com/gbenga504/travel-assistant/lib/health"
 	healthcontroller "github.com/gbenga504/travel-assistant/lib/health/controller"
@@ -35,7 +36,9 @@ func NewServer(addr string) *Server {
 	geminiClient := gemini.NewClient(context.Background(), GEMINI_API_KEY)
 
 	httpHandler := gin.New()
-	db := mongodb.Connect()
+
+	DATABASE_NAME := util.LookupEnv("DATABASE_NAME")
+	db := mongodb.Connect(DATABASE_NAME)
 
 	// Apply global middlewares
 	httpHandler.Use(middlewares.CORSMiddleware())
@@ -43,7 +46,8 @@ func NewServer(addr string) *Server {
 	v1 := httpHandler.Group("/api/v1")
 
 	// Ask
-	askService := askservice.NewAskService(geminiClient)
+	askRepository := askrepository.NewAskRepository(db)
+	askService := askservice.NewAskService(askRepository, geminiClient)
 	askController := askcontroller.NewAskController(askService)
 	ask.ConnectRoutes(v1, askController)
 

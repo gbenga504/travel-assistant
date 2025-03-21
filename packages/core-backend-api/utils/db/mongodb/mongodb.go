@@ -5,6 +5,8 @@ import (
 
 	util "github.com/gbenga504/travel-assistant/utils"
 	"github.com/gbenga504/travel-assistant/utils/db"
+	"github.com/gbenga504/travel-assistant/utils/errors"
+	"github.com/gbenga504/travel-assistant/utils/logger"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
@@ -14,16 +16,19 @@ type MongoDB struct {
 	db     *mongo.Database
 }
 
-func Connect() *MongoDB {
+func Connect(dbName string) *MongoDB {
 	uri := util.LookupEnv("MONGODB_URI")
 	client, err := mongo.Connect(options.Client().ApplyURI(uri))
 
 	if err != nil {
-		// TODO panic
+		logger.Fatal("Cannot connect to MongoDB", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrDatabaseIssue),
+			Message:       errors.Message(errors.ErrDatabaseIssue),
+			OriginalError: err.Error(),
+		})
 	}
 
-	// The database will be passed in the connection string, hence we skip it here
-	db := client.Database("")
+	db := client.Database(dbName)
 
 	return &MongoDB{
 		client,
@@ -33,7 +38,11 @@ func Connect() *MongoDB {
 
 func (m *MongoDB) Close() {
 	if err := m.client.Disconnect(context.Background()); err != nil {
-		// TODO panic
+		logger.Fatal("Cannot close MongoDB connection", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrDatabaseIssue),
+			Message:       errors.Message(errors.ErrDatabaseIssue),
+			OriginalError: err.Error(),
+		})
 	}
 }
 

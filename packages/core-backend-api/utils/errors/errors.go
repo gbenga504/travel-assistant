@@ -8,6 +8,7 @@ const (
 	ErrAIClientNotLoaded CustomError = "ErrAIClientNotLoaded"
 	ErrAIParseIssue      CustomError = "ErrAIParseIssue"
 	ErrServerClosed      CustomError = "ErrServerClosed"
+	ErrDatabaseIssue     CustomError = "ErrDatabaseIssue"
 )
 
 func Name(err CustomError) string {
@@ -24,6 +25,8 @@ func Message(err CustomError) string {
 		return "Cannot parse AI related data"
 	case ErrServerClosed:
 		return "Server was closed"
+	case ErrDatabaseIssue:
+		return "Database had an issue"
 	default:
 		return "Cannot match error"
 	}

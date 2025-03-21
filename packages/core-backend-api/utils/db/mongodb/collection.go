@@ -14,4 +14,6 @@ func NewMongoDBCollection(m *MongoDB, collection string) *MongoDBCollection {
 	}
 }
 
-func (c *MongoDBCollection) CreateOne() {}
+func (c *MongoDBCollection) CreateOne() {
+
+}
