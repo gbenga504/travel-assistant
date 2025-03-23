@@ -5,7 +5,7 @@ import (
 	"log/slog"
 
 	"github.com/gbenga504/travel-assistant/lib"
-	util "github.com/gbenga504/travel-assistant/utils"
+	"github.com/gbenga504/travel-assistant/utils"
 	"github.com/gbenga504/travel-assistant/utils/errors"
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"github.com/joho/godotenv"
@@ -31,7 +31,7 @@ func main() {
 	setDefaultLogger()
 	loadEnv()
 
-	PORT := fmt.Sprintf(":%s", util.LookupEnv("PORT"))
+	PORT := fmt.Sprintf(":%s", utils.LookupEnv("PORT"))
 	logger.Info(fmt.Sprintf("Listening on Port %s", PORT))
 
 	server := lib.NewServer(PORT)

@@ -22,16 +22,16 @@ const (
 )
 
 type ChatSchemaContent struct {
-	Action
-	Content string // This should be a marschalled json of the action's content
+	Action  `json:"action" bson:"action"`
+	Content string `json:"content" bson:"content"` // This should be a marschalled json of the action's content
 }
 
 type ChatSchema struct {
-	Id       string
-	UserId   string
-	ThreadId string
-	Role
-	Content []ChatSchemaContent
+	Id       string `json:"id" bson:"_id"`
+	UserId   string `json:"userId" bson:"userId"`
+	ThreadId string `json:"threadId" bson:"threadId"`
+	Role     `json:"role" bson:"role"`
+	Content  []ChatSchemaContent `json:"content" bson:"content"`
 }
 
 type AskRepository struct {

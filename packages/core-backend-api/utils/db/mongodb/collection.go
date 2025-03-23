@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"log"
 	"reflect"
-	"strings"
 
+	"github.com/gbenga504/travel-assistant/utils"
+	"github.com/gbenga504/travel-assistant/utils/errors"
+	"github.com/gbenga504/travel-assistant/utils/logger"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
@@ -29,7 +31,11 @@ func (co *MongoDBCollection) CreateOne(document interface{}) {
 	)
 
 	if err != nil {
-		// TODO: handle error
+		logger.Fatal("Cannot insert document", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrDatabaseIssue),
+			Message:       errors.Message(errors.ErrDatabaseIssue),
+			OriginalError: err.Error(),
+		})
 	}
 
 	if r, ok := result.InsertedID.(bson.ObjectID); ok {
@@ -60,7 +66,7 @@ func convertToBsonD(document interface{}) (result bson.D, documentRef reflect.Va
 		}
 
 		result = append(result, bson.E{
-			Key:   strings.ToLower(ref.Type().Field(i).Name),
+			Key:   utils.FirstLetterToLower(ref.Type().Field(i).Name),
 			Value: ref.Field(i).Interface(),
 		})
 	}

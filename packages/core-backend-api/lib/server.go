@@ -15,7 +15,7 @@ import (
 	"github.com/gbenga504/travel-assistant/lib/health"
 	healthcontroller "github.com/gbenga504/travel-assistant/lib/health/controller"
 	"github.com/gbenga504/travel-assistant/lib/middlewares"
-	util "github.com/gbenga504/travel-assistant/utils"
+	"github.com/gbenga504/travel-assistant/utils"
 	"github.com/gbenga504/travel-assistant/utils/agent/llms/gemini"
 	"github.com/gbenga504/travel-assistant/utils/db"
 	"github.com/gbenga504/travel-assistant/utils/db/mongodb"
@@ -32,12 +32,12 @@ type Server struct {
 }
 
 func NewServer(addr string) *Server {
-	GEMINI_API_KEY := util.LookupEnv("GEMINI_API_KEY")
+	GEMINI_API_KEY := utils.LookupEnv("GEMINI_API_KEY")
 	geminiClient := gemini.NewClient(context.Background(), GEMINI_API_KEY)
 
 	httpHandler := gin.New()
 
-	DATABASE_NAME := util.LookupEnv("DATABASE_NAME")
+	DATABASE_NAME := utils.LookupEnv("DATABASE_NAME")
 	db := mongodb.Connect(DATABASE_NAME)
 
 	// Apply global middlewares

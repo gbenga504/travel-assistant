@@ -3,7 +3,7 @@ package mongodb
 import (
 	"context"
 
-	util "github.com/gbenga504/travel-assistant/utils"
+	"github.com/gbenga504/travel-assistant/utils"
 	"github.com/gbenga504/travel-assistant/utils/db"
 	"github.com/gbenga504/travel-assistant/utils/errors"
 	"github.com/gbenga504/travel-assistant/utils/logger"
@@ -19,7 +19,7 @@ type MongoDB struct {
 var _ db.Db = (*MongoDB)(nil)
 
 func Connect(dbName string) *MongoDB {
-	uri := util.LookupEnv("MONGODB_URI")
+	uri := utils.LookupEnv("MONGODB_URI")
 	client, err := mongo.Connect(options.Client().ApplyURI(uri))
 
 	if err != nil {
