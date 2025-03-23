@@ -21,14 +21,19 @@ func NewAskController(service *askservice.AskService) *AskController {
 
 func (c *AskController) Post(ctx *gin.Context) {
 	var reqBody struct {
-		Query string `json:"query" binding:"required"`
+		Query    string `json:"query" binding:"required"`
+		ThreadId string `json:"threadId" binding:"required"`
 	}
 
 	if err := ctx.ShouldBindJSON(&reqBody); err != nil {
+		ctx.Header("Content-Type", "application/json")
+
 		ctx.JSON(
 			http.StatusBadRequest,
 			errors.ToErrorResponse(http.StatusText(http.StatusBadRequest), err.Error()),
 		)
+
+		return
 	}
 
 	ctx.Writer.Header().Set("Content-Type", "text/event-stream")
@@ -39,6 +44,7 @@ func (c *AskController) Post(ctx *gin.Context) {
 	done := make(chan bool)
 
 	c.service.RunStream(
+		reqBody.ThreadId,
 		reqBody.Query,
 		output,
 		done,

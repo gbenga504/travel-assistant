@@ -1,4 +1,4 @@
-import { useLocation } from "@remix-run/react";
+import { useLocation, useParams } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
 
 import { useApi } from "~/context/api-context";
@@ -8,6 +8,7 @@ import type { IThreadEntry } from "~/routes/($lang).search.$threadId/ThreadEntry
 export const useQueryAgent = (te: IThreadEntry[]) => {
   const { state } = useLocation();
   const sentInitialRequest = useRef(false);
+  const params = useParams<{ threadId: string; lang: string }>();
   const api = useApi();
   const [threadEntries, setThreadEntries] = useState<IThreadEntry[]>(te);
 
@@ -37,7 +38,7 @@ export const useQueryAgent = (te: IThreadEntry[]) => {
       },
     ]);
 
-    api.ask.send(query, function (_err, { done, message }) {
+    api.ask.send(query, params.threadId!, function (_err, { done, message }) {
       const status: IThreadEntry["status"] = done ? "COMPLETED" : "IN_PROGRESS";
 
       // We need to only reset the last entry

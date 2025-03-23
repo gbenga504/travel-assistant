@@ -4,6 +4,7 @@ import (
 	"context"
 
 	askrepository "github.com/gbenga504/travel-assistant/lib/ask/repository"
+	"github.com/gbenga504/travel-assistant/utils/agent"
 	"github.com/gbenga504/travel-assistant/utils/agent/llms/gemini"
 	travelagent "github.com/gbenga504/travel-assistant/utils/travel_agent"
 )
@@ -20,13 +21,17 @@ func NewAskService(repository *askrepository.AskRepository, geminiClient *gemini
 	}
 }
 
-func (s *AskService) RunStream(query string, writer chan<- string, done chan<- bool) {
-	s.respository.CreateChat()
+func (s *AskService) RunStream(threadId string, query string, writer chan<- string, done chan<- bool) {
+	ta := travelagent.SetupTravelAgent(s.geminiClient)
 
-	agent := travelagent.SetupTravelAgent(s.geminiClient)
+	ta.ListenAndNotifyHistoryChange = func(h agent.History) {
+		chatSchema := convertHistoryToChatSchema(threadId, h)
+
+		s.respository.CreateChat(&chatSchema)
+	}
 
 	go func() {
-		agent.RunStream(context.Background(), query, func(ctx context.Context, chunks []byte) {
+		ta.RunStream(context.Background(), query, func(ctx context.Context, chunks []byte) {
 			writer <- string(chunks)
 		})
 

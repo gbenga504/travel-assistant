@@ -12,6 +12,7 @@ export class Ask {
 
   async send(
     query: string,
+    threadId: string,
     callback: (
       err: Error | null,
       { done, message }: { done: boolean; message: string }
@@ -24,7 +25,7 @@ export class Ask {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, threadId }),
       signal: ctrl.signal,
       // Since we don't have last event ID implemented, we want to keep
       // the connection open even when the document is not visible

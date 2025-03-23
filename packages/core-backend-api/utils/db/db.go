@@ -6,5 +6,5 @@ type Db interface {
 }
 
 type Collection interface {
-	CreateOne()
+	CreateOne(document interface{})
 }
