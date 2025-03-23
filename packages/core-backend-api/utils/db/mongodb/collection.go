@@ -2,7 +2,6 @@ package mongodb
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"reflect"
 
@@ -39,8 +38,6 @@ func (co *MongoDBCollection) CreateOne(document interface{}) {
 	}
 
 	if r, ok := result.InsertedID.(bson.ObjectID); ok {
-		fmt.Println(r.Hex())
-
 		prop := documentRef.FieldByName("Id")
 		prop.Set(reflect.ValueOf(r.Hex()))
 	}
