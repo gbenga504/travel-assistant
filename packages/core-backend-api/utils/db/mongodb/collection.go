@@ -30,7 +30,7 @@ func (co *MongoDBCollection) CreateOne(document interface{}) {
 	)
 
 	if err != nil {
-		logger.Fatal("Cannot insert document", logger.ErrorOpt{
+		logger.Fatal("CreateOne DB operation failed", logger.ErrorOpt{
 			Name:          errors.Name(errors.ErrDatabaseIssue),
 			Message:       errors.Message(errors.ErrDatabaseIssue),
 			OriginalError: err.Error(),
@@ -40,6 +40,30 @@ func (co *MongoDBCollection) CreateOne(document interface{}) {
 	if r, ok := result.InsertedID.(bson.ObjectID); ok {
 		prop := documentRef.FieldByName("Id")
 		prop.Set(reflect.ValueOf(r.Hex()))
+	}
+}
+
+func (co *MongoDBCollection) FindMany(filter interface{}, documents interface{}) {
+	// TODO: Find a generic way to handle filters to repository don't need to
+	// know about its implementation detail
+	cursor, err := co.collection.Find(context.Background(), filter)
+
+	if err != nil {
+		logger.Fatal("FindMany DB operation failed", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrDatabaseIssue),
+			Message:       errors.Message(errors.ErrDatabaseIssue),
+			OriginalError: err.Error(),
+		})
+	}
+
+	err = cursor.All(context.Background(), documents)
+
+	if err != nil {
+		logger.Fatal("FindMany decoding DB operation failed", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrDatabaseIssue),
+			Message:       errors.Message(errors.ErrDatabaseIssue),
+			OriginalError: err.Error(),
+		})
 	}
 }
 

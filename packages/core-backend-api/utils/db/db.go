@@ -7,4 +7,5 @@ type Db interface {
 
 type Collection interface {
 	CreateOne(document interface{})
+	FindMany(filter interface{}, documents interface{})
 }

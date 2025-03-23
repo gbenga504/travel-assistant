@@ -2,6 +2,7 @@ package askrepository
 
 import (
 	"github.com/gbenga504/travel-assistant/utils/db"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 type Role string
@@ -46,4 +47,21 @@ func NewAskRepository(db db.Db) *AskRepository {
 
 func (r *AskRepository) CreateChat(chatSchema *ChatSchema) {
 	r.collection.CreateOne(chatSchema)
+}
+
+func (r *AskRepository) GetChatsByThreadId(threadId string) []ChatSchema {
+	var chatSchemas []ChatSchema
+
+	r.collection.FindMany(
+		bson.D{{
+			Key: "threadId",
+			Value: bson.D{{
+				Key:   "$eq",
+				Value: threadId,
+			}},
+		}},
+		&chatSchemas,
+	)
+
+	return chatSchemas
 }

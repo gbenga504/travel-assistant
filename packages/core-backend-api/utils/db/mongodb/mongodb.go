@@ -20,7 +20,13 @@ var _ db.Db = (*MongoDB)(nil)
 
 func Connect(dbName string) *MongoDB {
 	uri := utils.LookupEnv("MONGODB_URI")
-	client, err := mongo.Connect(options.Client().ApplyURI(uri))
+	client, err := mongo.Connect(options.Client().
+		ApplyURI(uri).
+		SetBSONOptions(&options.BSONOptions{
+			// Automatically convert ObjectID to hex string
+			ObjectIDAsHexString: true,
+		}),
+	)
 
 	if err != nil {
 		logger.Fatal("Cannot connect to MongoDB", logger.ErrorOpt{

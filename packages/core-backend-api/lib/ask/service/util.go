@@ -21,3 +21,25 @@ func convertHistoryToChatSchema(threadId string, history agent.History) askrepos
 		Content:  chatSchemaContent,
 	}
 }
+
+func convertChatSchemasToHistories(chatSchemas []askrepository.ChatSchema) []*agent.History {
+	var histories []*agent.History
+
+	for _, cs := range chatSchemas {
+		var content []agent.HistoryContent
+
+		for _, c := range cs.Content {
+			content = append(content, agent.HistoryContent{
+				Action:  agent.Action(c.Action),
+				Content: c.Content,
+			})
+		}
+
+		histories = append(histories, &agent.History{
+			Role:    agent.Role(cs.Role),
+			Content: content,
+		})
+	}
+
+	return histories
+}

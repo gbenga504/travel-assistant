@@ -23,7 +23,9 @@ func NewAskService(repository *askrepository.AskRepository, geminiClient *gemini
 
 func (s *AskService) RunStream(threadId string, query string, writer chan<- string, done chan<- bool) {
 	ta := travelagent.SetupTravelAgent(s.geminiClient)
+	chatSchemas := s.respository.GetChatsByThreadId(threadId)
 
+	ta.History = convertChatSchemasToHistories(chatSchemas)
 	ta.ListenAndNotifyHistoryChange = func(h agent.History) {
 		chatSchema := convertHistoryToChatSchema(threadId, h)
 
