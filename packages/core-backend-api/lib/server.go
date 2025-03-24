@@ -8,13 +8,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gbenga504/travel-assistant/lib/ask"
-	askcontroller "github.com/gbenga504/travel-assistant/lib/ask/controller"
-	askrepository "github.com/gbenga504/travel-assistant/lib/ask/repository"
-	askservice "github.com/gbenga504/travel-assistant/lib/ask/service"
 	"github.com/gbenga504/travel-assistant/lib/health"
 	healthcontroller "github.com/gbenga504/travel-assistant/lib/health/controller"
 	"github.com/gbenga504/travel-assistant/lib/middlewares"
+	"github.com/gbenga504/travel-assistant/lib/thread"
+	threadcontroller "github.com/gbenga504/travel-assistant/lib/thread/controller"
+	threadrepository "github.com/gbenga504/travel-assistant/lib/thread/repository"
+	threadservice "github.com/gbenga504/travel-assistant/lib/thread/service"
 	"github.com/gbenga504/travel-assistant/utils"
 	"github.com/gbenga504/travel-assistant/utils/agent/llms/gemini"
 	"github.com/gbenga504/travel-assistant/utils/db"
@@ -45,11 +45,11 @@ func NewServer(addr string) *Server {
 
 	v1 := httpHandler.Group("/api/v1")
 
-	// Ask
-	askRepository := askrepository.NewAskRepository(db)
-	askService := askservice.NewAskService(askRepository, geminiClient)
-	askController := askcontroller.NewAskController(askService)
-	ask.ConnectRoutes(v1, askController)
+	// Thread
+	threadRepository := threadrepository.NewThreadRepository(db)
+	threadService := threadservice.NewThreadService(threadRepository, geminiClient)
+	threadController := threadcontroller.NewThreadController(threadService)
+	thread.ConnectRoutes(v1, threadController)
 
 	// Health
 	healthController := healthcontroller.NewHealthController()

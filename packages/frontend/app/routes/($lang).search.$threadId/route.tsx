@@ -41,7 +41,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function Route() {
   const [isMessageboxGrowing, setIsMessageboxGrowing] = useState(false);
   const data = useLoaderData<typeof loader>();
-  const { threadEntries, queryAgent } = useQueryAgent(data);
+  const { thread, queryAgent } = useQueryAgent(data);
   const [message, setMessage] = useState("");
 
   const handleSendQuery = (query: string) => {
@@ -53,7 +53,7 @@ export default function Route() {
     return (
       <MaxWidthContainer className="w-full h-full xl:w-[1036px] md:px-8 overflow-y-scroll">
         <ul className="w-full relative">
-          {threadEntries.map((te, index) => (
+          {thread.map((te, index) => (
             <li
               className="w-full border-b border-gray-200 dark:border-white/10"
               key={index}

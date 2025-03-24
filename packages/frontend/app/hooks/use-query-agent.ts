@@ -10,7 +10,7 @@ export const useQueryAgent = (te: IThreadEntry[]) => {
   const sentInitialRequest = useRef(false);
   const params = useParams<{ threadId: string; lang: string }>();
   const api = useApi();
-  const [threadEntries, setThreadEntries] = useState<IThreadEntry[]>(te);
+  const [thread, setThread] = useState<IThreadEntry[]>(te);
 
   useEffect(() => {
     // If the request was not triggered from the search index page, then we don't need to
@@ -29,7 +29,7 @@ export const useQueryAgent = (te: IThreadEntry[]) => {
   function queryAgent(query: string) {
     // We want to have some sort of optimistic update so we can give
     // the user some early feedback
-    setThreadEntries((prev) => [
+    setThread((prev) => [
       ...prev,
       {
         question: query,
@@ -38,25 +38,31 @@ export const useQueryAgent = (te: IThreadEntry[]) => {
       },
     ]);
 
-    api.ask.send(query, params.threadId!, function (_err, { done, message }) {
-      const status: IThreadEntry["status"] = done ? "COMPLETED" : "IN_PROGRESS";
+    api.thread.send(
+      query,
+      params.threadId!,
+      function (_err, { done, message }) {
+        const status: IThreadEntry["status"] = done
+          ? "COMPLETED"
+          : "IN_PROGRESS";
 
-      // We need to only reset the last entry
-      setThreadEntries((prev) => {
-        const otherEntries = prev.slice(0, prev.length - 1);
-        const lastEntry = prev[prev.length - 1];
+        // We need to only reset the last entry
+        setThread((prev) => {
+          const otherEntries = prev.slice(0, prev.length - 1);
+          const lastEntry = prev[prev.length - 1];
 
-        return [
-          ...otherEntries,
-          {
-            question: query,
-            status,
-            answer: `${lastEntry.answer}${message}`,
-          },
-        ];
-      });
-    });
+          return [
+            ...otherEntries,
+            {
+              question: query,
+              status,
+              answer: `${lastEntry.answer}${message}`,
+            },
+          ];
+        });
+      }
+    );
   }
 
-  return { threadEntries, queryAgent };
+  return { thread, queryAgent };
 };

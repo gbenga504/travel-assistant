@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { configuration } from "~/utils/configuration";
 
-import { Ask } from "./ask";
+import { Thread } from "./thread";
 
 export const createApiClient = () => {
   const httpClient = axios.create({
@@ -10,9 +10,9 @@ export const createApiClient = () => {
     timeout: 8000,
   });
 
-  const ask = new Ask(httpClient);
+  const thread = new Thread(httpClient);
 
-  return { ask };
+  return { thread };
 };
 
 export type ICreateApiClient = ReturnType<typeof createApiClient>;
