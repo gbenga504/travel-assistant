@@ -1,5 +1,7 @@
 import { nanoid } from "nanoid";
 
+export const INITIAL_SEARCH_QUERY_KEY = "@INITIAL_SEARCH_QUERY_KEY";
+
 export const encodeThreadIdParam = (message: string): string => {
   const formattedMessage = message
     .toLowerCase()

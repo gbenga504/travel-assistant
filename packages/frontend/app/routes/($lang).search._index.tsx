@@ -5,7 +5,10 @@ import { AppHeader } from "~/shared-components/app-header";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Messagebox } from "~/shared-components/message-box/message-box";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
-import { encodeThreadIdParam } from "~/utils/search-util";
+import {
+  encodeThreadIdParam,
+  INITIAL_SEARCH_QUERY_KEY,
+} from "~/utils/search-util";
 
 import type { MetaFunction } from "@remix-run/node";
 
@@ -22,12 +25,13 @@ export default function Route() {
   const [message, setMessage] = useState("");
 
   const handleSendQuery = (query: string) => {
+    sessionStorage.setItem(INITIAL_SEARCH_QUERY_KEY, query);
+
     navigate(
       constructURL({
         routeId: ROUTE_IDS.searchPage,
         params: { lang: lang!, id: encodeThreadIdParam(query) },
-      }),
-      { state: { query } }
+      })
     );
   };
 
