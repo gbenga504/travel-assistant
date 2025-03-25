@@ -72,5 +72,9 @@ func (s *ThreadService) GetThreadByIdWithGroupedEntries(id string) []GroupedThre
 		result = append(result, *groupedThreadEntry)
 	}
 
+	if len(result) == 0 {
+		return []GroupedThreadEntry{}
+	}
+
 	return result
 }

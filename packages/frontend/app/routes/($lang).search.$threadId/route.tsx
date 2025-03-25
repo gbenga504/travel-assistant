@@ -1,3 +1,4 @@
+import { redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import classNames from "classnames";
 import { useState } from "react";
@@ -38,6 +39,12 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   const api = createApiClient();
   const result = await api.thread.getThread(params.threadId!);
+
+  if (result.data.length === 0) {
+    return redirect(
+      constructURL({ routeId: ROUTE_IDS.searchWelcomePage, params })
+    );
+  }
 
   return Response.json(result.data);
 };

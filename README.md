@@ -56,8 +56,6 @@ The following are some of the requirements of the AI:
 
 ## TODO
 
-- Save in the db
-- If no thread found then redirect to the search page
 - Add updatedAt and createdAt so I can properly other thread entries
 
 - Formatting the response properly and make the clicks work [maps, look and fee etc]
