@@ -76,4 +76,10 @@ export class Thread {
       },
     });
   }
+
+  async getThread(id: string) {
+    const { data } = await this.httpClient.get(`/thread/${id}`);
+
+    return data;
+  }
 }

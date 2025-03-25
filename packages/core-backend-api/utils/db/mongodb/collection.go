@@ -67,6 +67,31 @@ func (co *MongoDBCollection) FindMany(filter interface{}, documents interface{})
 	}
 }
 
+func (co *MongoDBCollection) Aggregate(aggregationFilter []bson.D) []bson.M {
+	cursor, err := co.collection.Aggregate(context.Background(), aggregationFilter)
+
+	if err != nil {
+		logger.Fatal("Aggregate DB operation failed", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrDatabaseIssue),
+			Message:       errors.Message(errors.ErrDatabaseIssue),
+			OriginalError: err.Error(),
+		})
+	}
+
+	defer cursor.Close(context.Background())
+
+	var results []bson.M
+	if err = cursor.All(context.Background(), &results); err != nil {
+		logger.Fatal("Aggregate DB operation failed: Cursor.All failed", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrDatabaseIssue),
+			Message:       errors.Message(errors.ErrDatabaseIssue),
+			OriginalError: err.Error(),
+		})
+	}
+
+	return results
+}
+
 func convertToBsonD(document interface{}) (result bson.D, documentRef reflect.Value) {
 	ref := reflect.ValueOf(document)
 

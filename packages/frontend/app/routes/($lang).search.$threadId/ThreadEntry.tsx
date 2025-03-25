@@ -3,11 +3,7 @@ import { Box } from "react-bootstrap-icons";
 
 import { LoadingSection } from "~/shared-components/loading-section";
 
-export interface IThreadEntry {
-  question: string;
-  status: "PENDING" | "IN_PROGRESS" | "COMPLETED";
-  answer: string;
-}
+import type { IThreadEntry } from "~/utils/search-util";
 
 export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
   const renderMainView = () => {

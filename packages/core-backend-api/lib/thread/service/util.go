@@ -5,7 +5,7 @@ import (
 	"github.com/gbenga504/travel-assistant/utils/agent"
 )
 
-func convertHistoryToThreadEntrySchema(threadId string, history agent.History) threadrepository.ThreadEntrySchema {
+func convertHistoryToThreadEntrySchema(threadId string, groupId string, history agent.History) threadrepository.ThreadEntrySchema {
 	var threadEntrySchemaContent []threadrepository.ThreadEntrySchemaContent
 
 	for _, c := range history.Content {
@@ -17,6 +17,7 @@ func convertHistoryToThreadEntrySchema(threadId string, history agent.History) t
 
 	return threadrepository.ThreadEntrySchema{
 		ThreadId: threadId,
+		GroupId:  groupId,
 		Role:     threadrepository.Role(history.Role),
 		Content:  threadEntrySchemaContent,
 	}

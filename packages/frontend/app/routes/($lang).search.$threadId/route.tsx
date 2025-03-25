@@ -2,18 +2,20 @@ import { useLoaderData } from "@remix-run/react";
 import classNames from "classnames";
 import { useState } from "react";
 
+import { createApiClient } from "~/api/api";
 import { useQueryAgent } from "~/hooks/use-query-agent";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Messagebox } from "~/shared-components/message-box/message-box";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
+import { transformToThreadEntry } from "~/utils/search-util";
 
 import { ThreadEntry } from "./ThreadEntry";
 
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
-export const meta: MetaFunction = ({ params }) => {
+export const meta: MetaFunction = () => {
   return [
-    { title: `Waka Travel | Search ${params.id}` },
+    { title: `Waka Travel | Search` },
     { name: "description", content: "Plan your next trip fast and smart" },
   ];
 };
@@ -34,14 +36,16 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     return Response.json([]);
   }
 
-  // TODO: Load all messages for the search and return as JSON
-  return Response.json([]);
+  const api = createApiClient();
+  const result = await api.thread.getThread(params.threadId!);
+
+  return Response.json(result.data);
 };
 
 export default function Route() {
   const [isMessageboxGrowing, setIsMessageboxGrowing] = useState(false);
   const data = useLoaderData<typeof loader>();
-  const { thread, queryAgent } = useQueryAgent(data);
+  const { thread, queryAgent } = useQueryAgent(transformToThreadEntry(data));
   const [message, setMessage] = useState("");
 
   const handleSendQuery = (query: string) => {

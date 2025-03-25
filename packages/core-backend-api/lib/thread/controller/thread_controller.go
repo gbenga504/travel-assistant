@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	threadservice "github.com/gbenga504/travel-assistant/lib/thread/service"
-	"github.com/gbenga504/travel-assistant/utils/errors"
+	"github.com/gbenga504/travel-assistant/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -30,7 +30,7 @@ func (c *ThreadController) Post(ctx *gin.Context) {
 
 		ctx.JSON(
 			http.StatusBadRequest,
-			errors.ToErrorResponse(http.StatusText(http.StatusBadRequest), err.Error()),
+			utils.ToErrorResponse(http.StatusText(http.StatusBadRequest), err.Error()),
 		)
 
 		return
@@ -64,4 +64,11 @@ func (c *ThreadController) Post(ctx *gin.Context) {
 			return false
 		}
 	})
+}
+
+func (c *ThreadController) Get(ctx *gin.Context) {
+	id := ctx.Param("id")
+	result := c.service.GetThreadByIdWithGroupedEntries(id)
+
+	ctx.JSON(http.StatusOK, utils.ToSuccessResponse(result))
 }

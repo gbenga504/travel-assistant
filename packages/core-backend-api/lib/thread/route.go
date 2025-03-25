@@ -9,4 +9,5 @@ func ConnectRoutes(httpHandler *gin.RouterGroup, controller *threadcontroller.Th
 	httpHandler = httpHandler.Group("/thread")
 
 	httpHandler.POST("/ask", controller.Post)
+	httpHandler.GET("/:id", controller.Get)
 }

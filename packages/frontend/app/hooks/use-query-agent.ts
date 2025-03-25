@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useApi } from "~/context/api-context";
 import { INITIAL_SEARCH_QUERY_KEY } from "~/utils/search-util";
 
-import type { IThreadEntry } from "~/routes/($lang).search.$threadId/ThreadEntry";
+import type { IThreadEntry } from "~/utils/search-util";
 
 export const useQueryAgent = (te: IThreadEntry[]) => {
   const params = useParams<{ threadId: string; lang: string }>();

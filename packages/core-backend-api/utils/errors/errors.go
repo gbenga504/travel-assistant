@@ -9,6 +9,7 @@ const (
 	ErrAIParseIssue      CustomError = "ErrAIParseIssue"
 	ErrServerClosed      CustomError = "ErrServerClosed"
 	ErrDatabaseIssue     CustomError = "ErrDatabaseIssue"
+	ErrJSONParseIssue    CustomError = "ErrJSONParseIssue"
 )
 
 func Name(err CustomError) string {
@@ -27,17 +28,9 @@ func Message(err CustomError) string {
 		return "Server was closed"
 	case ErrDatabaseIssue:
 		return "Database had an issue"
+	case ErrJSONParseIssue:
+		return "Cannot parse JSON"
 	default:
 		return "Cannot match error"
-	}
-}
-
-func ToErrorResponse(name string, message string) map[string]any {
-	return map[string]any{
-		"success": false,
-		"data": map[string]any{
-			"name":    name,
-			"message": message,
-		},
 	}
 }
