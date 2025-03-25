@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"reflect"
+	"time"
 
 	"github.com/gbenga504/travel-assistant/utils"
 	"github.com/gbenga504/travel-assistant/utils/errors"
@@ -24,6 +25,16 @@ func NewMongoDBCollection(m *MongoDB, collection string) *MongoDBCollection {
 
 func (co *MongoDBCollection) CreateOne(document interface{}) {
 	bsonD, documentRef := convertToBsonD(document)
+
+	// Add UpdatedAt and CreatedAt to the bsonD
+	bsonD = append(bsonD, bson.E{
+		Key:   "createdAt",
+		Value: time.Now(),
+	}, bson.E{
+		Key:   "updatedAt",
+		Value: time.Now(),
+	})
+
 	result, err := co.collection.InsertOne(
 		context.Background(),
 		bsonD,

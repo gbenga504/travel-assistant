@@ -2,6 +2,7 @@ package threadrepository
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/gbenga504/travel-assistant/utils/db"
 	"github.com/gbenga504/travel-assistant/utils/errors"
@@ -32,12 +33,14 @@ type ThreadEntrySchemaContent struct {
 }
 
 type ThreadEntrySchema struct {
-	Id       string `json:"id" bson:"_id"`
-	UserId   string `json:"userId" bson:"userId"`
-	ThreadId string `json:"threadId" bson:"threadId"`
-	GroupId  string `json:"groupId" bson:"groupId"`
-	Role     `json:"role" bson:"role"`
-	Content  []ThreadEntrySchemaContent `json:"content" bson:"content"`
+	Id        string `json:"id" bson:"_id"`
+	UserId    string `json:"userId" bson:"userId"`
+	ThreadId  string `json:"threadId" bson:"threadId"`
+	GroupId   string `json:"groupId" bson:"groupId"`
+	Role      `json:"role" bson:"role"`
+	Content   []ThreadEntrySchemaContent `json:"content" bson:"content"`
+	UpdatedAt time.Time                  `json:"updatedAt" bson:"updatedAt"`
+	CreatedAt time.Time                  `json:"createdAt" bson:"createdAt"`
 }
 
 type ThreadRepository struct {
