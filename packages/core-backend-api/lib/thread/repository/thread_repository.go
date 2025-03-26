@@ -88,10 +88,28 @@ func (r *ThreadRepository) GetThreadByIdWithGroupedEntries(threadId string) []Th
 
 	aggData := r.collection.Aggregate(
 		[]bson.D{
+			// Match documents with the specified threadId
 			{{Key: "$match", Value: bson.D{{Key: "threadId", Value: threadId}}}},
+
+			// Group documents by groupId and collect entries
 			{{Key: "$group", Value: bson.D{
 				{Key: "_id", Value: "$groupId"},
 				{Key: "entries", Value: bson.D{{Key: "$push", Value: "$$ROOT"}}},
+			}}},
+
+			// Sort individual entries within each group (oldest first)
+			{{Key: "$addFields", Value: bson.D{
+				{Key: "entries", Value: bson.D{
+					{Key: "$sortArray", Value: bson.D{
+						{Key: "input", Value: "$entries"},
+						{Key: "sortBy", Value: bson.D{{Key: "createdAt", Value: 1}}},
+					}},
+				}},
+			}}},
+
+			// Sort groups by the first entry's createdAt in ascending order (oldest first)
+			{{Key: "$sort", Value: bson.D{
+				{Key: "entries.0.createdAt", Value: 1},
 			}}},
 		},
 	)

@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"reflect"
+	"slices"
 	"time"
 
 	"github.com/gbenga504/travel-assistant/utils"
@@ -11,6 +12,7 @@ import (
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
+	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
 type MongoDBCollection struct {
@@ -24,7 +26,7 @@ func NewMongoDBCollection(m *MongoDB, collection string) *MongoDBCollection {
 }
 
 func (co *MongoDBCollection) CreateOne(document interface{}) {
-	bsonD, documentRef := convertToBsonD(document)
+	bsonD, documentRef := convertToBsonD(document, []string{"Id", "CreatedAt", "UpdatedAt"})
 
 	// Add UpdatedAt and CreatedAt to the bsonD
 	bsonD = append(bsonD, bson.E{
@@ -57,7 +59,10 @@ func (co *MongoDBCollection) CreateOne(document interface{}) {
 func (co *MongoDBCollection) FindMany(filter interface{}, documents interface{}) {
 	// TODO: Find a generic way to handle filters to repository don't need to
 	// know about its implementation detail
-	cursor, err := co.collection.Find(context.Background(), filter)
+
+	// Sort by ascending createdAt by default i.e oldest first to newest
+	sortOpt := options.Find().SetSort(bson.D{{Key: "createdAt", Value: 1}})
+	cursor, err := co.collection.Find(context.Background(), filter, sortOpt)
 
 	if err != nil {
 		logger.Fatal("FindMany DB operation failed", logger.ErrorOpt{
@@ -103,7 +108,7 @@ func (co *MongoDBCollection) Aggregate(aggregationFilter []bson.D) []bson.M {
 	return results
 }
 
-func convertToBsonD(document interface{}) (result bson.D, documentRef reflect.Value) {
+func convertToBsonD(document interface{}, ignoreFields []string) (result bson.D, documentRef reflect.Value) {
 	ref := reflect.ValueOf(document)
 
 	// if its a pointer, resolve its value
@@ -117,8 +122,8 @@ func convertToBsonD(document interface{}) (result bson.D, documentRef reflect.Va
 	}
 
 	for i := 0; i < ref.NumField(); i++ {
-		// We don't want to include the Id field in the document
-		if ref.Type().Field(i).Name == "Id" {
+		// We don't want to include the fields that should be ignored in the bsonD
+		if slices.Contains(ignoreFields, ref.Type().Field(i).Name) {
 			continue
 		}
 
