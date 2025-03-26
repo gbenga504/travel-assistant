@@ -20,7 +20,7 @@ export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
           />
           <span className="text-lg ml-3">Answer</span>
         </div>
-        <div className="mt-2 mb-24 font-light">
+        <div className="mt-2 mb-8 font-light">
           {status === "PENDING" && <LoadingSection />}
           {status !== "PENDING" && <Markdown>{answer}</Markdown>}
         </div>
@@ -29,8 +29,6 @@ export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
   };
 
   return (
-    <div className="w-full relative gap-x-8 grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
-      {renderMainView()}
-    </div>
+    <div className="w-full relative grid grid-cols-1">{renderMainView()}</div>
   );
 };

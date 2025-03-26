@@ -62,7 +62,7 @@ export default function Route() {
 
   const renderThread = () => {
     return (
-      <MaxWidthContainer className="w-full h-full xl:w-[1036px] md:px-8 overflow-y-scroll">
+      <MaxWidthContainer className="w-full h-full xl:w-[772px] md:px-8 overflow-y-scroll">
         <ul className="w-full relative">
           {thread.map((te, index) => (
             <li
@@ -80,7 +80,7 @@ export default function Route() {
   const renderMessagebox = () => {
     return (
       <footer className="w-full absolute bottom-4 flex justify-center">
-        <MaxWidthContainer className="w-full gap-x-8 z-50 grid grid-cols-1 lg:grid-cols-[2fr_1fr] xl:w-[1036px] md:px-8">
+        <MaxWidthContainer className="w-full z-50 grid grid-cols-1 xl:w-[772px] md:px-8">
           <div
             className={classNames(
               "w-full p-2 rounded-full bg-white dark:bg-gray-900",
