@@ -10,7 +10,7 @@ import { Messagebox } from "~/shared-components/message-box/message-box";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 import { transformToThreadEntry } from "~/utils/search-util";
 
-import { ThreadEntry } from "./ThreadEntry";
+import { ThreadEntry } from "./thread-entry";
 
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
