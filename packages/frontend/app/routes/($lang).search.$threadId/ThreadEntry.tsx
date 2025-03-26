@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Markdown from "markdown-to-jsx";
 import { Box } from "react-bootstrap-icons";
 
 import { LoadingSection } from "~/shared-components/loading-section";
@@ -21,9 +22,7 @@ export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
         </div>
         <div className="mt-2 mb-24 font-light">
           {status === "PENDING" && <LoadingSection />}
-          {status !== "PENDING" && (
-            <p dangerouslySetInnerHTML={{ __html: answer }} />
-          )}
+          {status !== "PENDING" && <Markdown>{answer}</Markdown>}
         </div>
       </div>
     );
