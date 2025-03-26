@@ -59,14 +59,13 @@ func (p Prompt) constraintsPrompt() string {
 
 func (p Prompt) contextPrompt() string {
 	now := time.Now()
-	today := now.Format("26th January, 2025")
+	today := now.Format("2 January, 2006")
+
+	fmt.Printf("Today is %s", today)
 
 	t := `
     <CONTEXT>
 		Today is %s
-		User Language is English
-		User is currently in Berlin, Germany
-		User's currency is EURO
         %s
     </CONTEXT>
     `
