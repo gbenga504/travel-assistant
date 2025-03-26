@@ -56,7 +56,7 @@ The following are some of the requirements of the AI:
 
 ## TODO
 
-- Add updatedAt and createdAt so I can properly other thread entries
+- Save the user's name in the DB, maybe with login information
 
 - Formatting the response properly and make the clicks work [maps, look and fee etc]
 - Integrate with actual data

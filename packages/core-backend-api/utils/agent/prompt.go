@@ -61,8 +61,6 @@ func (p Prompt) contextPrompt() string {
 	now := time.Now()
 	today := now.Format("2 January, 2006")
 
-	fmt.Printf("Today is %s", today)
-
 	t := `
     <CONTEXT>
 		Today is %s

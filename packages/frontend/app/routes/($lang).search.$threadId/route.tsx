@@ -63,7 +63,7 @@ export default function Route() {
   const renderThread = () => {
     return (
       <MaxWidthContainer className="w-full h-full xl:w-[772px] md:px-8 overflow-y-scroll">
-        <ul className="w-full relative">
+        <ul className="w-full relative pb-36">
           {thread.map((te, index) => (
             <li
               className="w-full border-b border-gray-200 dark:border-white/10"
