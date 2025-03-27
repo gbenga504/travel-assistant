@@ -36,7 +36,7 @@ func NewGeminiAgent(gc *GeminiClient, modelName string) *GeminiAgent {
 	model.SetTemperature(1)
 	model.SetTopK(40)
 	model.SetTopP(0.95)
-	model.SetMaxOutputTokens(8192)
+	model.SetMaxOutputTokens(4000)
 	model.ResponseMIMEType = "text/plain"
 
 	return &GeminiAgent{
