@@ -22,7 +22,7 @@ export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
           />
           <span className="ml-3 font-light">Reply</span>
         </div>
-        <div className="mt-2 mb-8 font-light">
+        <div className="mt-2 mb-8 font-extralight">
           {status === "PENDING" && <LoadingSection />}
           {status !== "PENDING" && (
             <Markdown
