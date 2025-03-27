@@ -62,18 +62,20 @@ export default function Route() {
 
   const renderThread = () => {
     return (
-      <MaxWidthContainer className="w-full h-full xl:w-[772px] md:px-8 overflow-y-scroll">
-        <ul className="w-full relative pb-36">
-          {thread.map((te, index) => (
-            <li
-              className="w-full border-b border-gray-200 dark:border-white/10"
-              key={index}
-            >
-              <ThreadEntry {...te} />
-            </li>
-          ))}
-        </ul>
-      </MaxWidthContainer>
+      <div className="w-full h-full relative overflow-y-scroll flex justify-center">
+        <MaxWidthContainer className="w-full h-full xl:w-[772px] md:px-8">
+          <ul className="w-full relative pb-36 pt-6">
+            {thread.map((te, index) => (
+              <li
+                className="w-full border-b border-gray-200 dark:border-white/10"
+                key={index}
+              >
+                <ThreadEntry {...te} />
+              </li>
+            ))}
+          </ul>
+        </MaxWidthContainer>
+      </div>
     );
   };
 
