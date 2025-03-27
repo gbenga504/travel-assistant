@@ -1,7 +1,7 @@
 import { redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { createApiClient } from "~/api/api";
 import { useQueryAgent } from "~/hooks/use-query-agent";
@@ -54,6 +54,16 @@ export default function Route() {
   const data = useLoaderData<typeof loader>();
   const { thread, queryAgent } = useQueryAgent(transformToThreadEntry(data));
   const [message, setMessage] = useState("");
+  const chatSectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(
+    function scrollToBottom() {
+      if (chatSectionRef.current) {
+        chatSectionRef.current.scrollTop = chatSectionRef.current.scrollHeight;
+      }
+    },
+    [thread]
+  );
 
   const handleSendQuery = (query: string) => {
     queryAgent(query);
@@ -62,7 +72,10 @@ export default function Route() {
 
   const renderThread = () => {
     return (
-      <div className="w-full h-full relative overflow-y-scroll flex justify-center">
+      <div
+        className="w-full h-full relative overflow-y-scroll flex flex-col justify-center"
+        ref={chatSectionRef}
+      >
         <MaxWidthContainer className="w-full h-full xl:w-[772px] md:px-8">
           <ul className="w-full relative pb-10 pt-6">
             {thread.map((te, index) => (
