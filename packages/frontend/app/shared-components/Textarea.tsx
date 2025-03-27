@@ -29,7 +29,16 @@ export const TextArea = ({ className, onGrow, value, ...rest }: IProps) => {
     }
 
     textarea.style.height = `${newHeight}px`;
-    onGrow?.(newHeight > 20 ? true : false);
+
+    // If the newHeight is more than 20px, then we want the textarea to grow
+    // However, if the value of the textarea is more than 45 then we also want it to grow
+    let shouldGrow = newHeight > 20 ? true : false;
+
+    if (textarea.value.length > 45) {
+      shouldGrow = true;
+    }
+
+    onGrow?.(shouldGrow);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
