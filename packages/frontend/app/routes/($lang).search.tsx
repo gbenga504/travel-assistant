@@ -1,5 +1,5 @@
 import { Outlet, useParams } from "@remix-run/react";
-import { Backpack, Wallet2 } from "react-bootstrap-icons";
+import { Backpack } from "react-bootstrap-icons";
 
 import { Button } from "~/shared-components/button/button";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
@@ -42,15 +42,6 @@ export default function Route() {
             icon={<Backpack className="mr-1" />}
           >
             Home
-          </SidebarItem>
-          <SidebarItem
-            to={constructURL({
-              routeId: ROUTE_IDS.pricingPage,
-              params: { lang },
-            })}
-            icon={<Wallet2 className="mr-1" />}
-          >
-            Pricing
           </SidebarItem>
         </div>
         <div className="absolute bottom-0 full px-5 pb-5">
