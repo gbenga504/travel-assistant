@@ -20,7 +20,7 @@ export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
             })}
             size={20}
           />
-          <span className="ml-3">Answer</span>
+          <span className="ml-3 font-light">Reply</span>
         </div>
         <div className="mt-2 mb-8 font-light">
           {status === "PENDING" && <LoadingSection />}
