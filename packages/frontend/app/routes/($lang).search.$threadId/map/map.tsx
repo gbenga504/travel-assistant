@@ -2,6 +2,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 import "leaflet/dist/leaflet.css";
 
+// @see https://leaflet-extras.github.io/leaflet-providers/preview/ for the map layer
 const Map = () => {
   return (
     <MapContainer
