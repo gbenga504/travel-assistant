@@ -2,14 +2,17 @@ import { redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
+import { ClientOnly } from "remix-utils/client-only";
 
 import { createApiClient } from "~/api/api";
 import { useQueryAgent } from "~/hooks/use-query-agent";
+import { LoadingSpinner } from "~/shared-components/loading-spinner";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Messagebox } from "~/shared-components/message-box/message-box";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 import { transformToThreadEntry } from "~/utils/search-util";
 
+import { LazyMap } from "./map/lazy-map";
 import { ThreadEntry } from "./thread-entry";
 
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
@@ -76,7 +79,7 @@ export default function Route() {
         className="w-full h-full relative overflow-y-scroll flex flex-col justify-center"
         ref={chatSectionRef}
       >
-        <MaxWidthContainer className="w-full h-full xl:w-[772px] md:px-8">
+        <MaxWidthContainer className="w-full h-full lg:w-11/12 2xl:w-8/12 md:px-8">
           <ul className="w-full relative pb-10 pt-6">
             {thread.map((te, index) => (
               <li
@@ -95,7 +98,7 @@ export default function Route() {
   const renderMessagebox = () => {
     return (
       <footer className="w-full flex justify-center mb-2">
-        <MaxWidthContainer className="w-full z-50 grid grid-cols-1 xl:w-[772px] md:px-8">
+        <MaxWidthContainer className="w-full z-50 grid grid-cols-1 lg:w-11/12 2xl:w-8/12 md:px-8">
           <div
             className={classNames(
               "w-full p-2 rounded-full bg-white dark:bg-gray-900",
@@ -118,9 +121,16 @@ export default function Route() {
   };
 
   return (
-    <article className="w-full h-full overflow-hidden flex flex-col">
-      {renderThread()}
-      {renderMessagebox()}
+    <article className="w-full h-full grid grid-cols-2">
+      <section className="w-full h-full overflow-hidden flex flex-col">
+        {renderThread()}
+        {renderMessagebox()}
+      </section>
+      <section className="w-full flex justify-center items-center">
+        <ClientOnly fallback={<LoadingSpinner />}>
+          {() => <LazyMap />}
+        </ClientOnly>
+      </section>
     </article>
   );
 }
