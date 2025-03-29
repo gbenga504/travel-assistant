@@ -13,4 +13,9 @@ body {
   ********/
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(55.6% 0 0deg) transparent;
+}
+
 /*# sourceMappingURL=root.css.map */

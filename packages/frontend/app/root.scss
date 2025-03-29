@@ -14,3 +14,8 @@ body {
   } 
   ********/
 }
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.556 0 0) transparent;
+}
