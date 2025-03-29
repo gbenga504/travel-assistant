@@ -12,6 +12,7 @@ import { Messagebox } from "~/shared-components/message-box/message-box";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 import { transformToThreadEntry } from "~/utils/search-util";
 
+import { AppHeader } from "./app-header";
 import { LazyMap } from "./map/lazy-map";
 import { ThreadEntry } from "./thread-entry";
 
@@ -80,7 +81,7 @@ export default function Route() {
         ref={chatSectionRef}
       >
         <MaxWidthContainer className="w-full h-full lg:w-11/12 2xl:w-8/12 md:px-8">
-          <ul className="w-full relative pb-10 pt-6">
+          <ul className="w-full relative pb-10">
             {thread.map((te, index) => (
               <li
                 className="w-full border-b border-gray-200 dark:border-white/10"
@@ -121,16 +122,19 @@ export default function Route() {
   };
 
   return (
-    <article className="w-full h-full grid grid-cols-2">
-      <section className="w-full h-full overflow-hidden flex flex-col">
-        {renderThread()}
-        {renderMessagebox()}
-      </section>
-      <section className="w-full flex justify-center items-center">
-        <ClientOnly fallback={<LoadingSpinner />}>
-          {() => <LazyMap />}
-        </ClientOnly>
-      </section>
+    <article className="w-full h-full flex flex-col">
+      <AppHeader />
+      <main className="flex-1 overflow-hidden w-full grid grid-cols-2">
+        <section className="w-full h-full overflow-hidden flex flex-col">
+          {renderThread()}
+          {renderMessagebox()}
+        </section>
+        <section className="w-full flex justify-center items-center">
+          <ClientOnly fallback={<LoadingSpinner />}>
+            {() => <LazyMap />}
+          </ClientOnly>
+        </section>
+      </main>
     </article>
   );
 }
