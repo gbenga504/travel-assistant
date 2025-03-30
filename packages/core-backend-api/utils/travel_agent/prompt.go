@@ -89,8 +89,8 @@ func contextPrompt() string {
 func outputFormatPrompt() string {
 	return `
         1. Format your response in markdown
-        2. Important part of the response like places, attractions etc should be boldened
-        3. The name of the user should be wrapped with a "<span>" tag with a custom attribute "data-user-name" set to the name of the user e.g <span data-user-name="David">David</span>
+        2. The name of the user, places, attractions should be wrapped in a "<span>"
+        3. The html tag that wraps the user's name should have an attribute "data-type" set to "userName" and an attribute "data-value" set to the user's name e.g <span data-type="userName" data-value="David">David</span>
     `
 }
 
