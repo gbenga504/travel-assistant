@@ -22,7 +22,7 @@ func NewThreadService(repository *threadrepository.ThreadRepository, geminiClien
 	}
 }
 
-func (s *ThreadService) RunStream(threadId string, query string, writer chan<- string, done chan<- bool) {
+func (s *ThreadService) RunStream(threadId string, query string, writer chan<- string, done chan<- map[string]any) {
 	nanoid, _ := gonanoid.New()
 
 	ta := travelagent.SetupTravelAgent(s.geminiClient)
@@ -36,11 +36,11 @@ func (s *ThreadService) RunStream(threadId string, query string, writer chan<- s
 	}
 
 	go func() {
-		ta.RunStream(context.Background(), query, func(ctx context.Context, chunks []byte) {
+		finalResponse := ta.RunStream(context.Background(), query, func(ctx context.Context, chunks []byte) {
 			writer <- string(chunks)
 		})
 
-		done <- true
+		done <- map[string]any{"message": finalResponse}
 	}()
 }
 

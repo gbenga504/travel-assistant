@@ -41,7 +41,7 @@ func (c *ThreadController) Post(ctx *gin.Context) {
 	ctx.Writer.Header().Set("Connection", "keep-alive")
 
 	output := make(chan string)
-	done := make(chan bool)
+	done := make(chan map[string]any)
 
 	c.service.RunStream(
 		reqBody.ThreadId,
@@ -57,8 +57,10 @@ func (c *ThreadController) Post(ctx *gin.Context) {
 				"message": o,
 			})
 			return true
-		case <-done:
-			ctx.SSEvent("end_stream", gin.H{})
+		case doneResult := <-done:
+			ctx.SSEvent("end_stream", gin.H{
+				"message": doneResult["message"],
+			})
 			return false
 		case <-ctx.Writer.CloseNotify():
 			return false

@@ -76,7 +76,7 @@ func (ga *GeminiAgent) SetTools(tools []agent.Tool[*genai.Schema]) {
 	ga.model.Tools = genaiTools
 }
 
-func (ga *GeminiAgent) RunStream(ctx context.Context, userPrompt string, streamingFunc agent.StreamingFunc) {
+func (ga *GeminiAgent) RunStream(ctx context.Context, userPrompt string, streamingFunc agent.StreamingFunc) (finalResponse string) {
 	// Set the system instructions
 	ga.model.SystemInstruction = &genai.Content{
 		Parts: []genai.Part{genai.Text(ga.Prompt.Stitch())},
@@ -93,11 +93,20 @@ func (ga *GeminiAgent) RunStream(ctx context.Context, userPrompt string, streami
 	})
 
 	messageStream := ga.chatSession.SendMessageStream(ctx, prompt)
-	ga.processStream(ctx, prompt, messageStream, streamingFunc)
+
+	return ga.processStream(ctx, prompt, messageStream, streamingFunc)
 }
 
-func (ga *GeminiAgent) processStream(ctx context.Context, userPrompt genai.Text, ms *genai.GenerateContentResponseIterator, sf agent.StreamingFunc) {
+func (ga *GeminiAgent) processStream(ctx context.Context, userPrompt genai.Text, ms *genai.GenerateContentResponseIterator, sf agent.StreamingFunc) string {
 	resp, err := ms.Next()
+
+	if err != nil {
+		logger.Error("Error with initial response", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrAIParseIssue),
+			Message:       errors.Message(errors.ErrAIParseIssue),
+			OriginalError: err.Error(),
+		})
+	}
 
 	for resp != nil {
 		// TODO: Evaluate if it makes sense to do this or just call the streaming Func with the error
@@ -142,6 +151,24 @@ func (ga *GeminiAgent) processStream(ctx context.Context, userPrompt genai.Text,
 			}
 		}
 	}
+
+	// After processing the stream, we want to get the final AI text and return it
+	return retrieveFinalAITextResponse(ms)
+}
+
+func retrieveFinalAITextResponse(ms *genai.GenerateContentResponseIterator) string {
+	mergedResp := ms.MergedResponse()
+
+	text, ok := mergedResp.Candidates[0].Content.Parts[0].(genai.Text)
+
+	if !ok {
+		logger.Error("Final AI response is not a text", logger.ErrorOpt{
+			Name:    errors.Name(errors.ErrAIParseIssue),
+			Message: errors.Message(errors.ErrAIParseIssue),
+		})
+	}
+
+	return string(text)
 }
 
 func streamTextResponse(ctx context.Context, parts []genai.Part, sf agent.StreamingFunc) {

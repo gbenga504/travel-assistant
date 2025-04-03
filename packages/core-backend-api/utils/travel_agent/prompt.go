@@ -89,8 +89,12 @@ func contextPrompt() string {
 func outputFormatPrompt() string {
 	return `
         1. Format your response in markdown
-        2. The name of the user, places, attractions should be wrapped in a "<span>"
-        3. The html tag that wraps the user's name should have an attribute "data-type" set to "userName" and an attribute "data-value" set to the user's name e.g <span data-type="userName" data-value="David">David</span>
+        2. The name of the user, user's budget, places, attractions, travel dates should be wrapped in a "<span>"
+        3. The html tag that wraps the user's name should have an attribute "dataType" set to "userName" and an attribute "dataValue" set to the user's name e.g <span dataType="userName" dataValue="David">David</span>
+        4. The html tag that wraps the places should have an attribute "dataType" set to "location" and an attribute "dataValue" set to the actual location  e.g '<span dataType="place" dataValue="London">London</span>', '<span dataType="place" dataValue="Africa">Africa</span>'
+        5. The html tag that wraps the preferred travel destination of the user should have an additional html tag attribute "dataPreference" set to "preferred" e.g '<span dataType="place" dataValue="London" dataPreference="preferred">London</span>'
+        6. The html tag that wraps the user's budget should have an attribute "dataType" set to "budget" and an attribute "dataValue" set to the user's budget e.g '<span dataType="budget" dataValue="$1000">$1000</span>', '<span dataType="place" dataValue="Flexible">Flexible</span>'
+        7. The html tag that wraps the user's travel dates should have an attribute "dataType" set to "travelDates" and an attribute "dataValue" set to the actual travel dates e.g '<span dataType="travelDates" dataValue="June 18 - June 20">June 18 - June 20</span>', '<span dataType="travelDates" dataValue="3 days">3 days</span>'
     `
 }
 

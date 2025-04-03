@@ -51,7 +51,8 @@ export class Thread {
 
         // When we receive this event, the client needs to end the connection
         if (msg.event === "end_stream") {
-          callback(null, { message: "", done: true });
+          const data = JSON.parse(msg.data);
+          callback(null, { message: data.message, done: true });
 
           return ctrl.abort();
         }

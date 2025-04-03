@@ -47,5 +47,5 @@ type ToolAction[P any] interface {
 type Agent[Parameter any] interface {
 	SetTools(tools []Tool[Parameter])
 	SetTemperature(temp float32)
-	RunStream(ctx context.Context, prompt string, streamingFunc StreamingFunc)
+	RunStream(ctx context.Context, prompt string, streamingFunc StreamingFunc) string
 }
