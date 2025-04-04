@@ -8,7 +8,14 @@ import {
 import type React from "react";
 import type { ReactNode } from "react";
 
-const defaultValue: IParseLLMResponse = {
+type RParsedLLMResponse = Required<
+  Pick<
+    IParseLLMResponse,
+    "budget" | "preferredLocation" | "travelDates" | "userName"
+  >
+>;
+
+const defaultValue: RParsedLLMResponse = {
   userName: "Traveler",
   preferredLocation: "Unknown",
   budget: "Unknown",
@@ -16,45 +23,51 @@ const defaultValue: IParseLLMResponse = {
 };
 
 const ParsedLLMResponseContext = createContext<{
-  parsedLLMResponse: IParseLLMResponse;
+  parsedLLMResponse: RParsedLLMResponse;
   parseInput: (value: string) => void;
+  clear: () => void;
 }>({
   parsedLLMResponse: defaultValue,
   parseInput: (v: string) => v,
+  clear: () => null,
 });
 
 export const useParsedLLMResponse = () => {
   return useContext(ParsedLLMResponseContext);
 };
 
+const STORAGE_KEY = "@PARSED_LLM_RESPONSE_CONTEXT";
+
 export const ParsedLLMResponseProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
   const [parsedLLMResponse, setParsedLLMResponse] =
-    useState<IParseLLMResponse>(defaultValue);
+    useState<RParsedLLMResponse>(defaultValue);
 
   useEffect(() => {
-    const contextResult = localStorage.getItem("@Parsed_llm_response_context");
+    const contextResult = localStorage.getItem(STORAGE_KEY);
 
     if (contextResult) {
       const result = JSON.parse(contextResult);
-      setParsedLLMResponse(result);
+      setParsedLLMResponse((prev) => ({ ...prev, ...result }));
     }
   }, []);
 
+  const clear = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    setParsedLLMResponse(defaultValue);
+  };
+
   const handleParseInput = (input: string) => {
     const result = parseLLMResponse(input);
-    localStorage.setItem(
-      "@Parsed_llm_response_context",
-      JSON.stringify(result)
-    );
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
 
-    setParsedLLMResponse(result);
+    setParsedLLMResponse((prev) => ({ ...prev, ...result }));
   };
 
   return (
     <ParsedLLMResponseContext.Provider
-      value={{ parsedLLMResponse, parseInput: handleParseInput }}
+      value={{ parsedLLMResponse, parseInput: handleParseInput, clear }}
     >
       {children}
     </ParsedLLMResponseContext.Provider>

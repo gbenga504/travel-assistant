@@ -1,8 +1,11 @@
 import { SendFill } from "react-bootstrap-icons";
 
+import { useParsedLLMResponse } from "~/context/parsed-llm-response-context";
 import { Button } from "~/shared-components/button/button";
 
 export const AppHeader = () => {
+  const { parsedLLMResponse } = useParsedLLMResponse();
+
   const renderLeftSection = () => {
     return <span className="text-sm font-medium dark:text-gray-300" />;
   };
@@ -11,16 +14,13 @@ export const AppHeader = () => {
     return (
       <div className="py-2 flex text-sm border border-gray-200 rounded-xl text-gray-900 dark:text-gray-300 dark:bg-gray-900 dark:border-white/10">
         <div className="border-r px-3 border-r-gray-200 dark:border-white/10">
-          <span>Prague</span>
+          <span>{parsedLLMResponse.preferredLocation}</span>
         </div>
         <div className="border-r px-3 border-r-gray-200 dark:border-white/10">
-          <span>June 18 - 20</span>
-        </div>
-        <div className="border-r px-3 border-r-gray-200 dark:border-white/10">
-          <span>2 travelers</span>
+          <span>{parsedLLMResponse.travelDates}</span>
         </div>
         <div className="px-3">
-          <span>$</span>
+          <span>{parsedLLMResponse.budget}</span>
         </div>
       </div>
     );
@@ -39,7 +39,7 @@ export const AppHeader = () => {
           Share
         </Button>
         <div className="h-8 w-8 font-bold rounded-full flex justify-center items-center bg-gray-200 dark:bg-gray-900 text-sm">
-          G
+          {parsedLLMResponse.userName[0].toUpperCase()}
         </div>
       </div>
     );

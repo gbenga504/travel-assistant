@@ -45,7 +45,7 @@ export const useQueryAgent = (te: IThreadEntry[]) => {
       function (_err, { done, message }) {
         // When done streaming the LLM response, we want to parse it and extract important data
         if (done) {
-          return parseInput(message);
+          parseInput(message);
         }
 
         // We only want to keep appending thread entries only when streaming is not done
@@ -57,13 +57,14 @@ export const useQueryAgent = (te: IThreadEntry[]) => {
         setThread((prev) => {
           const otherEntries = prev.slice(0, prev.length - 1);
           const lastEntry = prev[prev.length - 1];
+          const m = done ? "" : message;
 
           return [
             ...otherEntries,
             {
               question: query,
               status,
-              answer: `${lastEntry.answer}${message}`,
+              answer: `${lastEntry.answer}${m}`,
             },
           ];
         });
