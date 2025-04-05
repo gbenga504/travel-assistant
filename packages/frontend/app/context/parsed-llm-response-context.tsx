@@ -59,7 +59,7 @@ export const ParsedLLMResponseProvider: React.FC<{
   };
 
   const handleParseInput = (input: string) => {
-    const result = parseLLMResponse(input);
+    const result = { ...parsedLLMResponse, ...parseLLMResponse(input) };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
 
     setParsedLLMResponse((prev) => ({ ...prev, ...result }));

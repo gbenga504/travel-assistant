@@ -1,11 +1,12 @@
 import classNames from "classnames";
+import { GeoAltFill } from "react-bootstrap-icons";
 
 import type { MarkdownToJSX } from "markdown-to-jsx";
 import type { ReactNode } from "react";
 
 const Li = ({ children, ...props }: { children: ReactNode }) => (
   <li {...props} className="mt-2">
-    - {children}
+    <span className="mr-1">- {children}</span>
   </li>
 );
 
@@ -16,16 +17,19 @@ interface ISpanProps {
   dataPreference?: "preferred";
 }
 
-const Span = ({ children, dataType, ...rest }: ISpanProps) => (
-  <span
-    {...rest}
-    className={classNames({
-      "font-medium": dataType !== "userName",
-    })}
-  >
-    {children}
-  </span>
-);
+const Span = ({ children, dataType, ...rest }: ISpanProps) => {
+  return (
+    <span
+      {...rest}
+      className={classNames("inline-flex", "items-center", {
+        "font-medium": dataType === "location",
+      })}
+    >
+      {dataType === "location" && <GeoAltFill className="inline-block mr-1" />}
+      {children}
+    </span>
+  );
+};
 
 export const markdownOverrides: MarkdownToJSX.Overrides = {
   li: {

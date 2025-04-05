@@ -89,12 +89,101 @@ func contextPrompt() string {
 func outputFormatPrompt() string {
 	return `
         1. Format your response in markdown
-        2. The name of the user, user's budget, places, attractions, travel dates should be wrapped in a "<span>"
-        3. The html tag that wraps the user's name should have an attribute "dataType" set to "userName" and an attribute "dataValue" set to the user's name e.g <span dataType="userName" dataValue="David">David</span>
-        4. The html tag that wraps the places should have an attribute "dataType" set to "location" and an attribute "dataValue" set to the actual location  e.g '<span dataType="place" dataValue="London">London</span>', '<span dataType="place" dataValue="Africa">Africa</span>'
-        5. The html tag that wraps the preferred travel destination of the user should have an additional html tag attribute "dataPreference" set to "preferred" e.g '<span dataType="place" dataValue="London" dataPreference="preferred">London</span>'
-        6. The html tag that wraps the user's budget should have an attribute "dataType" set to "budget" and an attribute "dataValue" set to the user's budget e.g '<span dataType="budget" dataValue="$1000">$1000</span>', '<span dataType="place" dataValue="Flexible">Flexible</span>'
-        7. The html tag that wraps the user's travel dates should have an attribute "dataType" set to "travelDates" and an attribute "dataValue" set to the actual travel dates e.g '<span dataType="travelDates" dataValue="June 18 - June 20">June 18 - June 20</span>', '<span dataType="travelDates" dataValue="3 days">3 days</span>'
+
+        2. When displaying the user's name, wrap it in a <span> HTML tag with two specific attributes:
+            - dataType="userName" (to identify this as a user name element)
+            - dataValue="[ACTUAL_USERNAME]" (where [ACTUAL_USERNAME] is the real user's name)
+
+            Example Implementation:
+            <span dataType="userName" dataValue="David">David</span>
+
+        3. When displaying location names, wrap each location in a <span> HTML tag with these attributes:
+            - dataType="location" (to identify this as a location element)
+            - dataValue="[ACTUAL_LOCATION]" (must exactly match the displayed location)
+
+            Example Implementation:
+            <!-- Standard Location --> 
+            <span dataType="location" dataValue="London">London</span>
+
+            <!-- Standard Location -->   
+            <span dataType="location" dataValue="Santorini, Greece">Santorini, Greece</span> 
+            
+            <!-- Standard Location --> 
+            <span dataType="location" dataValue="Africa">Africa</span>
+            
+            Key Rules:
+            - Exact match between dataValue and displayed text
+            - Case-sensitive implementation (preserve original casing)
+            - Comma handling in locations (include exactly as written)
+            - Multiple locations require separate <span> wrappers
+
+            Implementation Notes:
+            <!-- Correct -->  
+            Visit <span dataType="location" dataValue="New York City">New York City</span>
+
+            <!-- Incorrect (mismatched dataValue) -->  
+            Visit <span dataType="location" dataValue="NYC">New York City</span>  
+
+            <!-- Incorrect (missing attributes) -->  
+            Visit <span>New York City</span>
+            
+            <!-- Invalid (incorrect preference value) -->  
+            <span dataType="location" dataValue="Hokkaido" dataPreference="favorite">Hokkaido</span>  
+
+        4. When displaying the user's budget, wrap it in a <span> HTML tag with these attributes:
+            - dataType="budget" (to identify this as a budget element)
+            - dataValue="[USER_BUDGET]" (must exactly match the displayed amount/description)
+
+            Example Implementation:
+            <!-- Monetary Values -->  
+            <span dataType="budget" dataValue="$1000">$1000</span>  
+            <span dataType="budget" dataValue="€850">€850</span>  
+            <span dataType="budget" dataValue="5000 USD">5000 USD</span>
+            
+            <!-- Non-Monetary Descriptions -->  
+            <span dataType="budget" dataValue="Flexible">Flexible</span>  
+            <span dataType="budget" dataValue="Undisclosed">Undisclosed</span>
+
+            Key Rules:
+            - Maintain commas/decimals (1,500.50 ≠ 1500.5)
+
+            Implementation Notes:
+            <!-- Valid Implementations -->  
+            Budget: <span dataType="budget" dataValue="£1500">£1500</span>  
+            Maximum: <span dataType="budget" dataValue="2000 AUD">2000 AUD</span>  
+            Range: <span dataType="budget" dataValue="$500-$800">$500-$800</span>  
+
+            <!-- Invalid Implementations -->  
+            <span dataType="budget" dataValue="1000">$1000</span>  <!-- Data/Display mismatch -->  
+            <span dataType="budget">Flexible</span>  <!-- Missing dataValue -->  
+
+        5. When displaying the travel dates, wrap it in a <span> HTML tag with these attributes:
+            - dataType="travelDates" (to identify date-related elements)
+            - dataValue (must exactly match the displayed date/description)
+
+            Example Implementation:
+            <!-- Specific Date Ranges -->  
+            <span dataType="travelDates" dataValue="June 18 - June 20">June 18 - June 20</span>  
+            <span dataType="travelDates" dataValue="2024-12-24 to 2024-12-31">Dec 24 - Dec 31, 2024</span>  
+
+            <!-- Duration Formats -->  
+            <span dataType="travelDates" dataValue="3 days">3 days</span>  
+            <span dataType="travelDates" dataValue="1-week">1-week trip</span>  
+
+            <!-- Flexible Dates -->  
+            <span dataType="travelDates" dataValue="Flexible">Flexible dates</span>
+            
+            Key Rules:
+            - dataValue must mirror the visible text's date logic
+            - Match unit phrasing ("3-day" vs "3 days")
+
+            Implementation Notes:
+            <!-- Valid -->  
+            <span dataType="travelDates" dataValue="July 4th weekend">July 4th weekend</span>  
+            <span dataType="travelDates" dataValue="Q3 2025">Q3 2025</span>  
+
+            <!-- Invalid -->
+            <span dataType="travelDates">TBD</span>  <!-- Missing dataValue -->  
     `
 }
 

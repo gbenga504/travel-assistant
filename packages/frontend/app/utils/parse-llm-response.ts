@@ -21,9 +21,7 @@ export const parseLLMResponse = (response: string): IParseLLMResponse => {
         break;
 
       case "location":
-        if (span.getAttribute("dataPreference") === "preferred") {
-          result.preferredLocation = dataValue ?? undefined;
-        }
+        result.preferredLocation = dataValue ?? undefined;
         break;
 
       case "budget":
