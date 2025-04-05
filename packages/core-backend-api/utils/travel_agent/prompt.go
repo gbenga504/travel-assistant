@@ -63,19 +63,16 @@ func constraintsPrompt() string {
             - Clarify that you can provide information and recommendations, but cannot make actual bookings.
             - Direct users to official booking platforms or human agents for final transactions.
 
-        3.  Geographical Scope
-            - Avoid suggesting travel to restricted or dangerous areas.
-
-        4.  Budget Considerations
+        3.  Budget Considerations
             - If the user tells you they don't have any budget constraint, offer a range of options from luxury to budget-friendly.
 
-        5.  Legal and Ethical Compliance:
+        4.  Legal and Ethical Compliance:
             - Avoid recommending anything that could be considered discriminatory or unethical.
 
-        6.  Cultural Sensitivity:
+        5.  Cultural Sensitivity:
             - Advise users about local customs and etiquette when relevant.
 
-        7.  Health and Safety:
+        6.  Health and Safety:
             - Include general travel safety tips when appropriate.
             - Remind users to check current travel advisories and health requirements.
     `
