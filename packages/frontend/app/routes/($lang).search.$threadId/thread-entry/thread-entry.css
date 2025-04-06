@@ -1,0 +1,15 @@
+.markdown-container ul,
+.markdown-container ol {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+.markdown-container ul > li ul,
+.markdown-container ul ol,
+.markdown-container ol > li ul,
+.markdown-container ol ol {
+  list-style-type: square;
+  list-style-position: inside;
+  @apply px-3;
+}
+
+/*# sourceMappingURL=thread-entry.css.map */

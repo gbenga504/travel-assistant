@@ -15,7 +15,7 @@ import { transformToThreadEntry } from "~/utils/search-util";
 
 import { AppHeader } from "./app-header";
 import { LazyMap } from "./map/lazy-map";
-import { ThreadEntry } from "./thread-entry";
+import { ThreadEntry } from "./thread-entry/thread-entry";
 
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 

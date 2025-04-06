@@ -1,0 +1,15 @@
+.markdown-container {
+  & ul,
+  ol {
+    list-style-type: disc;
+    list-style-position: inside;
+
+    & > li ul,
+    ol {
+      list-style-type: square;
+      list-style-position: inside;
+
+      @apply px-3;
+    }
+  }
+}

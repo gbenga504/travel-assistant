@@ -5,11 +5,10 @@ import { useMapConfig } from "~/context/map-config-context";
 
 import type { MarkdownToJSX } from "markdown-to-jsx";
 import type { ReactNode } from "react";
-import "./markdown-overrides.css";
 
 const Li = ({ children, ...props }: { children: ReactNode }) => (
   <li {...props} className="mt-2">
-    <span className="mr-1 markdown--li">- {children}</span>
+    {children}
   </li>
 );
 
