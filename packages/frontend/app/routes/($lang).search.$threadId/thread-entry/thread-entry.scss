@@ -1,15 +1,17 @@
+@tailwind base;
+
 .markdown-container {
   & ul,
   ol {
-    list-style-type: disc;
-    list-style-position: inside;
+    @apply list-inside list-[circle];
 
     & > li ul,
     ol {
-      list-style-type: square;
-      list-style-position: inside;
-
-      @apply px-3;
+      @apply list-disc list-inside  px-3;
     }
+  }
+
+  & li > :first-child {
+    @apply inline;
   }
 }

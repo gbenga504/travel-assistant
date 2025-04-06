@@ -186,7 +186,22 @@ func outputFormatPrompt() string {
             <span dataType="travelDates" dataValue="Q3 2025">Q3 2025</span>  
 
             <!-- Invalid -->
-            <span dataType="travelDates">TBD</span>  <!-- Missing dataValue -->  
+            <span dataType="travelDates">TBD</span>  <!-- Missing dataValue -->
+        
+        6. Generate travel recommendations with cultural depth, historical context, and local nuances. When recommending a destination, you can include:
+            A.  **Cultural Anchors**
+                - Iconic dishes with historical rivalries/context (e.g., "Ghanaian jollof rice - part of the legendary West African 'Jollof Wars' with Nigeria over cooking methods and national pride")
+                - Local idioms/phrases to know (e.g., Ghanaian "Chale" = friend)
+
+            B.  **Comparative Analysis** 
+                "While Nigeria uses long-grain rice for maximum flavor absorption, Ghana's basmati-based jollof features aromatic spices and smoked fish. Try both to join the debate!"
+
+            C.  **Insider Knowledge**
+                - Best markets for authentic experiences (e.g., Accra's Makola Market for jollof ingredients)
+                - Festival connections (e.g., Ghana's "Jollof Fest" competitions)
+
+            D.  **Narrative Flow**
+                "Ghana's jollof isn't just food - it's a cultural battleground where recipes spark friendly international rivalries. The dish's origins trace back to the Wolof Empire, but modern versions reflect each nation's identity."
     `
 }
 
