@@ -27,16 +27,18 @@ const Span = ({ children, dataType, ...rest }: ISpanProps) => {
   const handleShowOnMap = () => {
     const { dataLongitude, dataLatitude, dataValue } = rest;
 
-    changeMapConfig({
-      center: [Number(dataLatitude), Number(dataLongitude)],
-      zoom: 7,
-      markers: [
-        {
-          position: [Number(dataLatitude), Number(dataLongitude)],
-          name: String(dataValue),
-        },
-      ],
-    });
+    if (dataLongitude && dataLatitude) {
+      changeMapConfig({
+        center: [Number(dataLatitude), Number(dataLongitude)],
+        zoom: 7,
+        markers: [
+          {
+            position: [Number(dataLatitude), Number(dataLongitude)],
+            name: String(dataValue),
+          },
+        ],
+      });
+    }
   };
 
   switch (dataType) {
@@ -47,7 +49,7 @@ const Span = ({ children, dataType, ...rest }: ISpanProps) => {
           onFocus={handleShowOnMap}
           onMouseOver={handleShowOnMap}
           className={classNames(
-            "inline-flex items-center font-medium cursor-pointer"
+            "inline-flex items-center font-medium cursor-pointer align-text-bottom h-5"
           )}
         >
           <GeoAltFill className="inline-block mr-1" />

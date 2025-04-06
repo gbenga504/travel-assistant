@@ -57,8 +57,6 @@ The following are some of the requirements of the AI:
 ## TODO
 
 - Add icons to distinguish places, attractions, hotels and flights
-- Add location information to places so we can show it on the map
-- Add location data to places so we can zoom in on the map
 
 - Formatting the response properly and make the clicks work [maps, look and fee etc]
 - Integrate with actual data

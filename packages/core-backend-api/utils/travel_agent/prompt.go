@@ -52,7 +52,7 @@ func instructionsPrompt() string {
 
         17. "Avoid overly formal language—imagine you’re texting a friend."
 
-        18. Think deeply about your answers before responding and follow your <OUTPUT_FORMAT> strictly.
+        18. **Think deeply** about your answers before responding and follow your <OUTPUT_FORMAT> strictly. This is very important
     `
 }
 
@@ -118,6 +118,7 @@ func outputFormatPrompt() string {
             - Comma handling in locations (include exactly as written)
             - Multiple locations require separate <span> wrappers
             - Provide precise longitude and latitude values for each location.
+            - Location name includes countries, cities, states, regions, etc.
 
             Implementation Notes:
             <!-- Correct -->  
