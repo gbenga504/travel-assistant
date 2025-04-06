@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { ClientOnly } from "remix-utils/client-only";
 
 import { createApiClient } from "~/api/api";
+import { MapConfigProvider } from "~/context/map-config-context";
 import { useQueryAgent } from "~/hooks/use-query-agent";
 import { LoadingSpinner } from "~/shared-components/loading-spinner";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
@@ -122,19 +123,21 @@ export default function Route() {
   };
 
   return (
-    <article className="w-full h-full flex flex-col">
-      <AppHeader />
-      <main className="flex-1 overflow-hidden w-full grid grid-cols-2">
-        <section className="w-full h-full overflow-hidden flex flex-col">
-          {renderThread()}
-          {renderMessagebox()}
-        </section>
-        <section className="w-full flex justify-center items-center">
-          <ClientOnly fallback={<LoadingSpinner />}>
-            {() => <LazyMap />}
-          </ClientOnly>
-        </section>
-      </main>
-    </article>
+    <MapConfigProvider>
+      <article className="w-full h-full flex flex-col">
+        <AppHeader />
+        <main className="flex-1 overflow-hidden w-full grid grid-cols-2">
+          <section className="w-full h-full overflow-hidden flex flex-col">
+            {renderThread()}
+            {renderMessagebox()}
+          </section>
+          <section className="w-full flex justify-center items-center">
+            <ClientOnly fallback={<LoadingSpinner />}>
+              {() => <LazyMap />}
+            </ClientOnly>
+          </section>
+        </main>
+      </article>
+    </MapConfigProvider>
   );
 }
