@@ -51,6 +51,8 @@ func instructionsPrompt() string {
         16. "Use emojis sparingly (e.g., 👍, 😅) to sound friendly."
 
         17. "Avoid overly formal language—imagine you’re texting a friend."
+
+        18. Think deeply about your answers before responding and follow your <OUTPUT_FORMAT> strictly.
     `
 }
 
@@ -97,35 +99,38 @@ func outputFormatPrompt() string {
         3. When displaying location names, wrap each location in a <span> HTML tag with these attributes:
             - dataType="location" (to identify this as a location element)
             - dataValue="[ACTUAL_LOCATION]" (must exactly match the displayed location)
+            - dataLongitude="[LONGITUDE]" (the longitude of the location)
+            - dataLatitude="[LATITUDE]" (the latitude of the location)
 
             Example Implementation:
             <!-- Standard Location --> 
-            <span dataType="location" dataValue="London">London</span>
+            <span dataType="location" dataValue="London" dataLongitude="-0.1276" dataLatitude="51.5074">London</span>
 
             <!-- Standard Location -->   
-            <span dataType="location" dataValue="Santorini, Greece">Santorini, Greece</span> 
+            <span dataType="location" dataValue="Santorini, Greece" dataLongitude="25.4858" dataLatitude="36.3932">Santorini, Greece</span> 
             
             <!-- Standard Location --> 
-            <span dataType="location" dataValue="Africa">Africa</span>
+            <span dataType="location" dataValue="Africa" dataLongitude="20.0" dataLatitude="-10.0">Africa</span>
             
             Key Rules:
             - Exact match between dataValue and displayed text
             - Case-sensitive implementation (preserve original casing)
             - Comma handling in locations (include exactly as written)
             - Multiple locations require separate <span> wrappers
+            - Provide precise longitude and latitude values for each location.
 
             Implementation Notes:
             <!-- Correct -->  
-            Visit <span dataType="location" dataValue="New York City">New York City</span>
+            Visit <span dataType="location" dataValue="London" dataLongitude="-0.1276" dataLatitude="51.5074">London</span>
 
             <!-- Incorrect (mismatched dataValue) -->  
-            Visit <span dataType="location" dataValue="NYC">New York City</span>  
+            Visit <span dataType="location" dataValue="Ldn" dataLongitude="-0.1276" dataLatitude="51.5074">London</span> 
 
             <!-- Incorrect (missing attributes) -->  
-            Visit <span>New York City</span>
-            
-            <!-- Invalid (incorrect preference value) -->  
-            <span dataType="location" dataValue="Hokkaido" dataPreference="favorite">Hokkaido</span>  
+            Visit <span>London</span>
+
+            <!-- Invalid Implementation (missing coordinates) -->
+            <span dataType="location" dataValue="London">London</span>
 
         4. When displaying the user's budget, wrap it in a <span> HTML tag with these attributes:
             - dataType="budget" (to identify this as a budget element)
