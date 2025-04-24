@@ -1,7 +1,7 @@
 import { Outlet, useParams } from "@remix-run/react";
 import { Backpack } from "react-bootstrap-icons";
 
-import { ParsedLLMResponseProvider } from "~/context/parsed-llm-response-context";
+import { UserSettingsProvider } from "~/context/user-settings-context";
 import { Button } from "~/shared-components/button/button";
 import { constructURL, ROUTE_IDS } from "~/utils/route-util";
 
@@ -55,11 +55,11 @@ export default function Route() {
   };
 
   return (
-    <ParsedLLMResponseProvider>
+    <UserSettingsProvider>
       {renderSidebar()}
       <div className="ml-0 w-full h-full lg:ml-60 lg:w-[calc(100%-240px)]">
         <Outlet />
       </div>
-    </ParsedLLMResponseProvider>
+    </UserSettingsProvider>
   );
 }

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "@remix-run/react";
 import { useState } from "react";
 
-import { useParsedLLMResponse } from "~/context/parsed-llm-response-context";
+import { useUserSettings } from "~/context/user-settings-context";
 import { AppHeader } from "~/shared-components/app-header";
 import { MaxWidthContainer } from "~/shared-components/max-width-container";
 import { Messagebox } from "~/shared-components/message-box/message-box";
@@ -24,11 +24,11 @@ export default function Route() {
   const navigate = useNavigate();
   const { lang } = useParams();
   const [message, setMessage] = useState("");
-  const { clear: clearParsedLLMResponse } = useParsedLLMResponse();
+  const { clear: clearUserSettings } = useUserSettings();
 
   const handleSendQuery = (query: string) => {
     sessionStorage.setItem(INITIAL_SEARCH_QUERY_KEY, query);
-    clearParsedLLMResponse();
+    clearUserSettings();
 
     navigate(
       constructURL({

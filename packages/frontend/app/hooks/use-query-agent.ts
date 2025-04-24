@@ -2,7 +2,7 @@ import { useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 import { useApi } from "~/context/api-context";
-import { useParsedLLMResponse } from "~/context/parsed-llm-response-context";
+import { useUserSettings } from "~/context/user-settings-context";
 import { INITIAL_SEARCH_QUERY_KEY } from "~/utils/search-util";
 
 import type { IThreadEntry } from "~/utils/search-util";
@@ -10,7 +10,7 @@ import type { IThreadEntry } from "~/utils/search-util";
 export const useQueryAgent = (te: IThreadEntry[]) => {
   const params = useParams<{ threadId: string; lang: string }>();
   const api = useApi();
-  const { parseInput } = useParsedLLMResponse();
+  const { parseInput } = useUserSettings();
   const [thread, setThread] = useState<IThreadEntry[]>(te);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export const useQueryAgent = (te: IThreadEntry[]) => {
       query,
       params.threadId!,
       function (_err, { done, message }) {
-        // When done streaming the LLM response, we want to parse it and extract important data
+        // When done streaming the LLM response, we want to parse it and extract user settings
         if (done) {
           parseInput(message);
         }

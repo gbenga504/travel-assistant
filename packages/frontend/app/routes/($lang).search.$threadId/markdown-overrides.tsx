@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { GeoAltFill } from "react-bootstrap-icons";
+import { Geo, Shop } from "react-bootstrap-icons";
 
 import { useMapConfig } from "~/context/map-config-context";
 
@@ -12,63 +12,85 @@ const Li = ({ children, ...props }: { children: ReactNode }) => (
   </li>
 );
 
-interface ISpanProps {
+interface ICoordinates {
+  name: string;
+  latitude: string;
+  longitude: string;
   children: ReactNode;
-  dataType?: "userName" | "location" | "budget" | "travelDates";
-  dataValue?: string;
-  dataLongitude?: string;
-  dataLatitude?: string;
 }
 
-const Span = ({ children, dataType, ...rest }: ISpanProps) => {
+const Location = ({ name, latitude, longitude }: ICoordinates) => {
   const { changeMapConfig } = useMapConfig();
 
   const handleShowOnMap = () => {
-    const { dataLongitude, dataLatitude, dataValue } = rest;
-
-    if (dataLongitude && dataLatitude) {
+    if (longitude && latitude) {
       changeMapConfig({
-        center: [Number(dataLatitude), Number(dataLongitude)],
+        center: [Number(latitude), Number(longitude)],
         zoom: 7,
         markers: [
           {
-            position: [Number(dataLatitude), Number(dataLongitude)],
-            name: String(dataValue),
+            position: [Number(latitude), Number(longitude)],
+            name: String(name),
           },
         ],
       });
     }
   };
 
-  switch (dataType) {
-    case "location":
-      return (
-        <a
-          {...rest}
-          onFocus={handleShowOnMap}
-          onMouseOver={handleShowOnMap}
-          className={classNames(
-            "inline-flex items-center font-medium cursor-pointer align-text-bottom h-5"
-          )}
-        >
-          <GeoAltFill className="inline-block mr-1" />
-          {children}
-        </a>
-      );
-    default:
-      return (
-        <span {...rest} className={classNames("inline-flex", "items-center")}>
-          {children}
-        </span>
-      );
-  }
+  return (
+    <span
+      onFocus={handleShowOnMap}
+      onMouseOver={handleShowOnMap}
+      className={classNames(
+        "inline-flex items-center font-medium cursor-pointer align-text-bottom h-5"
+      )}
+    >
+      <Geo className="inline-block mr-1" />
+      {name}
+    </span>
+  );
+};
+
+const Attraction = ({ name, latitude, longitude }: ICoordinates) => {
+  const { changeMapConfig } = useMapConfig();
+
+  const handleShowOnMap = () => {
+    if (longitude && latitude) {
+      changeMapConfig({
+        center: [Number(latitude), Number(longitude)],
+        zoom: 7,
+        markers: [
+          {
+            position: [Number(latitude), Number(longitude)],
+            name: String(name),
+          },
+        ],
+      });
+    }
+  };
+
+  return (
+    <span
+      onFocus={handleShowOnMap}
+      onMouseOver={handleShowOnMap}
+      className={classNames(
+        "inline-flex items-center font-medium cursor-pointer align-text-bottom h-5"
+      )}
+    >
+      <Shop className="inline-block mr-1" />
+      {name}
+    </span>
+  );
 };
 
 export const markdownOverrides: MarkdownToJSX.Overrides = {
   li: {
     component: Li,
   },
-  span: {
-    component: Span,
+  Location: {
+    component: Location,
+  },
+  Attraction: {
+    component: Attraction,
   },
 };

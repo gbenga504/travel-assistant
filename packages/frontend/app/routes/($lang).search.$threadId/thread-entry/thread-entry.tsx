@@ -3,10 +3,12 @@ import Markdown from "markdown-to-jsx";
 import { Box } from "react-bootstrap-icons";
 
 import { LoadingSection } from "~/shared-components/loading-section";
+import { parseLLMResponse } from "~/utils/parse-llm-response";
 
 import { markdownOverrides } from "../markdown-overrides";
 
 import type { IThreadEntry } from "~/utils/search-util";
+
 import "./thread-entry.css";
 
 export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
@@ -29,12 +31,13 @@ export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
             <Markdown
               options={{
                 overrides: markdownOverrides,
+                forceInline: true,
                 wrapper: ({ children }) => (
                   <div className="markdown-container">{children}</div>
                 ),
               }}
             >
-              {answer}
+              {parseLLMResponse(answer)}
             </Markdown>
           )}
         </div>

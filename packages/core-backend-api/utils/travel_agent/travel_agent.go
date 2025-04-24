@@ -7,7 +7,7 @@ import (
 	"github.com/google/generative-ai-go/genai"
 )
 
-const GEMINI_MODEL = "gemini-2.0-flash-lite"
+const GEMINI_MODEL = "gemini-2.0-flash"
 
 func SetupTravelAgent(gc *gemini.GeminiClient) *gemini.GeminiAgent {
 	travelAgent := gemini.NewGeminiAgent(gc, GEMINI_MODEL)

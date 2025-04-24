@@ -52,7 +52,9 @@ func instructionsPrompt() string {
 
         17. "Avoid overly formal language—imagine you’re texting a friend."
 
-        18. **Think deeply** about your answers before responding and follow your <OUTPUT_FORMAT> strictly. This is very important
+        18. You MUST think deeply about your answers before responding.
+        
+        19. You MUST follow your <OUTPUT_FORMAT> strictly
     `
 }
 
@@ -87,121 +89,28 @@ func contextPrompt() string {
 
 func outputFormatPrompt() string {
 	return `
-        1. Format your response in markdown
+        Please identify and clearly mark the following information within your response:
 
-        2. When displaying the user's name, wrap it in a <span> HTML tag with two specific attributes:
-            - dataType="userName" (to identify this as a user name element)
-            - dataValue="[ACTUAL_USERNAME]" (where [ACTUAL_USERNAME] is the real user's name)
+        1.  Enclose the user's name within double curly braces: '{{[ACTUAL_USERNAME]}}'.
 
-            Example Implementation:
-            <span dataType="userName" dataValue="David">David</span>
+        2.  For each location mentioned, provide the name followed by its longitude and latitude in parentheses, separated by a semicolon. Enclose the entire location information within double square brackets: '[[[ACTUAL_LOCATION]; [LONGITUDE]; [LATITUDE]]]'.
+            For each location, do not write the name outside its designated markup.
+            For Parks, Regions, Cities, Countries ONLY
 
-        3. When displaying location names, wrap each location in a <span> HTML tag with these attributes:
-            - dataType="location" (to identify this as a location element)
-            - dataValue="[ACTUAL_LOCATION]" (must exactly match the displayed location)
-            - dataLongitude="[LONGITUDE]" (the longitude of the location)
-            - dataLatitude="[LATITUDE]" (the latitude of the location)
+            * Correct Example: '[[London; -0.1276; 51.5074]]', '[[Santorini, Greece; 25.4858; 36.3932]]', '[[Africa; 20.0; -10.0]]'
+            * Incorrect Example: 'London [[London; -0.1276; 51.5074]]'
 
-            Example Implementation:
-            <!-- Standard Location --> 
-            <span dataType="location" dataValue="London" dataLongitude="-0.1276" dataLatitude="51.5074">London</span>
+        3.  For each attraction mentioned, provide the name followed by its longitude and latitude in parentheses, separated by a semicolon. Enclose the entire attraction information within double asterisks: '**[ACTUAL_ATTRACTION]; [LONGITUDE]; [LATITUDE]**'.
+            For each attraction, do not write the name outside its designated markup.
+            For specific sights, Landmarks, Point of Interest
 
-            <!-- Standard Location -->   
-            <span dataType="location" dataValue="Santorini, Greece" dataLongitude="25.4858" dataLatitude="36.3932">Santorini, Greece</span> 
-            
-            <!-- Standard Location --> 
-            <span dataType="location" dataValue="Africa" dataLongitude="20.0" dataLatitude="-10.0">Africa</span>
-            
-            Key Rules:
-            - Exact match between dataValue and displayed text
-            - Case-sensitive implementation (preserve original casing)
-            - Comma handling in locations (include exactly as written)
-            - Multiple locations require separate <span> wrappers
-            - Provide precise longitude and latitude values for each location.
-            - Location name includes countries, cities, states, regions, etc.
+            * Correct Example: '**Eiffel Tower, Paris; 2.2945; 48.8584**'
+            * Incorrect Example: 'Eiffel Tower, Paris **Eiffel Tower, Paris; 2.2945; 48.8584**'
 
-            Implementation Notes:
-            <!-- Correct -->  
-            Visit <span dataType="location" dataValue="London" dataLongitude="-0.1276" dataLatitude="51.5074">London</span>
+        4. You can also include insider knowledge when recommending locations or attractions
 
-            <!-- Incorrect (mismatched dataValue) -->  
-            Visit <span dataType="location" dataValue="Ldn" dataLongitude="-0.1276" dataLatitude="51.5074">London</span> 
-
-            <!-- Incorrect (missing attributes) -->  
-            Visit <span>London</span>
-
-            <!-- Invalid Implementation (missing coordinates) -->
-            <span dataType="location" dataValue="London">London</span>
-
-        4. When displaying the user's budget, wrap it in a <span> HTML tag with these attributes:
-            - dataType="budget" (to identify this as a budget element)
-            - dataValue="[USER_BUDGET]" (must exactly match the displayed amount/description)
-
-            Example Implementation:
-            <!-- Monetary Values -->  
-            <span dataType="budget" dataValue="$1000">$1000</span>  
-            <span dataType="budget" dataValue="€850">€850</span>  
-            <span dataType="budget" dataValue="5000 USD">5000 USD</span>
-            
-            <!-- Non-Monetary Descriptions -->  
-            <span dataType="budget" dataValue="Flexible">Flexible</span>  
-            <span dataType="budget" dataValue="Undisclosed">Undisclosed</span>
-
-            Key Rules:
-            - Maintain commas/decimals (1,500.50 ≠ 1500.5)
-
-            Implementation Notes:
-            <!-- Valid Implementations -->  
-            Budget: <span dataType="budget" dataValue="£1500">£1500</span>  
-            Maximum: <span dataType="budget" dataValue="2000 AUD">2000 AUD</span>  
-            Range: <span dataType="budget" dataValue="$500-$800">$500-$800</span>  
-
-            <!-- Invalid Implementations -->  
-            <span dataType="budget" dataValue="1000">$1000</span>  <!-- Data/Display mismatch -->  
-            <span dataType="budget">Flexible</span>  <!-- Missing dataValue -->  
-
-        5. When displaying the travel dates, wrap it in a <span> HTML tag with these attributes:
-            - dataType="travelDates" (to identify date-related elements)
-            - dataValue (must exactly match the displayed date/description)
-
-            Example Implementation:
-            <!-- Specific Date Ranges -->  
-            <span dataType="travelDates" dataValue="June 18 - June 20">June 18 - June 20</span>  
-            <span dataType="travelDates" dataValue="2024-12-24 to 2024-12-31">Dec 24 - Dec 31, 2024</span>  
-
-            <!-- Duration Formats -->  
-            <span dataType="travelDates" dataValue="3 days">3 days</span>  
-            <span dataType="travelDates" dataValue="1-week">1-week trip</span>  
-
-            <!-- Flexible Dates -->  
-            <span dataType="travelDates" dataValue="Flexible">Flexible dates</span>
-            
-            Key Rules:
-            - dataValue must mirror the visible text's date logic
-            - Match unit phrasing ("3-day" vs "3 days")
-
-            Implementation Notes:
-            <!-- Valid -->  
-            <span dataType="travelDates" dataValue="July 4th weekend">July 4th weekend</span>  
-            <span dataType="travelDates" dataValue="Q3 2025">Q3 2025</span>  
-
-            <!-- Invalid -->
-            <span dataType="travelDates">TBD</span>  <!-- Missing dataValue -->
-        
-        6. Generate travel recommendations with cultural depth, historical context, and local nuances. When recommending a destination, you can include:
-            A.  **Cultural Anchors**
-                - Iconic dishes with historical rivalries/context (e.g., "Ghanaian jollof rice - part of the legendary West African 'Jollof Wars' with Nigeria over cooking methods and national pride")
-                - Local idioms/phrases to know (e.g., Ghanaian "Chale" = friend)
-
-            B.  **Comparative Analysis** 
-                "While Nigeria uses long-grain rice for maximum flavor absorption, Ghana's basmati-based jollof features aromatic spices and smoked fish. Try both to join the debate!"
-
-            C.  **Insider Knowledge**
-                - Best markets for authentic experiences (e.g., Accra's Makola Market for jollof ingredients)
-                - Festival connections (e.g., Ghana's "Jollof Fest" competitions)
-
-            D.  **Narrative Flow**
-                "Ghana's jollof isn't just food - it's a cultural battleground where recipes spark friendly international rivalries. The dish's origins trace back to the Wolof Empire, but modern versions reflect each nation's identity."
+            * Example: While Nigeria uses long-grain rice for maximum flavor absorption, Ghana's basmati-based jollof features aromatic spices and smoked fish. Try both to join the debate!
+            * Example: Ghana's jollof isn't just food - it's a cultural battleground where recipes spark friendly international rivalries. The dish's origins trace back to the Wolof Empire, but modern versions reflect each nation's identity.
     `
 }
 

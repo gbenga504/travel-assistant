@@ -1,38 +1,55 @@
-export interface IParseLLMResponse {
+export interface IExtractUserSettings {
   userName?: string;
-  preferredLocation?: string;
-  budget?: string;
-  travelDates?: string;
 }
 
-export const parseLLMResponse = (response: string): IParseLLMResponse => {
-  const html = document.createElement("div");
-  html.innerHTML = response;
+export const USERNAME_REGEX = /\{\{([^}]+)\}\}/g;
 
-  const result: IParseLLMResponse = {};
+export const extractUserSettings = (response: string): IExtractUserSettings => {
+  const usernames = response.match(USERNAME_REGEX) || [];
+  const userName = usernames.map((match) => match.slice(2, -2))[0];
 
-  html.querySelectorAll("span").forEach((span) => {
-    const dataType = span.getAttribute("dataType");
-    const dataValue = span.getAttribute("dataValue");
+  const result: IExtractUserSettings = {};
 
-    switch (dataType) {
-      case "userName":
-        result.userName = dataValue ?? undefined;
-        break;
-
-      case "location":
-        result.preferredLocation = dataValue ?? undefined;
-        break;
-
-      case "budget":
-        result.budget = dataValue ?? undefined;
-        break;
-
-      case "travelDates":
-        result.travelDates = dataValue ?? undefined;
-        break;
-    }
-  });
+  if (userName) {
+    result.userName = userName;
+  }
 
   return result;
 };
+
+export const parseLLMResponse = (response: string): string => {
+  const formattedResponse = response.split("/n").reduce((acc, line) => {
+    const formattedText = line
+      .replace(/\{\{([^}]+)\}\}/g, (_, username) => username)
+      .replace(/\*\*(\[\[([^\]]+)\]\])\*\*/g, "$1")
+      .replace(/\[\[([^\]]+)\]\]/g, (_, location) => {
+        const { name, coordinates } = parseCoordinates(location);
+
+        return `<Location name="${name}" latitude="${coordinates[0]}" longitude="${coordinates[1]}" />`;
+      })
+      .replace(/\*\*(\[\[([^\]]+)\]\])\*\*/g, "$1")
+      .replace(/\*\*([^*]+)\*\*/g, (_, attraction) => {
+        const { name, coordinates } = parseCoordinates(attraction);
+
+        return `<Attraction name="${name}" latitude="${coordinates[0]}" longitude="${coordinates[1]}" />`;
+      });
+
+    return `${acc}${formattedText}`;
+  }, "");
+
+  return formattedResponse
+    .replace(/\n{2,}/g, "\n")
+    .replace(/\n/g, "<p style='margin-top: 10px' />");
+};
+
+function parseCoordinates(locationString: string): {
+  name: string;
+  coordinates: [number, number];
+} {
+  const [name, lon, lat] = locationString.split(";");
+
+  return {
+    name: name.trim(),
+    coordinates: [parseFloat(lon), parseFloat(lat)],
+  };
+}
