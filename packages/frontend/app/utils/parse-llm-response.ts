@@ -3,6 +3,10 @@ export interface IExtractUserSettings {
 }
 
 export const USERNAME_REGEX = /\{\{([^}]+)\}\}/g;
+export const LOCATION_REGEX = /\[\[([^\]]+)\]\]/g;
+export const ATTRACTION_REGEX = /\*\*([^*]+)\*\*/g;
+export const BOLD_LOCATION_REGEX = /\*\*(\[\[([^\]]+)\]\])\*\*/g;
+export const BOLD_ATTRACTION_REGEX = /\*\*(\[\[([^\]]+)\]\])\*\*/g;
 
 export const extractUserSettings = (response: string): IExtractUserSettings => {
   const usernames = response.match(USERNAME_REGEX) || [];
@@ -20,16 +24,24 @@ export const extractUserSettings = (response: string): IExtractUserSettings => {
 export const parseLLMResponse = (response: string): string => {
   const formattedResponse = response.split("/n").reduce((acc, line) => {
     const formattedText = line
-      .replace(/\{\{([^}]+)\}\}/g, (_, username) => username)
-      .replace(/\*\*(\[\[([^\]]+)\]\])\*\*/g, "$1")
-      .replace(/\[\[([^\]]+)\]\]/g, (_, location) => {
+      .replace(USERNAME_REGEX, (_, username) => username)
+      .replace(BOLD_LOCATION_REGEX, "$1")
+      .replace(LOCATION_REGEX, (_, location) => {
         const { name, coordinates } = parseCoordinates(location);
+
+        if (!coordinates) {
+          return `<Location name="${name}" />`;
+        }
 
         return `<Location name="${name}" latitude="${coordinates[0]}" longitude="${coordinates[1]}" />`;
       })
-      .replace(/\*\*(\[\[([^\]]+)\]\])\*\*/g, "$1")
-      .replace(/\*\*([^*]+)\*\*/g, (_, attraction) => {
+      .replace(BOLD_ATTRACTION_REGEX, "$1")
+      .replace(ATTRACTION_REGEX, (_, attraction) => {
         const { name, coordinates } = parseCoordinates(attraction);
+
+        if (!coordinates) {
+          return `<Attraction name="${name}" />`;
+        }
 
         return `<Attraction name="${name}" latitude="${coordinates[0]}" longitude="${coordinates[1]}" />`;
       });
@@ -44,12 +56,12 @@ export const parseLLMResponse = (response: string): string => {
 
 function parseCoordinates(locationString: string): {
   name: string;
-  coordinates: [number, number];
+  coordinates: [number, number] | null;
 } {
   const [name, lon, lat] = locationString.split(";");
 
   return {
     name: name.trim(),
-    coordinates: [parseFloat(lon), parseFloat(lat)],
+    coordinates: lon && lat ? [parseFloat(lat), parseFloat(lon)] : null,
   };
 }

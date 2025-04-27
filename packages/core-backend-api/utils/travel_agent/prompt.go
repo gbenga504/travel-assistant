@@ -95,14 +95,12 @@ func outputFormatPrompt() string {
 
         2.  For each location mentioned, provide the name followed by its longitude and latitude in parentheses, separated by a semicolon. Enclose the entire location information within double square brackets: '[[[ACTUAL_LOCATION]; [LONGITUDE]; [LATITUDE]]]'.
             For each location, do not write the name outside its designated markup.
-            For Parks, Regions, Cities, Countries ONLY
 
             * Correct Example: '[[London; -0.1276; 51.5074]]', '[[Santorini, Greece; 25.4858; 36.3932]]', '[[Africa; 20.0; -10.0]]'
             * Incorrect Example: 'London [[London; -0.1276; 51.5074]]'
 
         3.  For each attraction mentioned, provide the name followed by its longitude and latitude in parentheses, separated by a semicolon. Enclose the entire attraction information within double asterisks: '**[ACTUAL_ATTRACTION]; [LONGITUDE]; [LATITUDE]**'.
             For each attraction, do not write the name outside its designated markup.
-            For specific sights, Landmarks, Point of Interest
 
             * Correct Example: '**Eiffel Tower, Paris; 2.2945; 48.8584**'
             * Incorrect Example: 'Eiffel Tower, Paris **Eiffel Tower, Paris; 2.2945; 48.8584**'
@@ -111,6 +109,8 @@ func outputFormatPrompt() string {
 
             * Example: While Nigeria uses long-grain rice for maximum flavor absorption, Ghana's basmati-based jollof features aromatic spices and smoked fish. Try both to join the debate!
             * Example: Ghana's jollof isn't just food - it's a cultural battleground where recipes spark friendly international rivalries. The dish's origins trace back to the Wolof Empire, but modern versions reflect each nation's identity.
+
+        5. Do not format attractions solely as locations
     `
 }
 
