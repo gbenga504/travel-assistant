@@ -58,7 +58,7 @@ const Attraction = ({ name, latitude, longitude }: ICoordinates) => {
     if (longitude && latitude) {
       changeMapConfig({
         center: [Number(latitude), Number(longitude)],
-        zoom: 10,
+        zoom: 14,
         markers: [
           {
             position: [Number(latitude), Number(longitude)],
