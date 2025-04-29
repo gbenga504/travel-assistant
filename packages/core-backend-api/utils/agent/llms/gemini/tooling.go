@@ -25,7 +25,7 @@ func handleFunctionCall(ctx context.Context, funcCalls []genai.FunctionCall, too
 	tr := aggregateToolResponses(c, len(funcCalls))
 
 	for _, r := range tr {
-		result = append(result, &genai.FunctionResponse{
+		result = append(result, genai.FunctionResponse{
 			Name:     r.Name,
 			Response: r.Response,
 		})

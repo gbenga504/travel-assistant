@@ -8,6 +8,7 @@ import (
 	"github.com/gbenga504/travel-assistant/utils/errors"
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"github.com/google/generative-ai-go/genai"
+	"github.com/googleapis/gax-go/v2/apierror"
 )
 
 type GeminiAgent struct {
@@ -94,37 +95,38 @@ func (ga *GeminiAgent) RunStream(ctx context.Context, userPrompt string, streami
 
 	messageStream := ga.chatSession.SendMessageStream(ctx, prompt)
 
-	return ga.processStream(ctx, prompt, messageStream, streamingFunc)
+	return ga.processStream(ctx, messageStream, streamingFunc)
 }
 
-func (ga *GeminiAgent) processStream(ctx context.Context, userPrompt genai.Text, ms *genai.GenerateContentResponseIterator, sf agent.StreamingFunc) string {
+func (ga *GeminiAgent) processStream(ctx context.Context, ms *genai.GenerateContentResponseIterator, sf agent.StreamingFunc) string {
 	resp, err := ms.Next()
 
-	if err != nil {
-		logger.Error("Error with initial response", logger.ErrorOpt{
+	if err, ok := err.(*apierror.APIError); ok {
+		logger.Fatal("Error with initial response", logger.ErrorOpt{
 			Name:          errors.Name(errors.ErrAIParseIssue),
 			Message:       errors.Message(errors.ErrAIParseIssue),
-			OriginalError: err.Error(),
+			OriginalError: err.Unwrap().Error(),
 		})
 	}
 
 	for resp != nil {
-		// TODO: Evaluate if it makes sense to do this or just call the streaming Func with the error
-		if err != nil {
-			logger.Error("Error processing stream", logger.ErrorOpt{
-				Name:          errors.Name(errors.ErrAIParseIssue),
-				Message:       errors.Message(errors.ErrAIParseIssue),
-				OriginalError: err.Error(),
-			})
-		}
-
 		// It is important to stream text responses as early as possible
 		streamTextResponse(ctx, resp.Candidates[0].Content.Parts, sf)
 
 		resp, err = ms.Next()
+
+		// TODO: Evaluate if it makes sense to do this or just call the streaming Func with the error
+		if err, ok := err.(*apierror.APIError); ok {
+			logger.Fatal("Error streaming more response", logger.ErrorOpt{
+				Name:          errors.Name(errors.ErrAIParseIssue),
+				Message:       errors.Message(errors.ErrAIParseIssue),
+				OriginalError: err.Unwrap().Error(),
+			})
+		}
+
 		mergedResp := ms.MergedResponse()
 
-		// When the stream is done, it is important to peform some actions
+		// When the stream is done, it is important to perform some actions
 		// E.g we need to update history, run any function calls and pass the function response to the model
 		if resp == nil {
 			// Update History
@@ -135,19 +137,25 @@ func (ga *GeminiAgent) processStream(ctx context.Context, userPrompt genai.Text,
 
 			// Handle Function Calls
 			funcCalls := mergedResp.Candidates[0].FunctionCalls()
-			if len(funcCalls) > 0 {
-				fcParts := handleFunctionCall(ctx, funcCalls, ga.tools)
 
-				parts := []genai.Part{userPrompt}
-				parts = append(parts, fcParts...)
+			if len(funcCalls) > 0 {
+				parts := handleFunctionCall(ctx, funcCalls, ga.tools)
 
 				ga.addToHistory(&ModifiedGenAIContent{
 					Role:  agent.SystemRole,
 					Parts: parts,
 				})
 
-				messageStream := ga.chatSession.SendMessageStream(ctx, parts...)
-				resp, err = messageStream.Next()
+				ms = ga.chatSession.SendMessageStream(ctx, parts...)
+				resp, err = ms.Next()
+
+				if err, ok := err.(*apierror.APIError); ok {
+					logger.Fatal("Error processing AI response from sending FunctionResponse", logger.ErrorOpt{
+						Name:          errors.Name(errors.ErrAIParseIssue),
+						Message:       errors.Message(errors.ErrAIParseIssue),
+						OriginalError: err.Unwrap().Error(),
+					})
+				}
 			}
 		}
 	}

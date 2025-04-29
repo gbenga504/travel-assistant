@@ -5,8 +5,10 @@ go 1.23.1
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/google/generative-ai-go v0.19.0
+	github.com/googleapis/gax-go/v2 v2.12.5
 	github.com/joho/godotenv v1.5.1
 	github.com/matoous/go-nanoid/v2 v2.1.0
+	github.com/serpapi/google-search-results-golang v0.0.0-20240325113416-ec93f510648e
 	go.mongodb.org/mongo-driver/v2 v2.1.0
 	google.golang.org/api v0.186.0
 )
@@ -37,7 +39,6 @@ require (
 	github.com/google/s2a-go v0.1.7 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.2 // indirect
-	github.com/googleapis/gax-go/v2 v2.12.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect

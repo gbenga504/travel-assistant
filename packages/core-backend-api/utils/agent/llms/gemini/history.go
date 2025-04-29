@@ -30,7 +30,7 @@ func (ga *GeminiAgent) historyToGenAIHistory() []*genai.Content {
 	for _, h := range ga.History {
 		role := "model"
 
-		if h.Role == agent.SystemRole {
+		if h.Role == agent.SystemRole || h.Role == agent.UserRole {
 			role = "user"
 		}
 

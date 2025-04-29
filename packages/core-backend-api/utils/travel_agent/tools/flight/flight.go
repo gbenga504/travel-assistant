@@ -19,9 +19,7 @@ func (f FlightTool) Name() string {
 
 func (f FlightTool) Description() string {
 	return `
-		Your primary function is to help users find and book flights. When asked about flights, provide information on available routes, airlines, prices, and schedules.
-		You can also offer advice on travel requirements, luggage allowances, and airport information. Do not actually book flights or handle payments, but guide users on how to do so. 
-		Always prioritize safety and current travel regulations in your recommendations.
+		Your primary function is to assist users with their flight-related queries.
 	`
 }
 
