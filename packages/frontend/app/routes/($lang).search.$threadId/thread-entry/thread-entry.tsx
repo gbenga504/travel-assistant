@@ -31,7 +31,6 @@ export const ThreadEntry = ({ question, status, answer }: IThreadEntry) => {
             <Markdown
               options={{
                 overrides: markdownOverrides,
-                forceInline: true,
                 wrapper: ({ children }) => (
                   <div className="markdown-container">{children}</div>
                 ),

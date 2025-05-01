@@ -4,9 +4,9 @@ export interface IExtractUserSettings {
 
 export const USERNAME_REGEX = /\{\{([^}]+)\}\}/g;
 export const LOCATION_REGEX = /\[\[([^\]]+)\]\]/g;
-export const ATTRACTION_REGEX = /\*\*([^*]+)\*\*/g;
+export const ATTRACTION_REGEX = /==([^*]+)==/g;
 export const BOLD_LOCATION_REGEX = /\*\*(\[\[([^\]]+)\]\])\*\*/g;
-export const BOLD_ATTRACTION_REGEX = /\*\*(\[\[([^\]]+)\]\])\*\*/g;
+export const BOLD_ATTRACTION_REGEX = /\*\*(==([^*]+)==)\*\*/g;
 
 export const extractUserSettings = (response: string): IExtractUserSettings => {
   const usernames = response.match(USERNAME_REGEX) || [];
@@ -51,7 +51,7 @@ export const parseLLMResponse = (response: string): string => {
 
   return formattedResponse
     .replace(/\n{2,}/g, "\n")
-    .replace(/\n/g, "<p style='margin-top: 10px' />");
+    .replace(/\n/g, "<p style='margin-top: 10px' />\n");
 };
 
 function parseCoordinates(locationString: string): {

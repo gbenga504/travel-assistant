@@ -99,11 +99,11 @@ func outputFormatPrompt() string {
             * Correct Example: '[[London; -0.1276; 51.5074]]', '[[Santorini, Greece; 25.4858; 36.3932]]', '[[Africa; 20.0; -10.0]]'
             * Incorrect Example: 'London [[London; -0.1276; 51.5074]]'
 
-        3.  For each attraction mentioned, provide the name followed by its longitude and latitude in parentheses, separated by a semicolon. Enclose the entire attraction information within double asterisks: '**[ACTUAL_ATTRACTION]; [LONGITUDE]; [LATITUDE]**'.
+        3.  For each attraction mentioned, provide the name followed by its longitude and latitude in parentheses, separated by a semicolon. Enclose the entire attraction information within double equal signs: '==[ACTUAL_ATTRACTION]; [LONGITUDE]; [LATITUDE]=='.
             For each attraction, do not write the name outside its designated markup.
 
-            * Correct Example: '**Eiffel Tower, Paris; 2.2945; 48.8584**'
-            * Incorrect Example: 'Eiffel Tower, Paris **Eiffel Tower, Paris; 2.2945; 48.8584**'
+            * Correct Example: '==Eiffel Tower, Paris; 2.2945; 48.8584=='
+            * Incorrect Example: 'Eiffel Tower, Paris ==Eiffel Tower, Paris; 2.2945; 48.8584=='
 
         4. You can also include insider knowledge when recommending locations or attractions
 

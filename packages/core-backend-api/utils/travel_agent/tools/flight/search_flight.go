@@ -3,8 +3,10 @@ package flight
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/google/generative-ai-go/genai"
+	// googleSearchApi "github.com/serpapi/google-search-results-golang"
 )
 
 type SearchFlight struct{}
@@ -27,15 +29,25 @@ func (s SearchFlight) Parameters() *genai.Schema {
 	return &genai.Schema{
 		Type: genai.TypeObject,
 		Properties: map[string]*genai.Schema{
-			"origin":      {Type: genai.TypeString, Description: "Departure city"},
-			"destination": {Type: genai.TypeString, Description: "Arrival city"},
-			"date":        {Type: genai.TypeString, Description: "Flight date (YYYY-MM-DD)"},
+			"departure_id": {Type: genai.TypeString, Description: "Departure airport", Enum: []string{"ORY", "BER", "CDG"}},
+			"arrival_id":   {Type: genai.TypeString, Description: "Arrival airport", Enum: []string{"ORY", "BER", "CDG"}},
+			"date":         {Type: genai.TypeString, Description: "Flight date (YYYY-MM-DD)"},
 		},
-		Required: []string{"origin", "destination", "date"},
+		Required: []string{"departure_id", "arrival_id", "date"},
 	}
 }
 
 func (s SearchFlight) Call(ctx context.Context, args map[string]any) (response map[string]any, err error) {
+	fmt.Printf("gad the args are ===> %#v\n", args)
+
+	a, err := json.Marshal([]map[string]any{
+		{"flightId": "F1", "price": 500, "airline": "Airline A"},
+		{"flightId": "F2", "price": 450, "airline": "Airline B"},
+		{"flightId": "F3", "price": 550, "airline": "Airline C"},
+	})
+
+	return map[string]any{"flights": string(a)}, err
+
 	// parameter := map[string]string{
 	// 	"engine":        "google_flights",
 	// 	"departure_id":  "PEK",
@@ -49,13 +61,5 @@ func (s SearchFlight) Call(ctx context.Context, args map[string]any) (response m
 	// gSearchApi := googleSearchApi.NewGoogleSearch(parameter, "secret_api_key")
 	// results, err := gSearchApi.GetJSON()
 
-	// fmt.Printf("gad the results from %#v and the error is %#v\n", results, err.Error())
-
-	a, err := json.Marshal([]map[string]any{
-		{"flightId": "F1", "price": 500, "airline": "Airline A"},
-		{"flightId": "F2", "price": 450, "airline": "Airline B"},
-		{"flightId": "F3", "price": 550, "airline": "Airline C"},
-	})
-
-	return map[string]any{"flights": string(a)}, err
+	// return results, err
 }
