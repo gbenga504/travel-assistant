@@ -1,0 +1,856 @@
+{
+  "search_metadata": {
+    "id": "681c8d9bf8cc7874f2a8ef5f",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/0acdb28ecd1e378b/681c8d9bf8cc7874f2a8ef5f.json",
+    "created_at": "2025-05-08 10:55:23 UTC",
+    "processed_at": "2025-05-08 10:55:23 UTC",
+    "google_flights_url": "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhpLEgoyMDI1LTA4LTA1agcIARIDQkVScgcIARIDTENZcgcIARIDTEdXcgcIARIDTEhScgcIARIDU1ROcgcIARIDU0VOcgcIARIDTFROQgEBSAFwAZgBAg&tfu=EgIIAQ",
+    "raw_html_file": "https://serpapi.com/searches/0acdb28ecd1e378b/681c8d9bf8cc7874f2a8ef5f.html",
+    "prettify_html_file": "https://serpapi.com/searches/0acdb28ecd1e378b/681c8d9bf8cc7874f2a8ef5f.prettify",
+    "total_time_taken": 10.2
+  },
+  "search_parameters": {
+    "engine": "google_flights",
+    "hl": "en",
+    "gl": "us",
+    "type": "2",
+    "departure_id": "BER",
+    "arrival_id": "LCY, LGW, LHR, STN, SEN, LTN",
+    "outbound_date": "2025-08-05",
+    "currency": "EUR"
+  },
+  "best_flights": [
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 06:35"
+          },
+          "arrival_airport": {
+            "name": "London Gatwick Airport",
+            "id": "LGW",
+            "time": "2025-08-05 07:35"
+          },
+          "duration": 120,
+          "airplane": "Airbus A320",
+          "airline": "easyJet",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/U2.png",
+          "travel_class": "Economy",
+          "flight_number": "U2 8624",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Carbon emissions estimate: 93 kg"
+          ]
+        }
+      ],
+      "total_duration": 120,
+      "carbon_emissions": {
+        "this_flight": 94000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -7
+      },
+      "price": 36,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/U2.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1pWTWpnMk1qUWFDZ2pnR3hBQ0dnTkZWVkk0SEhDbkh3PT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMR1ciLG51bGwsIlUyIiwiODYyNCJdXV0="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 12:00"
+          },
+          "arrival_airport": {
+            "name": "London Stansted Airport",
+            "id": "STN",
+            "time": "2025-08-05 12:50"
+          },
+          "duration": 110,
+          "airplane": "Boeing 737",
+          "airline": "Ryanair",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/FR.png",
+          "travel_class": "Economy",
+          "flight_number": "FR 146",
+          "legroom": "30 in",
+          "extensions": [
+            "Average legroom (30 in)",
+            "Carbon emissions estimate: 85 kg"
+          ],
+          "plane_and_crew_by": "Malta Air"
+        }
+      ],
+      "total_duration": 110,
+      "carbon_emissions": {
+        "this_flight": 86000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -15
+      },
+      "price": 44,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/FR.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1ZHVWpFME5ob0tDUGNoRUFJYUEwVlZVamdjY0tNbSIsW1siQkVSIiwiMjAyNS0wOC0wNSIsIlNUTiIsbnVsbCwiRlIiLCIxNDYiXV1d"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 10:20"
+          },
+          "arrival_airport": {
+            "name": "London Gatwick Airport",
+            "id": "LGW",
+            "time": "2025-08-05 11:20"
+          },
+          "duration": 120,
+          "airplane": "Airbus A319",
+          "airline": "easyJet",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/U2.png",
+          "travel_class": "Economy",
+          "flight_number": "U2 8630",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Carbon emissions estimate: 98 kg"
+          ]
+        }
+      ],
+      "total_duration": 120,
+      "carbon_emissions": {
+        "this_flight": 98000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -3
+      },
+      "price": 58,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/U2.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1pWTWpnMk16QWFDZ2pHTEJBQ0dnTkZWVkk0SEhDZ01nPT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMR1ciLG51bGwsIlUyIiwiODYzMCJdXV0="
+    }
+  ],
+  "other_flights": [
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 21:20"
+          },
+          "arrival_airport": {
+            "name": "London Stansted Airport",
+            "id": "STN",
+            "time": "2025-08-05 22:10"
+          },
+          "duration": 110,
+          "airplane": "Boeing 737",
+          "airline": "Ryanair",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/FR.png",
+          "travel_class": "Economy",
+          "flight_number": "FR 144",
+          "legroom": "30 in",
+          "extensions": [
+            "Average legroom (30 in)",
+            "Carbon emissions estimate: 85 kg"
+          ]
+        }
+      ],
+      "total_duration": 110,
+      "carbon_emissions": {
+        "this_flight": 86000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -15
+      },
+      "price": 46,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/FR.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1ZHVWpFME5Cb0tDS01qRUFJYUEwVlZVamdjY09VbiIsW1siQkVSIiwiMjAyNS0wOC0wNSIsIlNUTiIsbnVsbCwiRlIiLCIxNDQiXV1d"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 10:10"
+          },
+          "arrival_airport": {
+            "name": "London Stansted Airport",
+            "id": "STN",
+            "time": "2025-08-05 10:55"
+          },
+          "duration": 105,
+          "airplane": "Boeing 737",
+          "airline": "Ryanair",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/FR.png",
+          "travel_class": "Economy",
+          "flight_number": "FR 2789",
+          "legroom": "30 in",
+          "extensions": [
+            "Average legroom (30 in)",
+            "Carbon emissions estimate: 85 kg"
+          ]
+        }
+      ],
+      "total_duration": 105,
+      "carbon_emissions": {
+        "this_flight": 86000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -15
+      },
+      "price": 61,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/FR.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1pHVWpJM09Ea2FDZ2lCTHhBQ0dnTkZWVkk0SEhDRE5RPT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJTVE4iLG51bGwsIkZSIiwiMjc4OSJdXV0="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 17:55"
+          },
+          "arrival_airport": {
+            "name": "London Gatwick Airport",
+            "id": "LGW",
+            "time": "2025-08-05 18:55"
+          },
+          "duration": 120,
+          "airplane": "Airbus A319",
+          "airline": "easyJet",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/U2.png",
+          "travel_class": "Economy",
+          "flight_number": "U2 8626",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Carbon emissions estimate: 98 kg"
+          ]
+        }
+      ],
+      "total_duration": 120,
+      "carbon_emissions": {
+        "this_flight": 98000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -3
+      },
+      "price": 66,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/U2.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1pWTWpnMk1qWWFDZ2ptTWhBQ0dnTkZWVkk0SEhDbU9RPT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMR1ciLG51bGwsIlUyIiwiODYyNiJdXV0="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 14:30"
+          },
+          "arrival_airport": {
+            "name": "Amsterdam Airport Schiphol",
+            "id": "AMS",
+            "time": "2025-08-05 15:50"
+          },
+          "duration": 80,
+          "airplane": "Boeing 737",
+          "airline": "KLM",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/KL.png",
+          "travel_class": "Economy",
+          "flight_number": "KL 1778",
+          "legroom": "30 in",
+          "extensions": [
+            "Average legroom (30 in)",
+            "Carbon emissions estimate: 68 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Amsterdam Airport Schiphol",
+            "id": "AMS",
+            "time": "2025-08-05 17:15"
+          },
+          "arrival_airport": {
+            "name": "Heathrow Airport",
+            "id": "LHR",
+            "time": "2025-08-05 17:35"
+          },
+          "duration": 80,
+          "airplane": "Embraer 195 E2",
+          "airline": "KLM",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/KL.png",
+          "travel_class": "Economy",
+          "flight_number": "KL 1013",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 48 kg"
+          ],
+          "plane_and_crew_by": "KLM Cityhopper"
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 85,
+          "name": "Amsterdam Airport Schiphol",
+          "id": "AMS"
+        }
+      ],
+      "total_duration": 245,
+      "carbon_emissions": {
+        "this_flight": 117000,
+        "typical_for_this_route": 101000,
+        "difference_percent": 16
+      },
+      "price": 104,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/KL.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZzFMVERFM056aDhTMHd4TURFekdnb0k1MUFRQWhvRFJWVlNPQnh3azFzPSIsW1siQkVSIiwiMjAyNS0wOC0wNSIsIkFNUyIsbnVsbCwiS0wiLCIxNzc4Il0sWyJBTVMiLCIyMDI1LTA4LTA1IiwiTEhSIixudWxsLCJLTCIsIjEwMTMiXV1d"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 06:55"
+          },
+          "arrival_airport": {
+            "name": "London City Airport",
+            "id": "LCY",
+            "time": "2025-08-05 07:50"
+          },
+          "duration": 115,
+          "airplane": "Embraer 190",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 8490",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Carbon emissions estimate: 108 kg"
+          ],
+          "plane_and_crew_by": "BA Cityflyer"
+        }
+      ],
+      "total_duration": 115,
+      "carbon_emissions": {
+        "this_flight": 108000,
+        "typical_for_this_route": 101000,
+        "difference_percent": 7
+      },
+      "price": 107,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1pDUVRnME9UQWFDZ2lNVXhBQ0dnTkZWVkk0SEhEZFhRPT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMQ1kiLG51bGwsIkJBIiwiODQ5MCJdXV0="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 14:25"
+          },
+          "arrival_airport": {
+            "name": "London City Airport",
+            "id": "LCY",
+            "time": "2025-08-05 15:15"
+          },
+          "duration": 110,
+          "airplane": "Embraer 190",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 7026",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Carbon emissions estimate: 108 kg"
+          ],
+          "plane_and_crew_by": "BA Cityflyer"
+        }
+      ],
+      "total_duration": 110,
+      "carbon_emissions": {
+        "this_flight": 108000,
+        "typical_for_this_route": 101000,
+        "difference_percent": 7
+      },
+      "price": 107,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1pDUVRjd01qWWFDZ2lNVXhBQ0dnTkZWVkk0SEhEZFhRPT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMQ1kiLG51bGwsIkJBIiwiNzAyNiJdXV0="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 11:45"
+          },
+          "arrival_airport": {
+            "name": "London City Airport",
+            "id": "LCY",
+            "time": "2025-08-05 12:30"
+          },
+          "duration": 105,
+          "airplane": "Embraer 190",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 8492",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Carbon emissions estimate: 108 kg"
+          ],
+          "plane_and_crew_by": "BA Cityflyer"
+        }
+      ],
+      "total_duration": 105,
+      "carbon_emissions": {
+        "this_flight": 108000,
+        "typical_for_this_route": 101000,
+        "difference_percent": 7
+      },
+      "price": 136,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1pDUVRnME9USWFDZ2pnYVJBQ0dnTkZWVkk0SEhDbGR3PT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMQ1kiLG51bGwsIkJBIiwiODQ5MiJdXV0="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 16:50"
+          },
+          "arrival_airport": {
+            "name": "London City Airport",
+            "id": "LCY",
+            "time": "2025-08-05 17:40"
+          },
+          "duration": 110,
+          "airplane": "Embraer 190",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 8494",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Carbon emissions estimate: 108 kg"
+          ],
+          "plane_and_crew_by": "BA Cityflyer"
+        }
+      ],
+      "total_duration": 110,
+      "carbon_emissions": {
+        "this_flight": 108000,
+        "typical_for_this_route": 101000,
+        "difference_percent": 7
+      },
+      "price": 136,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1pDUVRnME9UUWFDZ2pnYVJBQ0dnTkZWVkk0SEhDbGR3PT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMQ1kiLG51bGwsIkJBIiwiODQ5NCJdXV0="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 20:00"
+          },
+          "arrival_airport": {
+            "name": "Heathrow Airport",
+            "id": "LHR",
+            "time": "2025-08-05 20:55"
+          },
+          "duration": 115,
+          "airplane": "Airbus A320",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 995",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 93 kg"
+          ]
+        }
+      ],
+      "total_duration": 115,
+      "carbon_emissions": {
+        "this_flight": 93000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -8
+      },
+      "price": 142,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1ZDUVRrNU5Sb0tDTTF1RUFJYUEwVlZVamdjY09GOCIsW1siQkVSIiwiMjAyNS0wOC0wNSIsIkxIUiIsbnVsbCwiQkEiLCI5OTUiXV1d"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 10:55"
+          },
+          "arrival_airport": {
+            "name": "Heathrow Airport",
+            "id": "LHR",
+            "time": "2025-08-05 12:00"
+          },
+          "duration": 125,
+          "airplane": "Airbus A320neo",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 987",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 79 kg"
+          ]
+        }
+      ],
+      "total_duration": 125,
+      "carbon_emissions": {
+        "this_flight": 80000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -21
+      },
+      "price": 192,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1ZDUVRrNE54b0xDTldWQVJBQ0dnTkZWVkk0SEhEcHFBRT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMSFIiLG51bGwsIkJBIiwiOTg3Il1dXQ=="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 11:20"
+          },
+          "arrival_airport": {
+            "name": "Heathrow Airport",
+            "id": "LHR",
+            "time": "2025-08-05 12:25"
+          },
+          "duration": 125,
+          "airplane": "Airbus A319",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 979",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 106 kg"
+          ]
+        }
+      ],
+      "total_duration": 125,
+      "carbon_emissions": {
+        "this_flight": 107000,
+        "typical_for_this_route": 101000,
+        "difference_percent": 6
+      },
+      "price": 192,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1ZDUVRrM09Sb0xDTldWQVJBQ0dnTkZWVkk0SEhEcHFBRT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMSFIiLG51bGwsIkJBIiwiOTc5Il1dXQ=="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 12:15"
+          },
+          "arrival_airport": {
+            "name": "Heathrow Airport",
+            "id": "LHR",
+            "time": "2025-08-05 13:20"
+          },
+          "duration": 125,
+          "airplane": "Airbus A320neo",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 989",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 79 kg"
+          ]
+        }
+      ],
+      "total_duration": 125,
+      "carbon_emissions": {
+        "this_flight": 80000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -21
+      },
+      "price": 192,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1ZDUVRrNE9Sb0xDTldWQVJBQ0dnTkZWVkk0SEhEcHFBRT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMSFIiLG51bGwsIkJBIiwiOTg5Il1dXQ=="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 14:55"
+          },
+          "arrival_airport": {
+            "name": "Heathrow Airport",
+            "id": "LHR",
+            "time": "2025-08-05 15:55"
+          },
+          "duration": 120,
+          "airplane": "Airbus A320",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 993",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 93 kg"
+          ]
+        }
+      ],
+      "total_duration": 120,
+      "carbon_emissions": {
+        "this_flight": 93000,
+        "typical_for_this_route": 101000,
+        "difference_percent": -8
+      },
+      "price": 192,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1ZDUVRrNU14b0xDTldWQVJBQ0dnTkZWVkk0SEhEcHFBRT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMSFIiLG51bGwsIkJBIiwiOTkzIl1dXQ=="
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Berlin Brandenburg Airport",
+            "id": "BER",
+            "time": "2025-08-05 07:00"
+          },
+          "arrival_airport": {
+            "name": "Heathrow Airport",
+            "id": "LHR",
+            "time": "2025-08-05 08:05"
+          },
+          "duration": 125,
+          "airplane": "Airbus A319",
+          "airline": "British Airways",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+          "travel_class": "Economy",
+          "flight_number": "BA 999",
+          "legroom": "29 in",
+          "extensions": [
+            "Below average legroom (29 in)",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 106 kg"
+          ]
+        }
+      ],
+      "total_duration": 125,
+      "carbon_emissions": {
+        "this_flight": 107000,
+        "typical_for_this_route": 101000,
+        "difference_percent": 6
+      },
+      "price": 252,
+      "type": "One way",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/BA.png",
+      "booking_token": "WyJDalJJYWxWUU9FVm9jVGxoV0dOQlFqaHBiRkZDUnkwdExTMHRMUzB0TFMxMmRHSnlNMEZCUVVGQlIyZGphbUZGUW5kTmRXRkJFZ1ZDUVRrNU9Sb0xDTVhFQVJBQ0dnTkZWVkk0SEhEWjNRRT0iLFtbIkJFUiIsIjIwMjUtMDgtMDUiLCJMSFIiLG51bGwsIkJBIiwiOTk5Il1dXQ=="
+    }
+  ],
+  "price_insights": {
+    "lowest_price": 36,
+    "price_level": "low",
+    "typical_price_range": [45, 125],
+    "price_history": [
+      [1741474800, 45],
+      [1741561200, 45],
+      [1741647600, 45],
+      [1741734000, 38],
+      [1741820400, 38],
+      [1741906800, 32],
+      [1741993200, 32],
+      [1742079600, 32],
+      [1742166000, 45],
+      [1742252400, 45],
+      [1742338800, 45],
+      [1742425200, 51],
+      [1742511600, 51],
+      [1742598000, 51],
+      [1742684400, 51],
+      [1742770800, 53],
+      [1742857200, 53],
+      [1742943600, 51],
+      [1743030000, 51],
+      [1743116400, 42],
+      [1743202800, 42],
+      [1743289200, 42],
+      [1743372000, 42],
+      [1743458400, 36],
+      [1743544800, 35],
+      [1743631200, 35],
+      [1743717600, 36],
+      [1743804000, 36],
+      [1743890400, 36],
+      [1743976800, 36],
+      [1744063200, 36],
+      [1744149600, 36],
+      [1744236000, 43],
+      [1744322400, 44],
+      [1744408800, 44],
+      [1744495200, 44],
+      [1744581600, 44],
+      [1744668000, 44],
+      [1744754400, 44],
+      [1744840800, 43],
+      [1744927200, 43],
+      [1745013600, 43],
+      [1745100000, 43],
+      [1745186400, 43],
+      [1745272800, 43],
+      [1745359200, 43],
+      [1745445600, 43],
+      [1745532000, 43],
+      [1745618400, 43],
+      [1745704800, 43],
+      [1745791200, 36],
+      [1745877600, 30],
+      [1745964000, 36],
+      [1746050400, 36],
+      [1746136800, 36],
+      [1746223200, 37],
+      [1746309600, 37],
+      [1746396000, 37],
+      [1746482400, 36],
+      [1746568800, 36],
+      [1746655200, 36]
+    ]
+  },
+  "airports": [
+    {
+      "departure": [
+        {
+          "airport": {
+            "id": "BER",
+            "name": "Berlin Brandenburg Airport"
+          },
+          "city": "Berlin",
+          "country": "Germany",
+          "country_code": "DE",
+          "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQt2sQ7Aqn9XDqztmoYElQwE26oMklrcGD7-ZuKOUPZVDpWlL-yn0uHraRpfjA9kXtiLrBxI-YW45Rn4g",
+          "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTWlCvQfTpTUuTsCeI1S4Yw2Y5H4T77pM--xjPOa8J2BBUf2IPwdlOWEEgXN-UK1iZEuid20zbzO_nW3qSbU4dk9KwrbnjlUxopo6ayjnY"
+        }
+      ],
+      "arrival": [
+        {
+          "airport": {
+            "id": "LCY",
+            "name": "London City Airport"
+          },
+          "city": "London",
+          "country": "United Kingdom",
+          "country_code": "GB",
+          "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRpN9RbtOSTDqKIPxWc_D6rdSysaWVh6d-NW7yz7yFXKRwh5RN5BpNIoXEwH1XVcFdLWqn6Sm8_Y_zmeg",
+          "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQYH83YXny8hR4M7k5BMFq4vUT6LNtVABQzgs2pg-hcpSZq3oMBOQK3xh591AAJv2Qx4uvFZUGqOVt4kuoCUOklISunmndJleOoSef_7QE"
+        },
+        {
+          "airport": {
+            "id": "LGW",
+            "name": "London Gatwick Airport"
+          },
+          "city": "London",
+          "country": "United Kingdom",
+          "country_code": "GB",
+          "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRpN9RbtOSTDqKIPxWc_D6rdSysaWVh6d-NW7yz7yFXKRwh5RN5BpNIoXEwH1XVcFdLWqn6Sm8_Y_zmeg",
+          "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQYH83YXny8hR4M7k5BMFq4vUT6LNtVABQzgs2pg-hcpSZq3oMBOQK3xh591AAJv2Qx4uvFZUGqOVt4kuoCUOklISunmndJleOoSef_7QE"
+        },
+        {
+          "airport": {
+            "id": "LHR",
+            "name": "Heathrow Airport"
+          },
+          "city": "London",
+          "country": "United Kingdom",
+          "country_code": "GB",
+          "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRpN9RbtOSTDqKIPxWc_D6rdSysaWVh6d-NW7yz7yFXKRwh5RN5BpNIoXEwH1XVcFdLWqn6Sm8_Y_zmeg",
+          "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQYH83YXny8hR4M7k5BMFq4vUT6LNtVABQzgs2pg-hcpSZq3oMBOQK3xh591AAJv2Qx4uvFZUGqOVt4kuoCUOklISunmndJleOoSef_7QE"
+        },
+        {
+          "airport": {
+            "id": "STN",
+            "name": "London Stansted Airport"
+          },
+          "city": "London",
+          "country": "United Kingdom",
+          "country_code": "GB",
+          "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRpN9RbtOSTDqKIPxWc_D6rdSysaWVh6d-NW7yz7yFXKRwh5RN5BpNIoXEwH1XVcFdLWqn6Sm8_Y_zmeg",
+          "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQYH83YXny8hR4M7k5BMFq4vUT6LNtVABQzgs2pg-hcpSZq3oMBOQK3xh591AAJv2Qx4uvFZUGqOVt4kuoCUOklISunmndJleOoSef_7QE"
+        },
+        {
+          "airport": {
+            "id": "SEN",
+            "name": "London Southend Airport"
+          },
+          "city": "London",
+          "country": "United Kingdom",
+          "country_code": "GB",
+          "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRpN9RbtOSTDqKIPxWc_D6rdSysaWVh6d-NW7yz7yFXKRwh5RN5BpNIoXEwH1XVcFdLWqn6Sm8_Y_zmeg",
+          "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQYH83YXny8hR4M7k5BMFq4vUT6LNtVABQzgs2pg-hcpSZq3oMBOQK3xh591AAJv2Qx4uvFZUGqOVt4kuoCUOklISunmndJleOoSef_7QE"
+        },
+        {
+          "airport": {
+            "id": "LTN",
+            "name": "London Luton Airport"
+          },
+          "city": "London",
+          "country": "United Kingdom",
+          "country_code": "GB",
+          "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRpN9RbtOSTDqKIPxWc_D6rdSysaWVh6d-NW7yz7yFXKRwh5RN5BpNIoXEwH1XVcFdLWqn6Sm8_Y_zmeg",
+          "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQYH83YXny8hR4M7k5BMFq4vUT6LNtVABQzgs2pg-hcpSZq3oMBOQK3xh591AAJv2Qx4uvFZUGqOVt4kuoCUOklISunmndJleOoSef_7QE"
+        }
+      ]
+    }
+  ]
+}

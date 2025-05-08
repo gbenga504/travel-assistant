@@ -4,15 +4,15 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strconv"
 
-	"github.com/gbenga504/travel-assistant/utils"
 	"github.com/gbenga504/travel-assistant/utils/errors"
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"github.com/gbenga504/travel-assistant/utils/transform"
 	"github.com/go-playground/validator/v10"
 	"github.com/google/generative-ai-go/genai"
-	googleSearchApi "github.com/serpapi/google-search-results-golang"
+	// googleSearchApi "github.com/serpapi/google-search-results-golang"
 )
 
 type SearchFlight struct{}
@@ -40,10 +40,10 @@ func (s SearchFlight) Parameters() *genai.Schema {
 			"departure_city": {Type: genai.TypeString, Description: "Departure city", Enum: airports},
 			"arrival_city":   {Type: genai.TypeString, Description: "Arrival city", Enum: airports},
 			"departure_date": {Type: genai.TypeString, Description: "Departure date (YYYY-MM-DD)"},
-			"return_date":    {Type: genai.TypeString, Description: "Return date (YYYY-MM-DD)"},
-			"adults":         {Type: genai.TypeNumber, Description: "Number of adults"},
-			"max_price":      {Type: genai.TypeNumber, Description: "Maximum ticket price"},
-			"max_duration":   {Type: genai.TypeNumber, Description: "Maximum flight duration in hours"},
+			"return_date":    {Type: genai.TypeString, Description: "Return date (YYYY-MM-DD). Optional parameter. NEVER ask the user for this parameter"},
+			"adults":         {Type: genai.TypeNumber, Description: "Number of adults. Optional parameter. NEVER ask the user for this parameter"},
+			"max_price":      {Type: genai.TypeNumber, Description: "Maximum ticket price. Optional parameter. NEVER ask the user for this parameter"},
+			"max_duration":   {Type: genai.TypeNumber, Description: "Maximum flight duration in hours. Optional parameter. NEVER ask the user for this parameter"},
 		},
 		Required: []string{"departure_city", "arrival_city", "departure_date"},
 	}
@@ -75,23 +75,36 @@ func (s SearchFlight) Call(ctx context.Context, args map[string]any) (response m
 		})
 	}
 
-	SECRET_API_KEY := utils.LookupEnv("SERP_API_KEY")
-	params := searchParams(*validatedArgs)
+	// SECRET_API_KEY := utils.LookupEnv("SERP_API_KEY")
+	// params := searchParams(*validatedArgs)
 
-	gSearchApi := googleSearchApi.NewGoogleSearch(params, SECRET_API_KEY)
-	results, err := gSearchApi.GetJSON()
+	// gSearchApi := googleSearchApi.NewGoogleSearch(params, SECRET_API_KEY)
+	// results, err := gSearchApi.GetJSON()
 
-	if err != nil {
-		logger.Fatal("Error searching serp google_flights api", logger.ErrorOpt{
-			Name:          errors.Name(errors.ErrThirdPartyAPIRequestFailed),
-			Message:       errors.Message(errors.ErrThirdPartyAPIRequestFailed),
+	// if err != nil {
+	// 	logger.Fatal("Error searching serp google_flights api", logger.ErrorOpt{
+	// 		Name:          errors.Name(errors.ErrThirdPartyAPIRequestFailed),
+	// 		Message:       errors.Message(errors.ErrThirdPartyAPIRequestFailed),
+	// 		OriginalError: err.Error(),
+	// 	})
+
+	// 	return map[string]any{"success": false, "data": nil}, nil
+	// }
+
+	////////////// DUMMY DATA ///////////////////
+	data, _ := os.ReadFile("./utils/travel_agent/tools/flight/search_flight_mock_data.json")
+
+	var results map[string]any
+	if err := json.Unmarshal(data, &results); err != nil {
+		logger.Fatal("Error unmarschalling dummy data in search", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrJSONParseIssue),
+			Message:       errors.Message(errors.ErrJSONParseIssue),
 			OriginalError: err.Error(),
 		})
-
-		return map[string]any{"success": false, "data": nil}, nil
 	}
+	////////////// DUMMY DATA ///////////////////
 
-	data, err := json.Marshal(results)
+	data, err = json.Marshal(results)
 
 	if err != nil {
 		logger.Fatal("Error when marschalling response from serp google_flights api", logger.ErrorOpt{
