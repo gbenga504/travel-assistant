@@ -5,11 +5,13 @@ type CustomError string
 const (
 	ErrEnvNotLoaded CustomError = "ErrEnvNotLoaded"
 
-	ErrAIClientNotLoaded CustomError = "ErrAIClientNotLoaded"
-	ErrAIParseIssue      CustomError = "ErrAIParseIssue"
-	ErrServerClosed      CustomError = "ErrServerClosed"
-	ErrDatabaseIssue     CustomError = "ErrDatabaseIssue"
-	ErrJSONParseIssue    CustomError = "ErrJSONParseIssue"
+	ErrAIClientNotLoaded          CustomError = "ErrAIClientNotLoaded"
+	ErrAIParseIssue               CustomError = "ErrAIParseIssue"
+	ErrServerClosed               CustomError = "ErrServerClosed"
+	ErrDatabaseIssue              CustomError = "ErrDatabaseIssue"
+	ErrJSONParseIssue             CustomError = "ErrJSONParseIssue"
+	ErrValidatorFailed            CustomError = "ErrValidatorFailed"
+	ErrThirdPartyAPIRequestFailed CustomError = "ErrThirdPartyAPIRequestFailed"
 )
 
 func Name(err CustomError) string {
@@ -30,6 +32,10 @@ func Message(err CustomError) string {
 		return "Database had an issue"
 	case ErrJSONParseIssue:
 		return "Cannot parse JSON"
+	case ErrValidatorFailed:
+		return "Validation failed"
+	case ErrThirdPartyAPIRequestFailed:
+		return "Third party api request failed"
 	default:
 		return "Cannot match error"
 	}

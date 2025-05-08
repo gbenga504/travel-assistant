@@ -51,7 +51,7 @@ export const parseLLMResponse = (response: string): string => {
 
   return formattedResponse
     .replace(/\n{2,}/g, "\n")
-    .replace(/\n/g, "<p style='margin-top: 10px' />\n");
+    .replace(/\n/g, "<p style='margin-top: 5px; display:block' />\n");
 };
 
 function parseCoordinates(locationString: string): {
