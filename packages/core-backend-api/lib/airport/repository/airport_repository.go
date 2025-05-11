@@ -11,6 +11,7 @@ type AirportSchema struct {
 	State   string   `json:"state" bson:"state"`
 	Country string   `json:"country" bson:"country"`
 	Codes   []string `json:"codes" bson:"codes"`
+	Scorer  *float64 `json:"score" bson:"score"`
 }
 
 type AirportRepository struct {
@@ -45,7 +46,7 @@ func (r *AirportRepository) SearchAirports(searchTerm string) (results []Airport
 		{Key: "state", Value: 1},
 		{Key: "country", Value: 1},
 		{Key: "codes", Value: 1},
-		{Key: "score", Value: bson.E{Key: "$meta", Value: "textScore"}},
+		{Key: "score", Value: bson.M{"$meta": "textScore"}},
 	}
 	sort := bson.D{{Key: "score", Value: bson.M{"$meta": "textScore"}}}
 
