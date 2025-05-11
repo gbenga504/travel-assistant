@@ -6,7 +6,7 @@ import (
 )
 
 func ConnectRoutes(httpHandler *gin.RouterGroup, controller *threadcontroller.ThreadController) {
-	httpHandler = httpHandler.Group("/thread")
+	httpHandler = httpHandler.Group("/threads")
 
 	httpHandler.POST("/ask", controller.Post)
 	httpHandler.GET("/:id", controller.Get)

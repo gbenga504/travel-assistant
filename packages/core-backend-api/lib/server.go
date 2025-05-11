@@ -8,6 +8,10 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gbenga504/travel-assistant/lib/airport"
+	airportcontroller "github.com/gbenga504/travel-assistant/lib/airport/controller"
+	airportrepository "github.com/gbenga504/travel-assistant/lib/airport/repository"
+	airportservice "github.com/gbenga504/travel-assistant/lib/airport/service"
 	"github.com/gbenga504/travel-assistant/lib/health"
 	healthcontroller "github.com/gbenga504/travel-assistant/lib/health/controller"
 	"github.com/gbenga504/travel-assistant/lib/middlewares"
@@ -54,6 +58,12 @@ func NewServer(addr string) *Server {
 	// Health
 	healthController := healthcontroller.NewHealthController()
 	health.ConnectRoutes(v1, healthController)
+
+	// Airport
+	airportRepository := airportrepository.NewAirportRepository(db)
+	airportService := airportservice.NewAirportService(airportRepository)
+	airportController := airportcontroller.NewAirportController(airportService)
+	airport.ConnectRoutes(v1, airportController)
 
 	return &Server{
 		addr:         addr,

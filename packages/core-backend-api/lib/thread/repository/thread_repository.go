@@ -69,6 +69,7 @@ func (r *ThreadRepository) GetThreadById(id string) []ThreadEntrySchema {
 			}},
 		}},
 		&thread,
+		nil,
 	)
 
 	if thread == nil {

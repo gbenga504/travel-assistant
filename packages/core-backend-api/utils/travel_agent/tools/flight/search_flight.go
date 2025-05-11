@@ -32,13 +32,13 @@ func (s SearchFlight) Description() string {
 }
 
 func (s SearchFlight) Parameters() *genai.Schema {
-	airports := airportNames()
+	// airports := airportNames()
 
 	return &genai.Schema{
 		Type: genai.TypeObject,
 		Properties: map[string]*genai.Schema{
-			"departure_city": {Type: genai.TypeString, Description: "Departure city", Enum: airports},
-			"arrival_city":   {Type: genai.TypeString, Description: "Arrival city", Enum: airports},
+			"departure_city": {Type: genai.TypeString, Description: "Departure city"},
+			"arrival_city":   {Type: genai.TypeString, Description: "Arrival city"},
 			"departure_date": {Type: genai.TypeString, Description: "Departure date (YYYY-MM-DD)"},
 			"return_date":    {Type: genai.TypeString, Description: "Return date (YYYY-MM-DD). Optional parameter. NEVER ask the user for this parameter"},
 			"adults":         {Type: genai.TypeNumber, Description: "Number of adults. Optional parameter. NEVER ask the user for this parameter"},

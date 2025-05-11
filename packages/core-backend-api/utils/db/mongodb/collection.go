@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/gbenga504/travel-assistant/utils"
+	"github.com/gbenga504/travel-assistant/utils/db"
 	"github.com/gbenga504/travel-assistant/utils/errors"
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -23,6 +24,25 @@ func NewMongoDBCollection(m *MongoDB, collection string) *MongoDBCollection {
 	return &MongoDBCollection{
 		collection: m.db.Collection(collection),
 	}
+}
+
+func (co *MongoDBCollection) CreateOneIndex(document interface{}) bool {
+	bsonD, _ := convertToBsonD(document, []string{})
+	model := mongo.IndexModel{
+		Keys: bsonD,
+	}
+
+	_, err := co.collection.Indexes().CreateOne(context.Background(), model)
+
+	if err != nil {
+		logger.Fatal("CreateOneIndex  DB operation failed", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrDatabaseIssue),
+			Message:       errors.Message(errors.ErrDatabaseIssue),
+			OriginalError: err.Error(),
+		})
+	}
+
+	return true
 }
 
 func (co *MongoDBCollection) CreateOne(document interface{}) {
@@ -56,13 +76,32 @@ func (co *MongoDBCollection) CreateOne(document interface{}) {
 	}
 }
 
-func (co *MongoDBCollection) FindMany(filter interface{}, documents interface{}) {
+func (co *MongoDBCollection) FindMany(filter interface{}, documents interface{}, findManyOpts *db.FindManyOptions) {
 	// TODO: Find a generic way to handle filters to repository don't need to
 	// know about its implementation detail
 
 	// Sort by ascending createdAt by default i.e oldest first to newest
-	sortOpt := options.Find().SetSort(bson.D{{Key: "createdAt", Value: 1}})
-	cursor, err := co.collection.Find(context.Background(), filter, sortOpt)
+	var opts *options.FindOptionsBuilder
+
+	if findManyOpts == nil {
+		opts = options.Find().SetSort(bson.D{{Key: "createdAt", Value: 1}})
+	} else {
+		opts = options.Find()
+
+		if findManyOpts.Sort != nil {
+			opts = opts.SetSort(*findManyOpts.Sort)
+		}
+
+		if findManyOpts.Limit != nil {
+			opts = opts.SetLimit(*findManyOpts.Limit)
+		}
+
+		if findManyOpts.Projection != nil {
+			opts = opts.SetProjection(*findManyOpts.Projection)
+		}
+	}
+
+	cursor, err := co.collection.Find(context.Background(), filter, opts)
 
 	if err != nil {
 		logger.Fatal("FindMany DB operation failed", logger.ErrorOpt{
@@ -118,7 +157,7 @@ func convertToBsonD(document interface{}, ignoreFields []string) (result bson.D,
 
 	// should double check we now have a struct (could still be anything)
 	if ref.Kind() != reflect.Struct {
-		log.Fatal("unexpected type")
+		log.Fatal("unexpected type. Wanted Struct")
 	}
 
 	for i := 0; i < ref.NumField(); i++ {

@@ -20,7 +20,7 @@ export class Thread {
   ) {
     const ctrl = new AbortController();
 
-    fetchEventSource(`${window.ENV.API_URL}/thread/ask`, {
+    fetchEventSource(`${window.ENV.API_URL}/threads/ask`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export class Thread {
   }
 
   async getThread(id: string) {
-    const { data } = await this.httpClient.get(`/thread/${id}`);
+    const { data } = await this.httpClient.get(`/threads/${id}`);
 
     return data;
   }
