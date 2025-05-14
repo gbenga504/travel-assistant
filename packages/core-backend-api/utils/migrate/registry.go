@@ -20,6 +20,5 @@ func registerMigrations() {
 	// Add migration registrations here
 
 	addMigrationToRegistry("2025_05_13T205519_hello_world", &migrations.HelloWorld{})
-
 	//#registerMigration
 }

@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 	"strings"
 	"time"
 )
@@ -28,17 +29,6 @@ func (m *%s) Down(db *mongo.Database) error {
 }
 `
 
-func toPascalCase(s string) string {
-	parts := strings.Split(s, "_")
-	for i, p := range parts {
-		if len(p) > 0 {
-			parts[i] = strings.ToUpper(p[:1]) + p[1:]
-		}
-	}
-
-	return strings.Join(parts, "")
-}
-
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: go run create_migration.go <migration_description>")
@@ -50,7 +40,20 @@ func main() {
 	migrationName, structName := createMigrationFile(migrationDescription)
 	addMigrationToRegistryFile(migrationName, structName)
 
+	formatMigrationFiles()
+
 	fmt.Println("Created migration:", migrationName)
+}
+
+func toPascalCase(s string) string {
+	parts := strings.Split(s, "_")
+	for i, p := range parts {
+		if len(p) > 0 {
+			parts[i] = strings.ToUpper(p[:1]) + p[1:]
+		}
+	}
+
+	return strings.Join(parts, "")
 }
 
 func createMigrationFile(migrationDescription string) (migrationName string, structName string) {
@@ -59,14 +62,14 @@ func createMigrationFile(migrationDescription string) (migrationName string, str
 
 	// migration name is of the form e.g 2025-04-29T100421-add-new-users
 	migrationName = fmt.Sprintf("%s_%s", timestamp, migrationDescription)
-	filePath := fmt.Sprintf("migrations/%s.go", migrationName)
+	filePath := fmt.Sprintf("../migrations/%s.go", migrationName)
 
 	// struct name is of the form e.g AddNewUsers
 	structName = toPascalCase(migrationDescription)
 	content := fmt.Sprintf(migrationTemplate, structName, structName, structName)
 
 	// Ensure migrations directory exists
-	if _, err := os.Stat("migrations"); os.IsNotExist(err) {
+	if _, err := os.Stat("../migrations"); os.IsNotExist(err) {
 		if err := os.Mkdir("migrations", 0755); err != nil {
 			fmt.Println("Failed to create migrations directory:", err)
 			os.Exit(1)
@@ -83,7 +86,7 @@ func createMigrationFile(migrationDescription string) (migrationName string, str
 
 func addMigrationToRegistryFile(migrationName string, structName string) {
 	// Path to your registry.go file
-	filename := "registry.go"
+	filename := "../registry.go"
 
 	// The lines you want to insert
 	registerMigrationLine := fmt.Sprintf(`addMigrationToRegistry("%s", &migrations.%s{})`, migrationName, structName)
@@ -130,4 +133,15 @@ func addMigrationToRegistryFile(migrationName string, structName string) {
 	writer.Flush()
 
 	fmt.Println("Registry updated successfully.")
+}
+
+func formatMigrationFiles() {
+	cmd := exec.Command("go", "fmt", "../")
+	_, err := cmd.CombinedOutput()
+
+	if err != nil {
+		fmt.Println("Could not format migration files. Please do this manually")
+	}
+
+	fmt.Println("Migration files formatted successfully!")
 }
