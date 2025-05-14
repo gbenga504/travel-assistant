@@ -10,7 +10,7 @@ type Migration interface {
 	Down(db *mongo.Database) error
 }
 
-var registry map[string]Migration
+var registry = make(map[string]Migration)
 
 func addMigrationToRegistry(migrationName string, migration Migration) {
 	registry[migrationName] = migration

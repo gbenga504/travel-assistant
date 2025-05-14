@@ -75,7 +75,7 @@ func isApplied(db *mongo.Database, migrationName string) bool {
 }
 
 func loadEnv() {
-	err := godotenv.Load()
+	err := godotenv.Load("../../.env")
 
 	if err != nil {
 		log.Fatalf("Cannot load .env files. Error: %s", err.Error())
