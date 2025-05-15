@@ -10,7 +10,7 @@ import (
 )
 
 const migrationTemplate = `
-package migrations
+package %s
 
 import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
@@ -37,9 +37,10 @@ func main() {
 
 	migrationDescription := strings.Join(os.Args[1:], "_")
 
-	migrationName, structName := createMigrationFile(migrationDescription)
-	addMigrationToRegistryFile(migrationName, structName)
+	migrationName, packageName, structName := createMigrationFile(migrationDescription)
 
+	addMigrationToRegistryFile(migrationName, packageName, structName)
+	importMigrationInRegistryFile(packageName, migrationName)
 	formatMigrationFiles()
 
 	fmt.Println("Created migration:", migrationName)
@@ -56,24 +57,27 @@ func toPascalCase(s string) string {
 	return strings.Join(parts, "")
 }
 
-func createMigrationFile(migrationDescription string) (migrationName string, structName string) {
+func createMigrationFile(migrationDescription string) (migrationName string, packageName string, structName string) {
 	migrationDescription = strings.ToLower(strings.ReplaceAll(migrationDescription, " ", "_"))
 	timestamp := time.Now().Format("2006_01_02T150405")
 
-	// migration name is of the form e.g 2025-04-29T100421-add-new-users
+	// migration name is of the form e.g 2025_04_29T100421_add_new_users
 	migrationName = fmt.Sprintf("%s_%s", timestamp, migrationDescription)
-	filePath := fmt.Sprintf("../migrations/%s.go", migrationName)
+	directoryPath := fmt.Sprintf("../migrations/%s", migrationName)
+	filePath := fmt.Sprintf("%s/run.go", directoryPath)
 
 	// struct name is of the form e.g AddNewUsers
 	structName = toPascalCase(migrationDescription)
-	content := fmt.Sprintf(migrationTemplate, structName, structName, structName)
+	// package name is of the form e.g add_new_users_2025_04_29T100421
+	// We need to have the description first because package names can only begin with letters
+	packageName = fmt.Sprintf("%s_%s", migrationDescription, timestamp)
 
-	// Ensure migrations directory exists
-	if _, err := os.Stat("../migrations"); os.IsNotExist(err) {
-		if err := os.Mkdir("migrations", 0755); err != nil {
-			fmt.Println("Failed to create migrations directory:", err)
-			os.Exit(1)
-		}
+	content := fmt.Sprintf(migrationTemplate, packageName, structName, structName, structName)
+
+	// Create migration directory. This is where run.go will live
+	if err := os.Mkdir(directoryPath, 0755); err != nil {
+		fmt.Println("Failed to create migration directory:", err)
+		os.Exit(1)
 	}
 
 	if err := os.WriteFile(filePath, []byte(content), 0644); err != nil {
@@ -81,15 +85,15 @@ func createMigrationFile(migrationDescription string) (migrationName string, str
 		os.Exit(1)
 	}
 
-	return migrationName, structName
+	return migrationName, packageName, structName
 }
 
-func addMigrationToRegistryFile(migrationName string, structName string) {
+func addMigrationToRegistryFile(migrationName string, packageName string, structName string) {
 	// Path to your registry.go file
 	filename := "../registry.go"
 
 	// The lines you want to insert
-	registerMigrationLine := fmt.Sprintf(`addMigrationToRegistry("%s", &migrations.%s{})`, migrationName, structName)
+	registerMigrationLine := fmt.Sprintf(`addMigrationToRegistry("%s", &%s.%s{})`, migrationName, packageName, structName)
 
 	// Read the original file
 	input, err := os.Open(filename)
@@ -132,7 +136,58 @@ func addMigrationToRegistryFile(migrationName string, structName string) {
 	}
 	writer.Flush()
 
-	fmt.Println("Registry updated successfully.")
+	fmt.Println("Registry updated with migration registration successfully.")
+}
+
+func importMigrationInRegistryFile(packageName string, migrationName string) {
+	// Path to your registry.go file
+	filename := "../registry.go"
+
+	// The lines you want to insert
+	importMigrationLine := fmt.Sprintf(`%s "github.com/gbenga504/travel-assistant/utils/migrate/migrations/%s"`, packageName, migrationName)
+
+	// Read the original file
+	input, err := os.Open(filename)
+	if err != nil {
+		fmt.Println("Error opening the migration registry:", err)
+		return
+	}
+	defer input.Close()
+
+	var outputLines []string
+
+	scanner := bufio.NewScanner(input)
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		// Insert import migration line before //#importMigration
+		if strings.TrimSpace(line) == "//#importMigration" {
+			outputLines = append(outputLines, importMigrationLine)
+		}
+
+		outputLines = append(outputLines, line)
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error reading the migration registry:", err)
+		return
+	}
+
+	// Write back to the file. This truncates the file and opens it for writing
+	output, err := os.Create(filename)
+	if err != nil {
+		fmt.Println("Error opening the migration registry for writing:", err)
+		return
+	}
+	defer output.Close()
+
+	writer := bufio.NewWriter(output)
+	for _, l := range outputLines {
+		fmt.Fprintln(writer, l)
+	}
+	writer.Flush()
+
+	fmt.Println("Registry updated with migration import successfully")
 }
 
 func formatMigrationFiles() {

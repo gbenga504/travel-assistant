@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/gbenga504/travel-assistant/utils/migrate/migrations"
 	"go.mongodb.org/mongo-driver/v2/mongo"
+	//#importMigration
 )
 
 type Migration interface {
@@ -19,6 +19,5 @@ func addMigrationToRegistry(migrationName string, migration Migration) {
 func registerMigrations() {
 	// Add migration registrations here
 
-	addMigrationToRegistry("2025_05_13T205519_hello_world", &migrations.HelloWorld{})
 	//#registerMigration
 }
