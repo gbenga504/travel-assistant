@@ -66,11 +66,11 @@ func createMigrationFile(migrationDescription string) (migrationName string, pac
 	directoryPath := fmt.Sprintf("../migrations/%s", migrationName)
 	filePath := fmt.Sprintf("%s/run.go", directoryPath)
 
-	// struct name is of the form e.g AddNewUsers
-	structName = toPascalCase(migrationDescription)
 	// package name is of the form e.g add_new_users_2025_04_29T100421
 	// We need to have the description first because package names can only begin with letters
 	packageName = fmt.Sprintf("%s_%s", migrationDescription, timestamp)
+	// struct name is of the form e.g AddNewUsers
+	structName = toPascalCase(packageName)
 
 	content := fmt.Sprintf(migrationTemplate, packageName, structName, structName, structName)
 
