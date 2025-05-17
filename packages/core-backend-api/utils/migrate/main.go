@@ -23,7 +23,7 @@ func main() {
 	)
 	flag.Parse()
 
-	if *action == "" || *migrationName == "" {
+	if *action == "" {
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -31,23 +31,36 @@ func main() {
 	db, dbClient := connectDatabase()
 	defer dbClient.Disconnect(context.Background())
 
-	migration, exists := registry[*migrationName]
-	if !exists {
-		log.Fatalf("Migration '%s' not registered", *migrationName)
-	}
-
 	switch *action {
 	case "up":
-		runMigration(db, *migrationName, migration)
+		if *migrationName == "" {
+			runAllMigrations(db)
+		} else {
+			runMigration(db, *migrationName, findMigrationOrThrow(*migrationName))
+		}
 
 	case "down":
-		rollbackMigration(db, *migrationName, migration)
+		if *migrationName == "" {
+			rollbackAllMigrations(db)
+		} else {
+			rollbackMigration(db, *migrationName, findMigrationOrThrow(*migrationName))
+		}
 
 	default:
 		log.Fatal("Invalid action. Use 'up', 'down'")
 	}
 
 	fmt.Println("Operation completed successfully")
+}
+
+func findMigrationOrThrow(migrationName string) Migration {
+	migration, exists := registry[migrationName]
+
+	if !exists {
+		log.Fatalf("Migration '%s' not registered", migrationName)
+	}
+
+	return migration
 }
 
 func recordMigration(db *mongo.Database, migrationName string) error {
@@ -145,5 +158,17 @@ func rollbackMigration(db *mongo.Database, migrationName string, migration Migra
 
 	if err := removeMigration(db, migrationName); err != nil {
 		log.Fatalf("Failed to remove migration record: %s", err.Error())
+	}
+}
+
+func runAllMigrations(db *mongo.Database) {
+	for migrationName, migration := range registry {
+		runMigration(db, migrationName, migration)
+	}
+}
+
+func rollbackAllMigrations(db *mongo.Database) {
+	for migrationName, migration := range registry {
+		rollbackMigration(db, migrationName, migration)
 	}
 }
