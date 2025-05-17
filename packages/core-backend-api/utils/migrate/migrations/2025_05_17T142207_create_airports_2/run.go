@@ -1,4 +1,4 @@
-package create_airports_1_2025_05_16T221702
+package create_airports_2_2025_05_17T142207
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
-type CreateAirports120250516T221702 struct{}
+type CreateAirports220250517T142207 struct{}
 
 type Airport struct {
 	City    string
@@ -18,7 +18,7 @@ type Airport struct {
 	Code    string
 }
 
-func (m *CreateAirports120250516T221702) Up(db *mongo.Database) error {
+func (m *CreateAirports220250517T142207) Up(db *mongo.Database) error {
 	// Read the airports json and unmarschal
 	data, err := os.ReadFile("./migrations/2025_05_16T221702_create_airports_1/airports.json")
 
@@ -43,7 +43,7 @@ func (m *CreateAirports120250516T221702) Up(db *mongo.Database) error {
 	return nil
 }
 
-func (m *CreateAirports120250516T221702) Down(db *mongo.Database) error {
+func (m *CreateAirports220250517T142207) Down(db *mongo.Database) error {
 	fmt.Println("Noop")
 
 	return nil
