@@ -6,6 +6,7 @@ import (
 	threadrepository "github.com/gbenga504/travel-assistant/lib/thread/repository"
 	"github.com/gbenga504/travel-assistant/utils/agent"
 	"github.com/gbenga504/travel-assistant/utils/agent/llms/gemini"
+	llmcontext "github.com/gbenga504/travel-assistant/utils/llm_context"
 	travelagent "github.com/gbenga504/travel-assistant/utils/travel_agent"
 	gonanoid "github.com/matoous/go-nanoid/v2"
 )
@@ -13,19 +14,21 @@ import (
 type ThreadService struct {
 	respository  *threadrepository.ThreadRepository
 	geminiClient *gemini.GeminiClient
+	llmContext   *llmcontext.LLMContext
 }
 
-func NewThreadService(repository *threadrepository.ThreadRepository, geminiClient *gemini.GeminiClient) *ThreadService {
+func NewThreadService(repository *threadrepository.ThreadRepository, geminiClient *gemini.GeminiClient, llmContext *llmcontext.LLMContext) *ThreadService {
 	return &ThreadService{
 		repository,
 		geminiClient,
+		llmContext,
 	}
 }
 
 func (s *ThreadService) RunStream(threadId string, query string, writer chan<- string, done chan<- map[string]any) {
 	nanoid, _ := gonanoid.New()
 
-	ta := travelagent.SetupTravelAgent(s.geminiClient)
+	ta := travelagent.SetupTravelAgent(s.geminiClient, s.llmContext)
 	thread := s.respository.GetThreadById(threadId)
 
 	ta.History = convertThreadToHistories(thread)

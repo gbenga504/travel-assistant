@@ -24,6 +24,7 @@ import (
 	"github.com/gbenga504/travel-assistant/utils/db"
 	"github.com/gbenga504/travel-assistant/utils/db/mongodb"
 	"github.com/gbenga504/travel-assistant/utils/errors"
+	llmcontext "github.com/gbenga504/travel-assistant/utils/llm_context"
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"github.com/gin-gonic/gin"
 )
@@ -49,12 +50,6 @@ func NewServer(addr string) *Server {
 
 	v1 := httpHandler.Group("/api/v1")
 
-	// Thread
-	threadRepository := threadrepository.NewThreadRepository(db)
-	threadService := threadservice.NewThreadService(threadRepository, geminiClient)
-	threadController := threadcontroller.NewThreadController(threadService)
-	thread.ConnectRoutes(v1, threadController)
-
 	// Health
 	healthController := healthcontroller.NewHealthController()
 	health.ConnectRoutes(v1, healthController)
@@ -64,6 +59,14 @@ func NewServer(addr string) *Server {
 	airportService := airportservice.NewAirportService(airportRepository)
 	airportController := airportcontroller.NewAirportController(airportService)
 	airport.ConnectRoutes(v1, airportController)
+
+	// Thread
+	threadRepository := threadrepository.NewThreadRepository(db)
+	threadService := threadservice.NewThreadService(threadRepository, geminiClient, &llmcontext.LLMContext{
+		AirportRepository: airportRepository,
+	})
+	threadController := threadcontroller.NewThreadController(threadService)
+	thread.ConnectRoutes(v1, threadController)
 
 	return &Server{
 		addr:         addr,

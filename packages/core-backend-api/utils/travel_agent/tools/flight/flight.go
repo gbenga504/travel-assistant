@@ -2,15 +2,18 @@ package flight
 
 import (
 	"github.com/gbenga504/travel-assistant/utils/agent"
+	llmcontext "github.com/gbenga504/travel-assistant/utils/llm_context"
 	"github.com/google/generative-ai-go/genai"
 )
 
-type FlightTool struct{}
+type FlightTool struct {
+	llmContext *llmcontext.LLMContext
+}
 
 var _ agent.Tool[*genai.Schema] = (*FlightTool)(nil)
 
-func NewFlightTool() FlightTool {
-	return FlightTool{}
+func NewFlightTool(llmContext *llmcontext.LLMContext) FlightTool {
+	return FlightTool{llmContext: llmContext}
 }
 
 func (f FlightTool) Name() string {
@@ -25,6 +28,6 @@ func (f FlightTool) Description() string {
 
 func (f FlightTool) Actions() []agent.ToolAction[*genai.Schema] {
 	return []agent.ToolAction[*genai.Schema]{
-		NewSearchFlight(),
+		NewSearchFlight(f.llmContext),
 	}
 }

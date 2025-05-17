@@ -11,7 +11,7 @@ type AirportSchema struct {
 	State   string   `json:"state" bson:"state"`
 	Country string   `json:"country" bson:"country"`
 	Codes   []string `json:"codes" bson:"codes"`
-	Scorer  *float64 `json:"score" bson:"score"`
+	Score   *float64 `json:"score" bson:"score"`
 }
 
 type AirportRepository struct {

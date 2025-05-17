@@ -4,21 +4,25 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"os"
 	"strconv"
+	"strings"
 
+	"github.com/gbenga504/travel-assistant/utils"
 	"github.com/gbenga504/travel-assistant/utils/errors"
+	llmcontext "github.com/gbenga504/travel-assistant/utils/llm_context"
 	"github.com/gbenga504/travel-assistant/utils/logger"
 	"github.com/gbenga504/travel-assistant/utils/transform"
 	"github.com/go-playground/validator/v10"
 	"github.com/google/generative-ai-go/genai"
-	// googleSearchApi "github.com/serpapi/google-search-results-golang"
+	googleSearchApi "github.com/serpapi/google-search-results-golang"
 )
 
-type SearchFlight struct{}
+type SearchFlight struct {
+	llmContext *llmcontext.LLMContext
+}
 
-func NewSearchFlight() SearchFlight {
-	return SearchFlight{}
+func NewSearchFlight(llmContext *llmcontext.LLMContext) SearchFlight {
+	return SearchFlight{llmContext: llmContext}
 }
 
 func (s SearchFlight) Name() string {
@@ -75,36 +79,39 @@ func (s SearchFlight) Call(ctx context.Context, args map[string]any) (response m
 		})
 	}
 
-	// SECRET_API_KEY := utils.LookupEnv("SERP_API_KEY")
-	// params := searchParams(*validatedArgs)
+	SECRET_API_KEY := utils.LookupEnv("SERP_API_KEY")
+	params := searchParams(*validatedArgs, *s.llmContext)
 
-	// gSearchApi := googleSearchApi.NewGoogleSearch(params, SECRET_API_KEY)
-	// results, err := gSearchApi.GetJSON()
+	gSearchApi := googleSearchApi.NewGoogleSearch(params, SECRET_API_KEY)
+	results, err := gSearchApi.GetJSON()
 
-	// if err != nil {
-	// 	logger.Fatal("Error searching serp google_flights api", logger.ErrorOpt{
-	// 		Name:          errors.Name(errors.ErrThirdPartyAPIRequestFailed),
-	// 		Message:       errors.Message(errors.ErrThirdPartyAPIRequestFailed),
-	// 		OriginalError: err.Error(),
-	// 	})
-
-	// 	return map[string]any{"success": false, "data": nil}, nil
-	// }
-
-	////////////// DUMMY DATA ///////////////////
-	data, _ := os.ReadFile("./utils/travel_agent/tools/flight/search_flight_mock_data.json")
-
-	var results map[string]any
-	if err := json.Unmarshal(data, &results); err != nil {
-		logger.Fatal("Error unmarschalling dummy data in search", logger.ErrorOpt{
-			Name:          errors.Name(errors.ErrJSONParseIssue),
-			Message:       errors.Message(errors.ErrJSONParseIssue),
+	if err != nil {
+		logger.Fatal("Error searching serp google_flights api", logger.ErrorOpt{
+			Name:          errors.Name(errors.ErrThirdPartyAPIRequestFailed),
+			Message:       errors.Message(errors.ErrThirdPartyAPIRequestFailed),
 			OriginalError: err.Error(),
 		})
+
+		return map[string]any{"success": false, "data": nil}, nil
 	}
+
+	////////////// DUMMY DATA ///////////////////
+	// a := searchParams(*validatedArgs, *s.llmContext)
+	// fmt.Printf("gad search params ===> %#v\n", a)
+
+	// data, _ := os.ReadFile("./utils/travel_agent/tools/flight/search_flight_mock_data.json")
+
+	// var results map[string]any
+	// if err := json.Unmarshal(data, &results); err != nil {
+	// 	logger.Fatal("Error unmarschalling dummy data in search", logger.ErrorOpt{
+	// 		Name:          errors.Name(errors.ErrJSONParseIssue),
+	// 		Message:       errors.Message(errors.ErrJSONParseIssue),
+	// 		OriginalError: err.Error(),
+	// 	})
+	// }
 	////////////// DUMMY DATA ///////////////////
 
-	data, err = json.Marshal(results)
+	data, err := json.Marshal(results)
 
 	if err != nil {
 		logger.Fatal("Error when marschalling response from serp google_flights api", logger.ErrorOpt{
@@ -117,16 +124,33 @@ func (s SearchFlight) Call(ctx context.Context, args map[string]any) (response m
 	return map[string]any{"success": true, "data": string(data)}, nil
 }
 
-func searchParams(args ValidatedArgs) map[string]string {
-	airports := airportMap()
+// AirportCodes contains the departure and arrival airport 3 letter IATA codes.
+// These codes are the IDs
+type AirportCodes struct {
+	DepartureID string
+	ArrivalID   string
+}
+
+func getAirportCodes(departureCity string, arrivalCity string, llmContext llmcontext.LLMContext) AirportCodes {
+	departureAirport := llmContext.AirportRepository.SearchAirports(departureCity)[0]
+	arrivalAirport := llmContext.AirportRepository.SearchAirports(arrivalCity)[0]
+
+	return AirportCodes{
+		DepartureID: strings.Join(departureAirport.Codes, ","),
+		ArrivalID:   strings.Join(arrivalAirport.Codes, ","),
+	}
+}
+
+func searchParams(args ValidatedArgs, llmContext llmcontext.LLMContext) map[string]string {
+	airportCodes := getAirportCodes(args.Departure_city, args.Arrival_city, llmContext)
 
 	params := map[string]string{
 		"engine":        "google_flights",
 		"currency":      "EUR",
 		"hl":            "en",
 		"type":          "2", // This is a one-way trip by default
-		"departure_id":  airports[args.Departure_city],
-		"arrival_id":    airports[args.Arrival_city],
+		"departure_id":  airportCodes.DepartureID,
+		"arrival_id":    airportCodes.ArrivalID,
 		"outbound_date": args.Departure_date,
 	}
 
